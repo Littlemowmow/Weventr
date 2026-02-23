@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, MapPin, GraduationCap, ChevronDown } from "lucide-react";
+import { Loader2, MapPin, GraduationCap, ChevronDown, Users } from "lucide-react";
 
 const TIMELINE_OPTIONS = [
   { value: "", label: "When are you traveling? (optional)" },
@@ -11,6 +11,27 @@ const TIMELINE_OPTIONS = [
   { value: "next_year", label: "Next year" },
   { value: "just_exploring", label: "Just exploring" },
 ];
+
+function captureAttribution() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source") || "",
+    utm_medium: params.get("utm_medium") || "",
+    utm_campaign: params.get("utm_campaign") || "",
+    utm_content: params.get("utm_content") || "",
+    utm_term: params.get("utm_term") || "",
+    gclid: params.get("gclid") || "",
+    fbclid: params.get("fbclid") || "",
+    ttclid: params.get("ttclid") || "",
+    msclkid: params.get("msclkid") || "",
+  };
+}
+
+function pushDataLayer(event: Record<string, unknown>) {
+  (window as unknown as Record<string, unknown[]>).dataLayer =
+    ((window as unknown as Record<string, unknown[]>).dataLayer) || [];
+  ((window as unknown as Record<string, unknown[]>).dataLayer).push(event);
+}
 
 export function WaitlistSection() {
   const [email, setEmail] = useState("");
@@ -22,6 +43,7 @@ export function WaitlistSection() {
   const [errorMsg, setErrorMsg] = useState("");
   const [referredBy, setReferredBy] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState<number | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -32,6 +54,15 @@ export function WaitlistSection() {
       url.searchParams.delete("ref");
       window.history.replaceState({}, "", url.pathname + url.search);
     }
+
+    sessionStorage.setItem("sq_attribution", JSON.stringify(captureAttribution()));
+
+    fetch("/api/waitlist/count")
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data.count === "number") setWaitlistCount(data.count);
+      })
+      .catch(() => {});
   }, []);
 
   const handleCopy = useCallback(() => {
@@ -40,6 +71,7 @@ export function WaitlistSection() {
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        pushDataLayer({ event: "share", method: "referral_link_copy" });
       })
       .catch(() => {});
   }, [referralCode]);
@@ -49,6 +81,8 @@ export function WaitlistSection() {
     if (!email) return;
     setStatus("loading");
     setErrorMsg("");
+
+    const attribution = JSON.parse(sessionStorage.getItem("sq_attribution") || "{}");
 
     try {
       const res = await fetch("/api/waitlist", {
@@ -61,6 +95,7 @@ export function WaitlistSection() {
           travelType: "group",
           university: university || null,
           referredBy: referredBy || null,
+          ...attribution,
         }),
       });
 
@@ -69,6 +104,7 @@ export function WaitlistSection() {
       if (res.status === 409) {
         setReferralCode(data.referralCode);
         setStatus("success");
+        pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
         return;
       }
 
@@ -80,6 +116,8 @@ export function WaitlistSection() {
 
       setReferralCode(data.referralCode);
       setStatus("success");
+      setWaitlistCount((c) => (c !== null ? c + 1 : c));
+      pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
       setEmail("");
       setDestination("");
       setTravelDate("");
@@ -104,9 +142,16 @@ export function WaitlistSection() {
              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4" data-testid="text-waitlist-title">
                Get Early Beta Access
              </h2>
-             <p className="text-white/60 text-lg mb-8 max-w-xl mx-auto">
+             <p className="text-white/60 text-lg mb-3 max-w-xl mx-auto">
                Join the waitlist — tell us a bit about your next trip to prioritize your spot.
              </p>
+
+             {waitlistCount !== null && (
+               <div className="flex items-center justify-center gap-1.5 text-white/40 text-sm font-medium mb-6" data-testid="text-waitlist-count">
+                 <Users size={14} className="text-orange-400/60" />
+                 <span>Join <span className="text-white/60 font-semibold">{waitlistCount.toLocaleString()}+</span> students already signed up</span>
+               </div>
+             )}
 
              <div aria-live="polite">
                {status === "success" ? (

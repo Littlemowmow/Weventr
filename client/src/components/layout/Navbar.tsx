@@ -91,7 +91,7 @@ export function Navbar() {
               className="rounded-full bg-white hover:bg-white/90 text-black font-semibold px-6 ml-2 shadow-md hover:shadow-lg transition-all h-9 text-sm"
               data-testid="button-nav-cta"
             >
-              Get Early Access
+              Claim Your Spot
             </Button>
           </div>
 
