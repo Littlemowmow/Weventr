@@ -1,0 +1,256 @@
+# Replit Prompt: SideQuest Landing Page — Audit Fixes Only
+
+**IMPORTANT: Do NOT change the design, layout, colors, fonts, spacing, or visual appearance of anything on the page. Every change below is under-the-hood infrastructure, meta tags, or minor text swaps. The page should look identical before and after.**
+
+---
+
+## Task 1: Fix Meta Tags & SEO (index.html `<head>`)
+
+In `index.html`, make these changes to the `<head>` section:
+
+1. **Fix `og:image` to absolute URL:**
+   Change: `content="/images/hero-bamboo.png"`
+   To: `content="https://sidequest.app/images/hero-bamboo.png"`
+
+2. **Add missing `og:url`:**
+   Add: `<meta property="og:url" content="https://sidequest.app/" />`
+
+3. **Add `apple-touch-icon`:**
+   Add: `<link rel="apple-touch-icon" href="/apple-touch-icon.png" />`
+
+4. **Add apple-mobile-web-app-capable:**
+   Add: `<meta name="apple-mobile-web-app-capable" content="yes" />`
+
+5. **Add structured data (JSON-LD) before closing `</head>`:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SideQuest",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "iOS",
+  "description": "Group trip planning app that turns group chat chaos into actual trips. Swipe, vote, and plan with friends.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "SideQuest",
+    "url": "https://sidequest.app"
+  }
+}
+</script>
+```
+
+6. **Add FAQPage structured data** (use the actual FAQ content already on the page):
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is SideQuest?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SideQuest is a group trip planning app built by college students. It helps friend groups go from 'I'm down if you are' to actually booking and going on trips together."
+      }
+    }
+  ]
+}
+</script>
+```
+Populate the FAQ entries from the existing FAQ section content on the page. Match the questions and answers exactly.
+
+---
+
+## Task 2: Add Google Tag Manager Container
+
+Add GTM container snippet. Place the first script as HIGH as possible in `<head>`, and the noscript immediately after opening `<body>`:
+
+**In `<head>` (as high as possible):**
+```html
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+```
+
+**Immediately after `<body>`:**
+```html
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager -->
+```
+
+**NOTE:** Replace `GTM-XXXXXXX` with a placeholder comment like `<!-- REPLACE WITH ACTUAL GTM ID -->`. I'll create the GTM container separately and paste the real ID in.
+
+---
+
+## Task 3: Add UTM Parameter Capture to Waitlist Form
+
+This is critical for ad attribution. When the page loads, capture URL parameters and store them. When the waitlist form submits, include them in the POST body.
+
+**On page mount / DOMContentLoaded:**
+```javascript
+// Capture UTM params and click IDs from URL
+function getCapturedParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content: params.get('utm_content') || '',
+    utm_term: params.get('utm_term') || '',
+    gclid: params.get('gclid') || '',
+    fbclid: params.get('fbclid') || '',
+    ttclid: params.get('ttclid') || '',
+    msclkid: params.get('msclkid') || '',
+    ref: params.get('ref') || ''
+  };
+}
+
+// Store in sessionStorage so they persist across the page session
+const capturedParams = getCapturedParams();
+sessionStorage.setItem('sq_attribution', JSON.stringify(capturedParams));
+```
+
+**On waitlist form submission:**
+When the form POSTs to `/api/waitlist`, include the stored attribution data in the request body alongside email, name, university, etc:
+
+```javascript
+const attribution = JSON.parse(sessionStorage.getItem('sq_attribution') || '{}');
+
+// Merge into form submission payload
+const payload = {
+  email: formEmail,
+  name: formName,
+  university: formUniversity,
+  // ... existing fields
+  ...attribution
+};
+```
+
+Do NOT add any visible form fields. These are all captured automatically from the URL and sent as hidden data.
+
+---
+
+## Task 4: Add Conversion Event Firing (dataLayer pushes)
+
+After GTM is installed, push events to the dataLayer so GTM can fire pixels:
+
+**On successful waitlist signup (in the success handler after the POST returns 200 or 409):**
+```javascript
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'generate_lead',
+  method: 'waitlist_signup',
+  email_provided: true
+});
+```
+
+**On referral link copy (when user clicks the copy button for their referral link):**
+```javascript
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'share',
+  method: 'referral_link_copy'
+});
+```
+
+---
+
+## Task 5: Add robots.txt and sitemap.xml
+
+**Create `/public/robots.txt`:**
+```
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://sidequest.app/sitemap.xml
+```
+
+**Create `/public/sitemap.xml`:**
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sidequest.app/</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+Add `/privacy` and `/terms` entries to the sitemap once those pages exist.
+
+---
+
+## Task 6: Standardize CTA Copy
+
+Find the navbar CTA button that says **"Get Early Access"** and change it to **"Claim Your Spot"** to match the hero and waitlist section CTAs. Same action (scroll to #waitlist), just consistent copy.
+
+That's the ONLY text change. Do not change any other copy, headlines, descriptions, or section content.
+
+---
+
+## Task 7: Add Waitlist Count Display
+
+Above or near the waitlist form, add a dynamic counter that shows the current waitlist size. This should:
+
+1. On page load, make a GET request to an endpoint that returns the waitlist count (if one exists), OR use a hardcoded starting number if no endpoint exists yet.
+2. Display it as: **"Join X+ students on the waitlist"** or **"X+ students already signed up"**
+3. Style it to match existing text styles nearby — same font family, similar size to surrounding body text, nothing flashy. Use the existing color palette. Do NOT introduce new visual elements or change layout.
+4. After a successful signup, increment the displayed count by 1.
+
+If no API endpoint exists to get the count, just create a placeholder that reads `const WAITLIST_COUNT = 100;` at the top of the component and display that. I'll replace it with a real API call later.
+
+---
+
+## Task 8: Footer Link Prep
+
+The footer currently has Privacy Policy and Terms of Service links pointing to `href="#"`. Change them to:
+- Privacy Policy → `href="/privacy"`
+- Terms of Service → `href="/terms"`
+
+Do NOT create the actual privacy/terms pages yet. Just update the links so they're ready when the pages are added.
+
+---
+
+## Summary of ALL Changes
+
+| # | Change | Touches Design? |
+|---|--------|----------------|
+| 1 | Fix og:image to absolute URL | No |
+| 2 | Add og:url meta tag | No |
+| 3 | Add apple-touch-icon link | No |
+| 4 | Add apple-mobile-web-app-capable | No |
+| 5 | Add JSON-LD structured data | No |
+| 6 | Add GTM container (placeholder ID) | No |
+| 7 | UTM + click ID capture on page load | No |
+| 8 | Pass attribution data with form POST | No |
+| 9 | dataLayer event pushes on signup + referral copy | No |
+| 10 | Create robots.txt | No |
+| 11 | Create sitemap.xml | No |
+| 12 | Change nav CTA "Get Early Access" → "Claim Your Spot" | Text only |
+| 13 | Add waitlist count display near form | Minimal — uses existing styles |
+| 14 | Update footer links from # to /privacy and /terms | No |
+
+**Do NOT:**
+- Change colors, fonts, spacing, shadows, gradients, or layout
+- Move, resize, or restyle any existing sections
+- Add new visual sections or components
+- Change the hero, problem section, features, comparison, FAQ, or any other content
+- Modify the 3D card, floating elements, marquee, or demo section
+- Add a cookie consent banner (I'll handle that separately via CookieYes)
+- Add actual pixel code for Meta/TikTok (that goes through GTM, not hardcoded)
