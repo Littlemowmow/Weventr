@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Heart, X, Check, Clock, MapPin, DollarSign, Users, Grip, Sparkles } from "lucide-react";
+import { Heart, X, Check, Clock, MapPin, DollarSign, Users, Grip, Sparkles, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
@@ -200,6 +201,20 @@ export function FeaturesSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
+        >
+          <Link href="/features">
+            <button className="inline-flex items-center gap-2 text-white/50 hover:text-orange-400 transition-colors font-medium text-sm group" data-testid="link-see-all-features">
+              See all features — Trip Randomizer, Budget Settlement, Gamification &amp; more
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
