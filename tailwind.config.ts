@@ -81,6 +81,13 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        "sq-primary": "hsl(24 95% 53%)",
+        "sq-secondary": "hsl(35 92% 65%)",
+        "sq-accent": "hsl(199 89% 48%)",
+        "sq-surface": "hsl(0 0% 7%)",
+        "sq-text": "hsl(0 0% 95%)",
+        "sq-text-muted": "hsl(0 0% 55%)",
+        "sq-green": "hsl(142 76% 36%)",
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
