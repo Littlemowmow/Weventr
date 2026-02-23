@@ -245,7 +245,7 @@ export function WaitlistSection() {
                           value={travelDate}
                           onChange={(e) => setTravelDate(e.target.value)}
                           aria-label="Travel timeline"
-                          className={`h-14 w-full bg-white/10 border border-white/10 rounded-2xl px-12 text-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-0 appearance-none ${travelDate ? "text-white" : "text-white/40"}`}
+                          className={`h-14 w-full bg-white/10 border border-white/10 rounded-2xl px-12 text-lg font-sans cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-0 appearance-none ${travelDate ? "text-white" : "text-white/40"}`}
                           data-testid="select-travel-date"
                         >
                           {TIMELINE_OPTIONS.map((opt) => (
