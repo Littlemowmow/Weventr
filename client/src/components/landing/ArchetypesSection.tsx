@@ -19,7 +19,7 @@ const archetypes = [
   },
   {
     emoji: "🏝️",
-    name: "The Viber",
+    name: "Down For Whatever",
     description: "\"I'm down for whatever.\" \"You guys decide.\" Shows up at the airport with no idea what's happening. Fun to travel with. Impossible to plan with.",
     punchline: "SideQuest lets them vote without having to organize anything.",
     accent: "border-blue-500/20 bg-blue-500/5",
