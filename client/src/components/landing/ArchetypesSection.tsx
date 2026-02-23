@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const archetypes = [
   {
     emoji: "📋",
-    name: "The Planner",
+    name: "Group Leader",
     description: "Creates the Google Doc. Sends the When2Meet. Does all the research. Gets zero credit. One more \"let me check with work\" away from going solo.",
     punchline: "SideQuest takes this off your plate.",
     accent: "border-orange-500/20 bg-orange-500/5",
