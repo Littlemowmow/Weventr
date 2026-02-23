@@ -1,14 +1,75 @@
 import { motion } from "framer-motion";
-import { Heart, X, Check, Clock, MapPin, DollarSign, Users, Grip, Sparkles, ArrowRight } from "lucide-react";
+import { Heart, X, Check, ChevronLeft, MapPin, ArrowRight, MoreHorizontal, Plus } from "lucide-react";
 import { Link } from "wouter";
 
-function PhoneFrame({ children }: { children: React.ReactNode }) {
+function IOSStatusBar() {
   return (
-    <div className="glass-card rounded-[2.5rem] p-2.5 w-full max-w-[280px] mx-auto">
-      <div className="bg-white/5 rounded-[2rem] overflow-hidden relative border border-white/5">
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-14 bg-black rounded-full z-20" />
-        <div className="pt-8 pb-6 px-4">
-          {children}
+    <div className="flex items-center justify-between px-5 pb-1">
+      <span className="text-white text-[13px] font-semibold tracking-tight">9:41</span>
+      <div className="flex items-center gap-[5px]">
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="white" aria-hidden="true">
+          <rect x="0" y="4" width="3" height="8" rx="0.8" opacity="1" />
+          <rect x="4.5" y="2.5" width="3" height="9.5" rx="0.8" opacity="1" />
+          <rect x="9" y="1" width="3" height="11" rx="0.8" opacity="1" />
+          <rect x="13.5" y="0" width="3" height="12" rx="0.8" opacity="0.3" />
+        </svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white" aria-hidden="true">
+          <path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0-4A6.5 6.5 0 0 1 13.5 8L12 9.5A4.5 4.5 0 0 0 8 7.5 4.5 4.5 0 0 0 4 9.5L2.5 8A6.5 6.5 0 0 1 8 5.5zm0-4.5A11 11 0 0 1 16 4.6L14.5 6a9 9 0 0 0-13 0L0 4.6A11 11 0 0 1 8 1z" />
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none" aria-hidden="true">
+          <rect x="0.5" y="0.5" width="22" height="12" rx="3.5" stroke="white" strokeOpacity="0.35" />
+          <rect x="1.5" y="1.5" width="19" height="10" rx="2.5" fill="white" />
+          <path d="M24.5 4.5v4a2 2 0 0 0 0-4z" fill="white" opacity="0.4" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function IOSNavBar({ back, title, action }: { back?: string; title: string; action?: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between px-4 py-1.5 border-b border-white/8">
+      <div className="w-16">
+        {back && (
+          <div className="flex items-center gap-0.5" style={{ color: "#0A84FF" }}>
+            <ChevronLeft size={20} strokeWidth={2.5} />
+            <span className="text-[15px] font-normal">{back}</span>
+          </div>
+        )}
+      </div>
+      <span className="text-white font-semibold text-[17px]">{title}</span>
+      <div className="w-16 flex justify-end">{action}</div>
+    </div>
+  );
+}
+
+function IOSPhoneFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative w-full max-w-[264px] mx-auto"
+      style={{ filter: "drop-shadow(0 48px 96px rgba(0,0,0,0.85))" }}
+    >
+      <div
+        className="relative rounded-[44px] p-[2px]"
+        style={{
+          background: "#1a1a1a",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.13), 0 0 0 1px #000",
+        }}
+      >
+        <div className="absolute -left-[3px] top-[68px] w-[3px] h-7 rounded-l-full bg-[#2a2a2a]" />
+        <div className="absolute -left-[3px] top-[104px] w-[3px] h-7 rounded-l-full bg-[#2a2a2a]" />
+        <div className="absolute -right-[3px] top-[86px] w-[3px] h-12 rounded-r-full bg-[#2a2a2a]" />
+
+        <div className="rounded-[42px] bg-black overflow-hidden relative">
+          <div
+            className="absolute top-[10px] left-1/2 -translate-x-1/2 z-30 bg-black rounded-full"
+            style={{
+              width: 108,
+              height: 30,
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.06)",
+            }}
+          />
+          <div className="pt-[50px]">{children}</div>
         </div>
       </div>
     </div>
@@ -17,120 +78,273 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 
 function SwipeVoteMockup() {
   return (
-    <PhoneFrame>
-      <div className="text-center mb-3">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Swipe to Vote</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; 5 members</div>
-      </div>
-      <div className="relative rounded-2xl overflow-hidden shadow-lg mb-4 aspect-[3/4] border border-white/10">
-        <img src="/images/hero-barcelona.jpg" loading="lazy" decoding="async" className="w-full h-full object-cover" alt="Barcelona beach" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3 text-white">
-          <div className="text-lg font-bold font-display">Barceloneta Beach</div>
-          <div className="flex items-center gap-2 text-xs opacity-70 mt-0.5">
-            <MapPin size={10} /> Beach &middot; Free
+    <IOSPhoneFrame>
+      <IOSStatusBar />
+      <IOSNavBar
+        back="Trips"
+        title="Vote"
+        action={
+          <button style={{ color: "#0A84FF" }} className="text-[15px]">
+            <MoreHorizontal size={20} />
+          </button>
+        }
+      />
+
+      <div className="px-3 pt-3 pb-4">
+        <div className="relative rounded-[18px] overflow-hidden mb-3" style={{ aspectRatio: "3/4" }}>
+          <img
+            src="/images/hero-barcelona.jpg"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover"
+            alt="Barceloneta Beach"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+          <div className="absolute top-3 right-3">
+            <div
+              className="px-2.5 py-1 rounded-full text-[11px] font-semibold text-white"
+              style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)" }}
+            >
+              4 of 8
+            </div>
+          </div>
+
+          <div className="absolute bottom-3 left-3 right-3">
+            <div className="text-white font-semibold text-[18px] leading-tight">Barceloneta Beach</div>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span
+                className="px-2 py-0.5 rounded-full text-[10px] font-semibold"
+                style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}
+              >
+                🏖️ Beach
+              </span>
+              <span
+                className="px-2 py-0.5 rounded-full text-[10px] font-semibold"
+                style={{ background: "rgba(48,209,88,0.25)", color: "#30D158" }}
+              >
+                Free
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center gap-6 mb-3">
-        <div className="w-14 h-14 rounded-full bg-red-500/10 border-2 border-red-500/20 flex items-center justify-center text-red-400 shadow-sm hover:scale-110 transition-transform cursor-default">
-          <X size={24} />
+
+        <div className="flex items-center justify-center gap-8 mb-3">
+          <button
+            className="flex items-center justify-center rounded-full"
+            style={{
+              width: 64,
+              height: 64,
+              background: "rgba(255,69,58,0.15)",
+              border: "1.5px solid rgba(255,69,58,0.4)",
+            }}
+          >
+            <X size={28} style={{ color: "#FF453A" }} strokeWidth={2.5} />
+          </button>
+          <button
+            className="flex items-center justify-center rounded-full"
+            style={{
+              width: 64,
+              height: 64,
+              background: "rgba(48,209,88,0.15)",
+              border: "1.5px solid rgba(48,209,88,0.4)",
+            }}
+          >
+            <Heart size={26} style={{ color: "#30D158" }} strokeWidth={2.5} />
+          </button>
         </div>
-        <div className="w-14 h-14 rounded-full bg-emerald-500/10 border-2 border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm hover:scale-110 transition-transform cursor-default">
-          <Heart size={24} />
+
+        <div
+          className="rounded-[12px] px-3 py-2.5 flex items-center gap-2"
+          style={{ background: "rgba(48,209,88,0.12)", border: "1px solid rgba(48,209,88,0.25)" }}
+        >
+          <div
+            className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+            style={{ background: "#30D158" }}
+          >
+            <Check size={11} className="text-black" strokeWidth={3} />
+          </div>
+          <span className="text-[12px] font-semibold" style={{ color: "#30D158" }}>
+            4 out of 5 agreed on this spot
+          </span>
         </div>
       </div>
-      <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2 text-center">
-        <div className="text-xs font-bold text-emerald-400 flex items-center justify-center gap-1.5">
-          <Check size={12} /> Group Match: 4/5 agreed
-        </div>
-      </div>
-    </PhoneFrame>
+    </IOSPhoneFrame>
   );
 }
 
 function BudgetLockMockup() {
   const people = [
-    { name: "You", emoji: "😎", budget: "$500" },
-    { name: "Sarah", emoji: "👩", budget: "$400" },
-    { name: "Mike", emoji: "🧑", budget: "$350" },
-    { name: "Jess", emoji: "👧", budget: "$450" },
+    { name: "You", emoji: "😎", budget: "$500", committed: true },
+    { name: "Sarah", emoji: "👩", budget: "$400", committed: true },
+    { name: "Mike", emoji: "🧑", budget: "$350", committed: true },
+    { name: "Jess", emoji: "👧", budget: "$450", committed: true },
   ];
 
   return (
-    <PhoneFrame>
-      <div className="text-center mb-4">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Budget Lock</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; 4 members</div>
-      </div>
-      <div className="space-y-2 mb-4">
-        {people.map((person, i) => (
-          <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-2.5 flex items-center gap-2.5">
-            <div className="text-base">{person.emoji}</div>
-            <div className="flex-1">
-              <div className="text-white text-xs font-bold">{person.name}</div>
-            </div>
-            <div className="text-white/70 font-bold text-sm">{person.budget}</div>
-            <Check size={12} className="text-emerald-400" />
+    <IOSPhoneFrame>
+      <IOSStatusBar />
+      <IOSNavBar
+        back="Back"
+        title="Budget"
+        action={
+          <span className="text-[15px] font-semibold" style={{ color: "#0A84FF" }}>
+            Done
+          </span>
+        }
+      />
+
+      <div className="px-0 pt-4 pb-4">
+        <div className="text-center px-4 mb-4">
+          <div
+            className="text-[11px] font-semibold uppercase tracking-wider mb-1"
+            style={{ color: "rgba(235,235,245,0.5)" }}
+          >
+            Group Sweet Spot
           </div>
-        ))}
-      </div>
-      <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/5 rounded-2xl p-3.5 mb-3 border border-orange-500/20">
-        <div className="flex items-center gap-1.5 mb-1">
-          <Sparkles size={10} className="text-orange-400" />
-          <div className="text-[9px] font-bold text-orange-400 uppercase tracking-widest">Group Sweet Spot</div>
+          <div className="text-white font-bold" style={{ fontSize: 44, lineHeight: 1 }}>
+            $350
+          </div>
+          <div className="text-[13px] mt-1" style={{ color: "rgba(235,235,245,0.5)" }}>
+            per person · $1,400 total
+          </div>
         </div>
-        <div className="text-2xl font-bold font-display text-white">$350</div>
-        <div className="text-xs text-white/40 mt-0.5">per person &middot; $1,400 total</div>
-      </div>
-      <div className="flex items-center justify-between bg-white/5 rounded-xl px-3 py-2.5 border border-white/10">
-        <div className="flex items-center gap-2">
-          <DollarSign size={14} className="text-emerald-400" />
-          <span className="text-xs font-medium text-white/50">Real-time splits</span>
+
+        <div
+          className="mx-3 rounded-[12px] overflow-hidden mb-3"
+          style={{ background: "#1C1C1E" }}
+        >
+          {people.map((p, i) => (
+            <div key={i}>
+              <div className="flex items-center gap-3 px-4 py-3">
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-base shrink-0"
+                  style={{ background: "#2C2C2E" }}
+                >
+                  {p.emoji}
+                </div>
+                <div className="flex-1">
+                  <div className="text-white text-[15px] font-medium">{p.name}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[15px] font-semibold" style={{ color: "rgba(235,235,245,0.85)" }}>
+                    {p.budget}
+                  </span>
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center"
+                    style={{ background: "#30D158" }}
+                  >
+                    <Check size={11} className="text-black" strokeWidth={3} />
+                  </div>
+                </div>
+              </div>
+              {i < people.length - 1 && (
+                <div className="ml-[56px] h-px" style={{ background: "rgba(60,60,67,0.36)" }} />
+              )}
+            </div>
+          ))}
         </div>
-        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">Live</div>
+
+        <div className="px-3">
+          <button
+            className="w-full py-3.5 rounded-[12px] text-white font-semibold text-[17px]"
+            style={{ background: "#0A84FF" }}
+          >
+            Lock It In
+          </button>
+        </div>
       </div>
-    </PhoneFrame>
+    </IOSPhoneFrame>
   );
 }
 
 function SquadItineraryMockup() {
+  const days = ["Fri", "Sat", "Sun"];
   const items = [
-    { time: "Morning", activity: "La Boqueria Market", icon: "🍊", addedBy: "Jess" },
-    { time: "Afternoon", activity: "Gothic Quarter Walk", icon: "🏛️", addedBy: "Marco" },
-    { time: "Evening", activity: "Sunset Viewpoint Hike", icon: "🌅", addedBy: "Jess" },
+    { time: "9:00 AM", activity: "La Boqueria Market", icon: "🍊", addedBy: "Jess" },
+    { time: "2:00 PM", activity: "Gothic Quarter Walk", icon: "🏛️", addedBy: "Marco" },
+    { time: "7:00 PM", activity: "Sunset Viewpoint", icon: "🌅", addedBy: "Jess" },
   ];
 
   return (
-    <PhoneFrame>
-      <div className="text-center mb-4">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Squad Itinerary</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; Day 1</div>
-      </div>
-      <div className="flex gap-2 mb-4">
-        {["Day 1", "Day 2", "Day 3"].map((d, i) => (
-          <div key={d} className={`flex-1 text-center py-1.5 rounded-lg text-[11px] font-bold ${i === 0 ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "bg-white/5 text-white/30 border border-white/5"}`}>
-            {d}
-          </div>
-        ))}
-      </div>
-      <div className="space-y-3">
-        {items.map((item, i) => (
-          <div key={i} className="bg-white/5 rounded-xl p-3 border border-white/10 flex items-start gap-3 group hover:border-orange-500/20 transition-colors">
-            <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-lg shrink-0">{item.icon}</div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">{item.time}</div>
-              <div className="text-sm font-bold text-white truncate">{item.activity}</div>
-              <div className="text-[10px] text-white/30 mt-0.5">Added by {item.addedBy}</div>
+    <IOSPhoneFrame>
+      <IOSStatusBar />
+      <IOSNavBar
+        title="Barcelona Trip"
+        action={
+          <span className="text-[15px] font-semibold" style={{ color: "#0A84FF" }}>
+            Edit
+          </span>
+        }
+      />
+
+      <div className="px-3 pt-3 pb-4">
+        <div
+          className="flex rounded-[9px] p-[2px] mb-4"
+          style={{ background: "rgba(118,118,128,0.24)" }}
+        >
+          {days.map((d, i) => (
+            <div
+              key={d}
+              className="flex-1 text-center py-1.5 rounded-[7px] text-[13px] font-semibold transition-all"
+              style={
+                i === 0
+                  ? { background: "#2C2C2E", color: "#FFFFFF", boxShadow: "0 1px 3px rgba(0,0,0,0.4)" }
+                  : { color: "rgba(235,235,245,0.6)" }
+              }
+            >
+              {d}
             </div>
-            <Grip size={14} className="text-white/15 mt-1 shrink-0" />
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <div className="space-y-0">
+          {items.map((item, i) => (
+            <div key={i}>
+              <div className="flex items-start gap-3 py-3">
+                <div className="shrink-0 text-right" style={{ width: 52 }}>
+                  <div className="text-[11px] font-medium" style={{ color: "rgba(235,235,245,0.4)" }}>
+                    {item.time.split(" ")[0]}
+                  </div>
+                  <div className="text-[10px]" style={{ color: "rgba(235,235,245,0.3)" }}>
+                    {item.time.split(" ")[1]}
+                  </div>
+                </div>
+                <div
+                  className="w-px self-stretch rounded-full mx-1 shrink-0"
+                  style={{ background: "rgba(60,60,67,0.5)" }}
+                />
+                <div
+                  className="w-9 h-9 rounded-[10px] flex items-center justify-center text-lg shrink-0"
+                  style={{ background: "#1C1C1E" }}
+                >
+                  {item.icon}
+                </div>
+                <div className="flex-1 min-w-0 pt-0.5">
+                  <div className="text-white text-[14px] font-semibold leading-tight truncate">
+                    {item.activity}
+                  </div>
+                  <div className="text-[11px] mt-0.5" style={{ color: "rgba(235,235,245,0.4)" }}>
+                    Added by {item.addedBy}
+                  </div>
+                </div>
+              </div>
+              {i < items.length - 1 && (
+                <div className="ml-[64px] h-px" style={{ background: "rgba(60,60,67,0.36)" }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        <button
+          className="mt-3 w-full py-3 rounded-[12px] flex items-center justify-center gap-2 text-[15px] font-semibold"
+          style={{ background: "rgba(10,132,255,0.15)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.25)" }}
+        >
+          <Plus size={16} strokeWidth={2.5} />
+          Add Activity
+        </button>
       </div>
-      <div className="mt-3 text-center">
-        <div className="text-[10px] text-white/20 font-medium">Drag to reorder &middot; Tap to edit</div>
-      </div>
-    </PhoneFrame>
+    </IOSPhoneFrame>
   );
 }
 
