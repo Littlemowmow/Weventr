@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, MapPin, GraduationCap, ChevronDown, Users } from "lucide-react";
+import { Loader2, MapPin, GraduationCap, Users } from "lucide-react";
 
 const TIMELINE_OPTIONS = [
   { value: "", label: "When are you traveling? (optional)" },
@@ -241,21 +242,22 @@ export function WaitlistSection() {
                       </div>
 
                       <div className="relative">
-                        <select
-                          value={travelDate}
-                          onChange={(e) => setTravelDate(e.target.value)}
-                          aria-label="Travel timeline"
-                          className={`h-14 w-full bg-white/10 border border-white/10 rounded-2xl px-12 text-lg font-sans cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-0 appearance-none ${travelDate ? "text-white" : "text-white/40"}`}
-                          data-testid="select-travel-date"
-                        >
-                          {TIMELINE_OPTIONS.map((opt) => (
-                            <option key={opt.value} value={opt.value} className="bg-gray-900 text-white">
-                              {opt.label}
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" size={18} aria-hidden="true" />
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-lg" aria-hidden="true">📅</div>
+                        <Select value={travelDate || undefined} onValueChange={setTravelDate}>
+                          <SelectTrigger
+                            className="h-14 w-full bg-white/10 border-white/10 text-white rounded-2xl pl-12 pr-4 text-base focus:ring-orange-500 data-[placeholder]:text-white/40"
+                            data-testid="select-travel-date"
+                          >
+                            <SelectValue placeholder="When are you traveling? (optional)" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-gray-900 border-white/10 text-white">
+                            {TIMELINE_OPTIONS.filter(o => o.value).map((opt) => (
+                              <SelectItem key={opt.value} value={opt.value} className="text-white focus:bg-white/10 focus:text-white">
+                                {opt.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-lg pointer-events-none" aria-hidden="true">📅</div>
                       </div>
                     </fieldset>
 
