@@ -140,21 +140,21 @@ export function FeaturesSection() {
       id: "swipe-vote",
       label: "Swipe & Vote",
       title: "Swipe & Vote",
-      description: "No more \"I'm down if you are.\" Everyone swipes on destinations and activities independently. SideQuest finds what your group actually agrees on — no awkward standoffs.",
+      description: "Everyone swipes on destinations and activities on their own — no awkward standoffs, no \"I'm down for whatever\" from the friend who never decides. SideQuest surfaces what your group actually agrees on.",
       mockup: <SwipeVoteMockup />,
     },
     {
       id: "budget-lock",
       label: "Budget Lock",
       title: "Budget Lock",
-      description: "Set a group budget everyone's comfortable with before anyone books anything. Real-time expense tracking and automatic splits so nobody's chasing Venmo requests three months later.",
+      description: "Everyone sees real costs before anyone commits — no sticker shock, no one going quiet when prices come up. Set a budget your whole group is comfortable with, and automatic splits mean nobody's chasing passive-aggressive Venmo requests three months later.",
       mockup: <BudgetLockMockup />,
     },
     {
       id: "squad-itinerary",
       label: "Squad Itinerary",
       title: "Squad Itinerary",
-      description: "Build a shared itinerary everyone can see and edit. Drag, drop, remix. No more one person doing all the work while everyone else says \"whatever you think.\"",
+      description: "One shared plan everyone can see, edit, and actually contribute to. No more one person sending 47 unanswered messages while everyone else is just \"vibing.\" If you added it, your name's on it.",
       mockup: <SquadItineraryMockup />,
     },
   ];
@@ -173,7 +173,7 @@ export function FeaturesSection() {
             From chaos to consensus
           </h2>
           <p className="text-lg text-white/50 max-w-xl mx-auto">
-            Three tools that replace 200 unread messages.
+            Three features that replace the Google Doc nobody opens, the poll with zero overlap, and the friend doing all the work.
           </p>
         </motion.div>
 
@@ -210,7 +210,7 @@ export function FeaturesSection() {
         >
           <Link href="/features">
             <button className="inline-flex items-center gap-2 text-white/50 hover:text-orange-400 transition-colors font-medium text-sm group" data-testid="link-see-all-features">
-              See all features — Trip Randomizer, Budget Settlement, Gamification &amp; more
+              Plus: deadline locks so nobody flakes, a trip randomizer for when you're stuck, and a few surprises
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>

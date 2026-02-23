@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 
 const cities = [
-  { name: "Barcelona", flag: "🇪🇸", image: "/images/city-barcelona.jpg" },
-  { name: "London", flag: "🇬🇧", image: "/images/city-london.jpg" },
-  { name: "Paris", flag: "🇫🇷", image: "/images/city-paris.jpg" },
-  { name: "Rome", flag: "🇮🇹", image: "/images/city-rome-new.jpg" },
-  { name: "Tokyo", flag: "🇯🇵", image: "/images/city-tokyo.png" },
-  { name: "Ann Arbor", flag: "🇺🇸", image: "/images/city-annarbor.jpg", tag: "HQ" },
+  { name: "Barcelona", flag: "🇪🇸", image: "/images/city-barcelona.jpg", teaser: "Beyond La Rambla" },
+  { name: "London", flag: "🇬🇧", image: "/images/city-london.jpg", teaser: "Beyond Big Ben" },
+  { name: "Paris", flag: "🇫🇷", image: "/images/city-paris.jpg", teaser: "Beyond the Eiffel Tower" },
+  { name: "Rome", flag: "🇮🇹", image: "/images/city-rome-new.jpg", teaser: "Beyond the Colosseum" },
+  { name: "Tokyo", flag: "🇯🇵", image: "/images/city-tokyo.png", teaser: "Beyond Shibuya Crossing" },
+  { name: "Ann Arbor", flag: "🇺🇸", image: "/images/city-annarbor.jpg", tag: "HQ", teaser: "Home Base 🏠" },
 ];
 
 export function ContentSection() {
@@ -24,7 +24,7 @@ export function ContentSection() {
             Where we're starting
           </h2>
           <p className="text-lg text-white/50 max-w-xl mx-auto">
-            We're curating hidden gems in these cities first. More coming based on where you're headed.
+            Local picks, hidden spots, and the things your guidebook won't tell you — curated by people who actually live there. More cities coming based on where you're headed.
           </p>
         </motion.div>
 
@@ -50,7 +50,7 @@ export function ContentSection() {
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                 <div>
                   <div className="text-white text-lg md:text-xl font-display font-bold">{city.name}</div>
-                  <div className="text-white/60 text-sm">{city.flag}</div>
+                  <div className="text-white/50 text-xs mt-0.5">{city.teaser}</div>
                 </div>
                 {city.tag && (
                   <div className="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">

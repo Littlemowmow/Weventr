@@ -3,8 +3,8 @@ import { Check, X } from "lucide-react";
 
 const oldWay = [
   "Links get lost in 200 unread messages",
-  "\"I'm down if you are\" — nobody decides",
-  "Budget fights that kill the vibe",
+  "Everyone's \"down\" but nobody actually books",
+  "Someone finds out the Airbnb costs way more than they expected",
   "One person does all the work",
   "Venmo requests 3 months later",
 ];
@@ -12,7 +12,7 @@ const oldWay = [
 const sidequestWay = [
   "All ideas organized in one place",
   "Anonymous voting — no awkward standoffs",
-  "Smart budget matching for your group",
+  "Everyone sees costs and agrees before anyone books",
   "Shared itinerary everyone contributes to",
   "Automatic expense splitting in real-time",
 ];
@@ -29,7 +29,7 @@ export function ComparisonSection() {
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Compare</span>
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white" data-testid="text-comparison-title">
-            The perfect companion to your group chat
+            Your group chat wasn't built for this
           </h2>
         </motion.div>
 
@@ -44,7 +44,7 @@ export function ComparisonSection() {
               <div className="w-8 h-8 rounded-full bg-red-500/15 flex items-center justify-center">
                 <X size={16} className="text-red-400" />
               </div>
-              Planning in group chats
+              The group chat way
             </h3>
             <ul className="space-y-4">
               {oldWay.map((item, i) => (
@@ -66,7 +66,7 @@ export function ComparisonSection() {
               <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center">
                 <Check size={16} className="text-orange-400" />
               </div>
-              Planning with SideQuest
+              The SideQuest way
             </h3>
             <ul className="space-y-4">
               {sidequestWay.map((item, i) => (

@@ -53,14 +53,11 @@ export function Hero() {
               </div>
 
               <h1 className="font-display font-bold leading-[1.05] tracking-tight text-white mb-6" data-testid="text-hero-title">
-                <span className="text-5xl md:text-6xl lg:text-7xl">The World Is <br/>
-                <span className="text-gradient-gold">Waiting.</span></span>
-                <br/>
-                <span className="text-4xl md:text-5xl lg:text-[3.5rem] text-white/50">Your groupchat is <span className="text-blue-400/80">frozen.</span></span>
+                <span className="text-5xl md:text-6xl lg:text-7xl">The trip that actually<br/>makes it out of the <span className="text-gradient-gold">group chat.</span></span>
               </h1>
               
               <p className="text-base md:text-xl text-white/50 leading-relaxed mb-10 max-w-lg" data-testid="text-hero-subtitle">
-                SideQuest is the app that turns "I'm down if you are" into an actual trip — with group voting, budget alignment, and hidden gems your guidebook doesn't know about. Built by college students, for college students.
+                SideQuest turns "I'm down if you are" into an actual trip. Group voting so nobody gets ignored, budget alignment so nobody goes quiet, and hidden gems your guidebook doesn't know about.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -149,7 +146,7 @@ export function Hero() {
                     </div>
                     <div className="flex justify-between text-[10px] uppercase tracking-widest mt-1.5 opacity-50">
                        <span>Budget: $1,200</span>
-                       <span>80% agreed</span>
+                       <span>4 out of 5 are in</span>
                     </div>
                  </div>
               </motion.div>
@@ -163,7 +160,7 @@ export function Hero() {
                       ✓
                     </div>
                     <div>
-                      <div className="text-[10px] text-white/40 font-semibold uppercase tracking-wider">Vote Result</div>
+                      <div className="text-[10px] text-white/40 font-semibold uppercase tracking-wider">The group has spoken</div>
                       <div className="text-sm font-bold text-white">Barcelona won 4-1</div>
                     </div>
                  </div>

@@ -141,10 +141,10 @@ export function WaitlistSection() {
 
            <div className="relative z-10">
              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4" data-testid="text-waitlist-title">
-               Get Early Beta Access
+               Don't let another trip die in the chat.
              </h2>
              <p className="text-white/60 text-lg mb-3 max-w-xl mx-auto">
-               Join the waitlist — tell us a bit about your next trip to prioritize your spot.
+               Join the waitlist. Then send it to the group chat — you're gonna need them on here anyway.
              </p>
 
              {waitlistCount !== null && (
@@ -189,6 +189,9 @@ export function WaitlistSection() {
                           Friends who sign up with your link move you both up the list
                         </div>
                      </div>
+                     <p className="text-white/30 text-xs mt-4 font-medium">
+                       Spring break plans are dying in group chats right now. Don't let yours be next.
+                     </p>
                   </div>
                ) : (
                   <form onSubmit={handleSubmit} aria-label="Join waitlist" className="flex flex-col gap-4 max-w-lg mx-auto bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">

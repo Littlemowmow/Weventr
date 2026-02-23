@@ -1,14 +1,16 @@
 const trips = [
-  { label: "Girls Trip to Tulum", emoji: "🌴" },
-  { label: "Spring Break in Miami", emoji: "🌴" },
-  { label: "Ski Week in the Alps", emoji: "❄️" },
-  { label: "Food Tour in Tokyo", emoji: "🍜" },
-  { label: "Euro Summer 2026", emoji: "🇪🇺" },
-  { label: "Study Abroad in Barcelona", emoji: "🇪🇸" },
-  { label: "Road Trip to Big Sur", emoji: "🚗" },
-  { label: "Surfing in Bali", emoji: "🏄‍♂️" },
-  { label: "Hiking in Patagonia", emoji: "🏔️" },
-  { label: "Island Hopping in Greece", emoji: "🏝️" },
+  { label: "Spring Break", emoji: "🌴" },
+  { label: "Euro Summer", emoji: "🇪🇺" },
+  { label: "Tokyo Food Tour", emoji: "🍜" },
+  { label: "Girls Trip", emoji: "👯‍♀️" },
+  { label: "Ski Week", emoji: "⛷️" },
+  { label: "Island Hopping", emoji: "🏝️" },
+  { label: "Study Abroad Weekend", emoji: "🎓" },
+  { label: "Road Trip", emoji: "🚗" },
+  { label: "3-Day Micro-Trip", emoji: "🏔️" },
+  { label: "Destination Dupe", emoji: "💎" },
+  { label: "Surf Trip", emoji: "🏄‍♂️" },
+  { label: "City Break", emoji: "🎭" },
 ];
 
 export function SocialProofSection() {

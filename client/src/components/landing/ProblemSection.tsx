@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 
 const CHAT_MESSAGES = [
-  { text: "guys we NEED to plan this Barcelona trip", sender: "Sarah", isMe: false },
+  { text: "ok so are we actually doing Barcelona or not", sender: "Sarah", isMe: false },
   { text: "I'm so down. When tho??", sender: "Mike", isMe: false },
   { text: "June? But idk about budget", sender: "Jess", isMe: false },
   { text: "let's just figure it out lol", sender: "You", isMe: true },
@@ -27,7 +27,7 @@ function AutoPlayChat() {
       setVisibleMessages(i);
       if (i >= CHAT_MESSAGES.length) {
         clearInterval(interval);
-        setTimeout(() => setShowSolution(true), 600);
+        setTimeout(() => setShowSolution(true), 1200);
       }
     }, 550);
     return () => clearInterval(interval);
@@ -120,9 +120,9 @@ export function ProblemSection() {
           >
             <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
               <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">🔥 Budget Fight</div>
-              <ChatBubble text="The boat rental is $800?? 🛥️" />
-              <ChatBubble text="That puts us way over budget" isMe />
-              <ChatBubble text="Let's find something cheaper" />
+              <ChatBubble text="Wait… I thought we were splitting this?" />
+              <ChatBubble text="Bro the Airbnb is $200/NIGHT??" isMe />
+              <ChatBubble text="Nobody told me about the boat 💀" />
             </div>
           </motion.div>
 
@@ -135,10 +135,10 @@ export function ProblemSection() {
           >
             <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-orange-500/20 rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
               <div className="text-[10px] font-bold text-orange-400 mb-2 uppercase tracking-widest">📅 Date Clash</div>
-              <ChatBubble text="How about June 12-15?" isMe />
-              <ChatBubble text="Can't. Cousin's wedding." />
-              <ChatBubble text="July 4th weekend?" isMe />
-              <ChatBubble text="Flights are insane then 😭" />
+              <ChatBubble text="June works for me!" isMe />
+              <ChatBubble text="Let me check with work" />
+              <ChatBubble text="..." isMe />
+              <ChatBubble text="...so is this still happening?" />
             </div>
           </motion.div>
 
@@ -151,9 +151,10 @@ export function ProblemSection() {
           >
             <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
               <div className="text-[10px] font-bold text-white/40 mb-2 uppercase tracking-widest">🤷‍♂️ Indecision</div>
-              <ChatBubble text="So where are we going?" />
-              <ChatBubble text="Idk you pick 🤷‍♂️" isMe />
-              <ChatBubble text="I picked last time!" />
+              <ChatBubble text="I'm down for whatever" />
+              <ChatBubble text="Same, you guys decide" isMe />
+              <ChatBubble text="..." />
+              <ChatBubble text="So no one's deciding??" isMe />
             </div>
           </motion.div>
 
