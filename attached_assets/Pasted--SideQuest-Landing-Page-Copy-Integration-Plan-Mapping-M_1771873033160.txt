@@ -1,0 +1,456 @@
+# SideQuest Landing Page — Copy Integration Plan
+## Mapping Market Psychology to Every Section
+
+This document maps the Gen Z group travel research directly onto the current landing page. For each section, I show what's there now, what the research says, and the exact changes to make.
+
+---
+
+## SECTION 1: HERO
+
+### What's there now
+- Badge: "Beta Launching Soon"
+- Headline: "The World Is Waiting. Your groupchat is frozen."
+- Subheadline: "SideQuest is the app that turns 'I'm down if you are' into an actual trip — with group voting, budget alignment, and hidden gems your guidebook doesn't know about. Built by college students, for college students."
+- CTAs: "Claim Your Spot →" / "Try the demo"
+- Floating cards: Barcelona vote result, $85/day, 5 going, 80% agreed
+
+### What the research says
+- "Never makes it out of the group chat" is the single most resonant phrase in this cultural space (36M+ TikTok posts)
+- The planner friend is your primary user — speak to them directly
+- "I'm down if you are" is already recognized sarcastic code for "will do zero actual planning" — you're using this well
+- "Built by college students, for college students" limits future positioning and the audit flagged this too
+- Gen Z responds to specificity over abstraction — "The World Is Waiting" is aspirational but vague
+
+### Changes
+
+**Headline options (pick one):**
+
+Option A (most direct, leverages the #1 phrase):
+> "The trip that actually makes it out of the group chat."
+
+Option B (confrontational, high scroll-stop energy):  
+> "Your group chat has planned 47 trips. You've been on zero."
+
+Option C (keep the current structure but sharpen it):
+> "The world is waiting. Your group chat is not going to figure it out."
+
+**Why:** "Frozen" is good but passive. The research shows people describe their group chats as places where trips actively *die* — not freeze. The language is about death, not stasis. "Die in the group chat," "never makes it out," "the trip is dead" — this is the vocabulary.
+
+**Subheadline rewrite:**
+> "SideQuest turns 'I'm down if you are' into an actual trip. Group voting so nobody gets ignored, budget alignment so nobody goes quiet, and hidden gems your guidebook doesn't know about."
+
+**Why:** Break it into the three pain points the research surfaced as most emotionally charged: (1) decision paralysis / nobody commits, (2) budget kills the vibe silently, (3) tourist trap anxiety. Remove "Built by college students, for college students" — it limits you and the founder story is better told in FAQ.
+
+**Floating cards — keep but adjust copy:**
+- Change "Vote Result" → "The group has spoken" (more casual, mirrors how they talk)
+- Keep "$85/day" — budget transparency before commitment is the #1 thing users asked for
+- Change "80% agreed" → "4 out of 5 are in" (more human, less dashboard)
+
+---
+
+## SECTION 2: SOCIAL PROOF TICKER
+
+### What's there now
+Scrolling pills: 🌴 Girls Trip to Tulum, 🌴 Spring Break in Miami, ❄️ Ski Week in the Alps, etc.
+
+### What the research says
+- This is aspirational, not real social proof — sophisticated visitors will clock this
+- But the *trip type labels* are culturally loaded and useful — "Euro Summer 2026," "Girls Trip," "Study Abroad" are identity phrases Gen Z uses
+- The research surfaced "micro-cation" (short 3-4 day trips) as a Gen Z preference — currently missing
+- "Destination dupes" (lesser-known alternatives to crowded spots) had 400K+ social media posts — this is a trend you could signal
+
+### Changes
+
+**Reframe the ticker from fake social proof to cultural signal.** Instead of implying these are real trips being planned, position them as trip *types* people search for:
+
+Replace current pills with a mix that reflects actual Gen Z trip vocabulary:
+> 🌴 Spring Break · 🇪🇺 Euro Summer · 🍜 Tokyo Food Tour · 👯‍♀️ Girls Trip · ⛷️ Ski Week · 🏝️ Island Hopping · 🎓 Study Abroad Weekend · 🚗 Road Trip · 🏔️ 3-Day Micro-Trip · 💎 Destination Dupe · 🏄‍♂️ Surf Trip · 🎭 City Break
+
+**Why:** Adding "Study Abroad Weekend," "3-Day Micro-Trip," and "Destination Dupe" signals that you understand *how* they actually travel (short bursts, budget-conscious, anti-mainstream). These are search terms and identity markers, not just destinations.
+
+**Optional enhancement:** If the API waitlist count is real and growing, prefix the ticker with a subtle line: "Trips being planned right now →" — but only if the count is real. No fake numbers.
+
+---
+
+## SECTION 3: PROBLEM / DEMO
+
+### What's there now
+- Headline: "Don't let the trip die in the Group Chat."
+- Subheadline: "Sound familiar? See how SideQuest fixes it."
+- 4 floating problem cards: Budget Fight, Date Clash, Indecision, Logistics Fail
+- Animated group chat with Sarah, Mike, Jess, You
+- Chat ends with "..." then SideQuest prompt
+
+### What the research says
+- This is the strongest section on the page — the animated chat is genuinely original
+- The four problem cards map perfectly to the top pain points from research
+- The exact phrases people use: "let me check with work" (beginning of the end), "I picked last time!", "I thought [name] was doing it" — you're already close
+- The "..." silence beat is emotionally accurate — the research shows the death of a trip is always *silence*, never an official cancellation
+- The five-stage emotional arc (Spark → Wall → Silence → Death → Meme) is the most recognized pattern
+
+### Changes
+
+**Headline — keep it.** "Don't let the trip die in the Group Chat" uses the exact language. This is your best headline on the page. (The audit noted your footer tagline "So the trip doesn't die in the groupchat" is the strongest line — this section's headline is the other one. Lean into this framing everywhere.)
+
+**Problem cards — sharpen the copy to use exact verbatim phrases from research:**
+
+Budget Fight (current):
+> "The boat rental is $800?? 🛥️" / "That puts us way over budget" / "Let's find something cheaper"
+
+Budget Fight (revised — use the visceral specificity the research showed):
+> "Wait… I thought we were splitting this?" / "Bro the Airbnb is $200/NIGHT??" / "Nobody told me about the boat 💀"
+
+**Why:** The research showed the most emotionally charged budget moments are *surprise costs* and *splitting confusion*, not abstract "over budget" discussions. The $30 seafood dinner that ended a friendship. The three-euro Venmo request. The moments when someone realizes the group assumed a different budget. Make it about the shock, not the math.
+
+Date Clash (current):
+> "How about June 12-15?" / "Can't. Cousin's wedding." / "July 4th weekend?" / "Flights are insane then 😭"
+
+Date Clash (revised):
+> "June works for me!" / "Let me check with work" / "..." / "...so is this still happening?"
+
+**Why:** "Let me check with work" is THE phrase the research identified as the beginning of the end. Everyone recognizes it. And "so is this still happening?" is the desperate last message before a trip officially dies. This sequence tells the whole five-stage arc in four messages.
+
+Indecision (current):
+> "So where are we going?" / "Idk you pick 🤷‍♂️" / "I picked last time!"
+
+Indecision (revised):
+> "I'm down for whatever" / "Same, you guys decide" / "..." / "So no one's deciding??"
+
+**Why:** "I'm down for whatever" is sarcastic code for "will contribute nothing" — the research showed this phrase is universally mocked. "Same, you guys decide" is the exact echo that kills momentum. The silence followed by the exasperated question mirrors the real pattern.
+
+Logistics Fail (keep mostly as-is — it's already strong):
+> "Did anyone book the train?" / "..." / "I thought Mike was doing it 💀"
+
+This already uses the exact research pattern: assumption → silence → blame. The skull emoji is perfect Gen Z punctuation. Keep it.
+
+**Animated chat — minor tweaks:**
+
+Change Sarah's message from "guys we NEED to plan this Barcelona trip" to:
+> "ok so are we actually doing Barcelona or not"
+
+**Why:** The research shows the *re-ask* is more emotionally charged than the initial pitch. The trip has already been discussed and stalled. Sarah isn't proposing — she's frustrated and trying to revive a dead conversation. This is the Stage 3 moment (silence → desperate check-in).
+
+Change the final "..." to hold for a beat longer before the SideQuest prompt appears. The silence IS the emotional climax. Let it breathe.
+
+---
+
+## SECTION 4: FEATURES
+
+### What's there now
+- Headline: "From chaos to consensus"
+- Subheadline: "Three tools that replace 200 unread messages."
+- Feature 1: Swipe & Vote
+- Feature 2: Budget Lock
+- Feature 3: Squad Itinerary
+
+### What the research says
+- "200 unread messages" is already a phrase that appears verbatim in the research — great instinct
+- The #1 feature request was commitment mechanisms with deadlines (not currently shown)
+- The #2 request was democratic decision-making (you have this — Swipe & Vote)
+- The #3 was budget transparency before committing (you have this — Budget Lock)
+- The #4 was centralized hub replacing 4-7 apps (partially addressed)
+- The #5 was distribution of planning labor (you have this — Squad Itinerary)
+- Feature names feel slightly over-branded ("Squad Itinerary") — the research shows people describe these needs in plain language
+
+### Changes
+
+**Headline — keep.** "From chaos to consensus" is clean and accurate.
+
+**Subheadline — already strong but could be even more specific:**
+> "Three features that replace the Google Doc nobody opens, the poll with zero overlap, and the friend doing all the work."
+
+**Why:** The research surfaced these three objects (the abandoned Google Doc, the useless Doodle poll, the exhausted planner friend) as universally recognized symbols of group trip failure. Naming them directly triggers instant recognition.
+
+**Feature 1: Swipe & Vote — adjust body copy:**
+
+Current: "No more 'I'm down if you are.' Everyone swipes on destinations and activities independently. SideQuest finds what your group actually agrees on — no awkward standoffs."
+
+Revised:
+> "Everyone swipes on destinations and activities on their own — no awkward standoffs, no 'I'm down for whatever' from the friend who never decides. SideQuest surfaces what your group actually agrees on."
+
+**Why:** Swap "I'm down if you are" (used in hero) for "I'm down for whatever" (different phrase, same energy, avoids repetition). "The friend who never decides" names the archetype directly — the research showed people instantly picture someone specific when they hear this.
+
+**Feature 2: Budget Lock — adjust body copy:**
+
+Current: "Set a group budget everyone's comfortable with before anyone books anything. Real-time expense tracking and automatic splits so nobody's chasing Venmo requests three months later."
+
+Revised:
+> "Everyone sees real costs before anyone commits — no sticker shock, no one going quiet when prices come up. Set a budget your whole group is comfortable with, and automatic splits mean nobody's chasing passive-aggressive Venmo requests three months later."
+
+**Why:** "Going quiet when prices come up" is exactly how the research describes the budget ghost — the friend who disappears when money gets real. "Passive-aggressive Venmo requests" is a phrase with deep cultural resonance (the research identified it as cultural shorthand for post-trip money awkwardness). "Sticker shock" names the exact moment trips die.
+
+**Feature 3: Squad Itinerary — adjust body copy:**
+
+Current: "Build a shared itinerary everyone can see and edit. Drag, drop, remix. No more one person doing all the work while everyone else says 'whatever you think.'"
+
+Revised:
+> "One shared plan everyone can see, edit, and actually contribute to. No more one person sending 47 unanswered messages while everyone else is just 'vibing.' If you added it, your name's on it."
+
+**Why:** "47 unanswered messages" is more specific and painful than "doing all the work." "Vibing" is the exact Gen Z term for contributing nothing while appearing chill. "Your name's on it" addresses the accountability gap — the research showed planner burnout comes from invisible labor.
+
+**Bottom link — rewrite:**
+
+Current: "See all features — Trip Randomizer, Budget Settlement, Gamification & more →"
+
+Revised:
+> "Plus: deadline locks so nobody flakes, a trip randomizer for when you're stuck, and a few surprises →"
+
+**Why:** "Deadline locks so nobody flakes" directly addresses the #1 feature request from the research (commitment mechanisms). "Flakes" is the exact word they use. "Gamification" means nothing to a consumer — hide it behind the experience.
+
+---
+
+## SECTION 5: COMPARISON
+
+### What's there now
+- Headline: "The perfect companion to your group chat"
+- Two columns comparing group chat planning vs SideQuest
+
+### What the research says
+- The audit flagged that "The perfect companion to your group chat" softens the problem framing — it positions SideQuest as a supplement rather than a replacement
+- The comparison items are already strong, especially "Venmo requests 3 months later"
+- The research shows people don't want a "companion" to their group chat — they want to escape it
+
+### Changes
+
+**Headline rewrite:**
+> "Your group chat wasn't built for this"
+
+**Why:** More confrontational, positions the group chat as the problem (which it is in every piece of research). "Companion" implies coexistence; the reality is that SideQuest replaces the planning function entirely.
+
+**Comparison items — minor sharpening:**
+
+Left column header: Change "Planning in group chats" → "The group chat way"
+Right column header: Change "Planning with SideQuest" → "The SideQuest way"
+
+Left column adjustments:
+- Keep "Links get lost in 200 unread messages" ✓
+- Change "'I'm down if you are' — nobody decides" → "Everyone's 'down' but nobody actually books" (more specific to the commitment gap)
+- Change "Budget fights that kill the vibe" → "Someone finds out the Airbnb costs way more than they expected" (specific > abstract)
+- Keep "One person does all the work" ✓
+- Keep "Venmo requests 3 months later" ✓
+
+Right column adjustments:
+- Keep all current items — they're solid
+- Change "Smart budget matching for your group" → "Everyone sees costs and agrees before anyone books" (plain language > branded feature name)
+
+---
+
+## SECTION 6: CITIES
+
+### What's there now
+- Headline: "Where we're starting"
+- Subheadline: "We're curating hidden gems in these cities first. More coming based on where you're headed."
+- Cities: Barcelona, London, Paris, Rome, Tokyo, Ann Arbor (HQ)
+
+### What the research says
+- 80%+ of Gen Z use "hidden gems" when describing travel preferences
+- 63% prefer "off the beaten path" destinations (Expedia, 25K respondents)
+- 90% want to "experience life like locals do" (GetYourGuide)
+- 84% would choose a "destination dupe" over the popular original (Contiki)
+- "Like a local" and "things tourists don't know about" are the trust signals
+- The audit noted this section doesn't explain what SideQuest does differently in these cities
+
+### Changes
+
+**Headline — keep.** Clean and honest.
+
+**Subheadline rewrite:**
+> "Local picks, hidden spots, and the things your guidebook won't tell you — curated by people who actually live there. More cities coming based on where you're headed."
+
+**Why:** "Curated by people who actually live there" is the trust signal. The research showed Gen Z's anti-tourist identity means they want to know the *source* of recommendations. "Guidebook won't tell you" > "hidden gems" because it's more specific and implies exclusive access.
+
+**City cards — add a one-line teaser to each:**
+- Barcelona: "Beyond La Rambla"
+- London: "Beyond Big Ben"  
+- Paris: "Beyond the Eiffel Tower"
+- Rome: "Beyond the Colosseum"
+- Tokyo: "Beyond Shibuya Crossing"
+- Ann Arbor: "Home Base 🏠"
+
+**Why:** The "Beyond [famous tourist trap]" framing instantly communicates the anti-tourist positioning. It tells visitors: we know you don't want the basic experience. Every Gen Z traveler has seen these landmarks on Instagram a thousand times — positioning past them signals you understand what they actually want.
+
+---
+
+## NEW SECTION (ADD): CHARACTER ARCHETYPES — between Problem and Features
+
+### What the research says
+- The research surfaced 4 universally recognized character types in group travel planning
+- TikTok's most viral group travel content uses the split-screen archetype format (660K+ likes)
+- People will screenshot this section and send it to their group chats — this is your viral loop
+- Bustle literally framed a whole article around "Are you the Planner Friend or the Venmo Friend?"
+
+### What to add
+
+**Eyebrow:** "Every group has them"
+**Headline:** "Which one are you?"
+
+**4 character cards:**
+
+**The Planner 📋**
+> Creates the Google Doc. Sends the When2Meet. Does all the research. Gets zero credit. One more "let me check with work" away from going solo.
+> *SideQuest takes this off your plate.*
+
+**The Flaker 👻**
+> Responds with fire emojis but never books. Classic lines: "Maybe," "I'll see," "I'm down if you are." Exciting energy. Zero follow-through.
+> *SideQuest sets deadlines so there's nowhere to hide.*
+
+**The Viber 🏝️**
+> "I'm down for whatever." "You guys decide." Shows up at the airport with no idea what's happening. Fun to travel with. Impossible to plan with.
+> *SideQuest lets them vote without having to organize anything.*
+
+**The Budget Ghost 💸**
+> Goes suspiciously quiet when costs come up. Hasn't said no, but hasn't said yes either. Might be broke. Might just be avoiding the conversation.
+> *SideQuest shows costs upfront so nobody has to guess.*
+
+**Why this section matters:** This is potentially the highest-engagement section on the entire page. People will immediately identify themselves and their friends. It's funny, shareable, and secretly maps each archetype to a SideQuest feature. The punchlines ("SideQuest takes this off your plate") do double duty as feature selling and emotional relief.
+
+---
+
+## SECTION 7: FAQ
+
+### What's there now
+8 Q&As covering differentiation, pricing, AI, group requirements, etc.
+
+### What the research says
+- The #1 hesitation is "why try again" (flake fatigue — they've been burned by failed planning before)
+- Budget anxiety is real: 24% feel pressured to take trips they can't afford
+- The "I'll just go solo" escape hatch is a growing trend (75% of Gen Z planned a solo trip in 2024)
+- The AI question (Q4) appears nowhere else on the page — it's introduced and buried
+
+### Changes
+
+**Q1 (keep, it's strong):** "Why SideQuest? What makes it different?" — current answer is solid.
+
+**Q2 (rewrite to address flake fatigue directly):**
+
+Q: "What if my friends always flake?"
+A: "That's literally why we built this. SideQuest has voting deadlines, budget locks, and shared itineraries that make it harder for anyone to quietly back out. When everyone can see who's voted, who's committed, and what it costs — the 'let me check with work' excuse loses its power. We can't fix your flaky friend, but we can make it really obvious when they're flaking."
+
+**Why:** This replaces the current Q2 ("Isn't this just another travel booking app?") which is important but less emotionally resonant. Move the booking clarification into Q1's answer instead. The flake question is the #1 emotional objection — they've been hurt before and need to believe this time will be different.
+
+**Q3 (keep, sharpen slightly):**
+
+Q: "Why not just use a spreadsheet or group chat?"
+A: Keep current answer but add at the end: "Plus, be honest — when's the last time everyone actually opened the Google Doc?"
+
+**Q4 (rewrite — AI is currently introduced out of nowhere):**
+
+Either remove Q4 entirely (AI isn't shown in any feature section, so it feels disconnected), OR rewrite:
+
+Q: "Is there AI involved?"
+A: "Yes, but not in a gimmicky way. SideQuest uses AI to surface hidden gems and local recommendations you won't find on the first page of Google. Think of it as a local friend who knows every city — not a chatbot that plans your trip for you."
+
+**Q5 (keep as-is):** "Does everyone in the group need the app?" — solid answer.
+
+**Q6 (rewrite for specificity):**
+
+Q: "Is SideQuest free?"
+A: "The beta is free. After that, we're planning a low monthly price — think less than one overpriced tourist trap coffee. Early waitlist members will lock in the lowest price permanently."
+
+**Why:** "Exclusive founding pricing" is vague and creates anxiety. A relatable anchor ("less than one overpriced tourist trap coffee") gives a ballpark without committing to a number and uses humor that fits the voice.
+
+**Q7 (keep as-is):** "Who's building SideQuest?" — the Michigan student story is authentic and effective.
+
+**Q8 (keep as-is):** "When is the beta launching?" — fine for now.
+
+**Add Q9:**
+
+Q: "Why not just go solo?"
+A: "Solo travel is amazing — seriously. But if you've got a group of friends you actually want to travel with, the problem isn't the people. It's that group chats are terrible planning tools. SideQuest doesn't replace solo travel — it makes group travel actually possible so you don't have to choose."
+
+**Why:** 75% of Gen Z planned a solo trip recently. The "I'll just go solo" escape is the biggest competitor to your product — not another app, but giving up on the group entirely. Acknowledge it, validate it, then redirect.
+
+---
+
+## SECTION 8: WAITLIST
+
+### What's there now
+- Headline: "Get Early Beta Access"
+- Subheadline: "Join the waitlist — tell us a bit about your next trip to prioritize your spot."
+- Form: email, university, destination, travel timing
+- Post-signup: referral link, "move you both up the list"
+
+### What the research says
+- Spring break is the #1 seasonal pain point — group travel FOMO peaks here
+- The referral mechanic is smart because group travel inherently requires friends to also sign up
+- "Prioritize your spot" creates urgency but no hard deadline backs it up
+- The research showed the most effective commitment trigger is when one person acts first and creates social pressure for others to follow
+
+### Changes
+
+**Headline rewrite:**
+> "Don't let another trip die in the chat."
+
+**Why:** Ties back to the core emotional thread of the entire page. "Get Early Beta Access" is feature-language. "Don't let another trip die" is emotional language. The word "another" implies they've already experienced this loss — which they have.
+
+**Subheadline rewrite:**
+> "Join the waitlist. Then send it to the group chat — you're gonna need them on here anyway."
+
+**Why:** This does two things: (1) converts the visitor, (2) immediately primes the referral loop by framing it as a social necessity, not a favor. "You're gonna need them on here anyway" mirrors how they actually talk and acknowledges the group dynamic.
+
+**Post-signup copy — keep the current structure, it's well-designed.** The referral mechanic and "move you both up the list" gamification is smart.
+
+**Add one line after the referral section:**
+> "Spring break plans are dying in group chats right now. Don't let yours be next."
+
+**Why:** Seasonal urgency + emotional callback to the core thesis. Works as a final nudge for sharing.
+
+---
+
+## SECTION 9: FOOTER
+
+### What's there now
+- Tagline: "So the trip doesn't die in the groupchat."
+
+### Changes
+**Keep this exactly as-is.** The audit identified this as the strongest single line on the page. It should arguably be the hero headline, but having it bookend the page creates a clean narrative loop.
+
+---
+
+## META / SEO
+
+### Current
+- Title: "SideQuest - The Next Gen Travel App"
+- Description: "SideQuest takes trip planning out of the group chat."
+
+### Changes
+
+**Title:** "SideQuest — So the Trip Doesn't Die in the Group Chat"
+
+**Meta description:** "Your group chat has planned 47 trips and been on zero. SideQuest helps friend groups actually go somewhere — with voting, budget alignment, and hidden gems. Join the waitlist."
+
+**OG title:** "SideQuest — Group Travel That Actually Happens"
+
+**Twitter description:** "Stop watching trips die in the group chat. Vote on where to go, lock a budget everyone agrees on, and actually book it."
+
+**Why:** "Next Gen Travel App" is meaningless. The meta copy should use the exact language people search for: "group travel," "trip planning with friends," "group chat." The specificity of "47 trips and been on zero" is more click-worthy than any generic tagline.
+
+---
+
+## GLOBAL VOICE RULES
+
+Based on the research, these rules should apply across every piece of copy on the page:
+
+1. **Use "gc" and "group chat" interchangeably.** Your audience says both.
+2. **Write like you're texting, not marketing.** Short sentences. Fragments are fine. Emojis are punctuation, not decoration.
+3. **Name the archetypes.** "The friend who..." is more powerful than abstract descriptions of problems.
+4. **Use their exact phrases.** "I'm down for whatever." "Let me check with work." "I thought [name] was doing it." These are cultural passwords.
+5. **The tone is sarcastic-but-hopeful.** They expect trips to fail. You're the reason this one won't. Don't be earnest — be knowing.
+6. **Never say "streamline," "consolidate," "all-in-one," "seamless," or "leverage."** These are B2B words. Your audience says "just works," "actually happens," "doesn't suck."
+7. **Specificity > abstraction.** "$200/night Airbnb" hits harder than "budget conflicts." "47 unanswered messages" hits harder than "communication challenges."
+8. **The group chat is the villain.** Not your friends. Not travel. The group chat is where good ideas go to die. SideQuest is the exit.
+
+---
+
+## PRIORITY ORDER FOR IMPLEMENTATION
+
+1. **Hero headline + subheadline** (biggest first impression impact)
+2. **New archetype section** (highest viral/shareability potential)  
+3. **Problem section card copy** (sharpen with verbatim phrases)
+4. **Features body copy** (swap in research language)
+5. **Comparison headline + items** (quick win)
+6. **Waitlist headline + subheadline** (conversion impact)
+7. **FAQ rewrites** (objection handling)
+8. **Cities teasers** (small but meaningful)
+9. **Meta/SEO tags** (background improvement)
+10. **Social proof ticker** (lowest priority, smallest impact)
