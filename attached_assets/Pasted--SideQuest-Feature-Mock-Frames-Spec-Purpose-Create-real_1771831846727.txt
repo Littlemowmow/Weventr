@@ -1,0 +1,209 @@
+# SideQuest — Feature Mock Frames Spec
+
+**Purpose:** Create realistic iOS mock frames for each core feature to use on the landing page, pitch deck (MH presentation, ZFellows), and App Store preview. Based on existing iOS UI designs from the Lovable spec but refined for native iOS aesthetic.
+
+**Design Rules:**
+- Use existing SideQuest design system (colors, typography, shadows from DesignTokens.swift)
+- Light mode with sage/white card aesthetic (current redesign direction)
+- Standard iOS patterns: SF Pro font, native navigation bars, tab bars, sheets
+- 393x852px frames (iPhone 15 Pro dimensions)
+- No dark mode for these mocks — light mode only to match landing page
+- Real-looking data, not Lorem ipsum — use actual city names, realistic prices, real-sounding usernames
+
+---
+
+## Mock Frame 1: Swipe & Vote
+**Screen: Discovery View — Group Vote Mode**
+
+Layout:
+- iOS native nav bar: "Barcelona Trip" title, group avatars (3-4 small circles) right-aligned
+- Large swipe card (fills ~70% of screen): Photo of a real Barcelona location (e.g., Bunkers del Carmel), overlaid with:
+  - "SideQuest" badge (sunset gradient, top-left)
+  - Activity name: "Bunkers del Carmel" (24pt bold, white, bottom)
+  - Location: "Gràcia, Barcelona" with MapPin icon
+  - Info chips: "Viewpoint" · "Free" · "1-2 hrs"
+- Below card: Vote indicator showing "3/4 voted" with small avatar dots (2 green checks, 1 red X, 1 gray pending)
+- Bottom action bar: X (skip), Heart (like), Star (super like) — standard circular buttons
+- Tab bar at bottom: Discover (active), Feed, Trip, Profile
+
+**Key detail:** The vote indicator is the differentiator. Show that this isn't solo swiping — the group is deciding together in real-time.
+
+---
+
+## Mock Frame 2: Budget Lock
+**Screen: Trip View — Budget Alignment Panel**
+
+Layout:
+- iOS nav bar: "Spring Break Barcelona" title
+- Budget summary card (white card, rounded corners, sage background):
+  - "Group Budget" header
+  - Large number: "$2,400" with "for 4 people" subtitle
+  - Per-person breakdown: "$600/person"
+  - Progress bar showing spend: 40% allocated (green), 60% remaining (gray)
+- Below: Category breakdown list (white cards):
+  - ✈️ Flights: $800 (locked ✓)
+  - 🏨 Accommodation: $640 (locked ✓)  
+  - 🍽️ Food & Drinks: $520 (estimated)
+  - 🎯 Activities: $320 (estimated)
+  - 💰 Buffer: $120
+- Each row has the amount right-aligned, with a lock icon for confirmed items
+- Bottom: "Everyone agreed to this budget" with 4 green checkmarks next to member avatars
+
+**Key detail:** Show the "locked" state — this is proactive budget agreement BEFORE anyone books, not reactive splitting after.
+
+---
+
+## Mock Frame 3: Squad Itinerary
+**Screen: Trip View — Generated Itinerary Timeline**
+
+Layout:
+- iOS nav bar: "Day 2 — Barcelona" with day selector pills (Day 1, Day 2, Day 3) below
+- Timeline layout with time markers on left edge:
+  - **9:00 AM** — "Breakfast at La Boqueria" (card with small food photo, "Local Pick" badge, "$" price)
+  - **11:00 AM** — "Park Güell" (card with photo, "Tourist Essential" badge, "$$")
+  - **2:00 PM** — "Bunkers del Carmel" (card with photo, "SideQuest" badge, "Free")
+  - **5:00 PM** — "Gothic Quarter Walk" (card with photo, "Local Pick" badge, "Free")
+  - **8:00 PM** — "Dinner at Can Paixano" (card with photo, "Local Pick" badge, "$")
+- Each card: small photo (60x60 rounded), activity name, location subtitle, badge, estimated time
+- Connecting line between timeline dots (teal color)
+- Bottom floating button: "Remix This Day" with sparkle icon
+
+**Key detail:** Mix of all three content types (Local Pick, SideQuest, Tourist Essential) showing curation quality.
+
+---
+
+## Mock Frame 4: Group Chat → Trip Creation
+**Screen: New Trip Setup — "Get Out the GC" Flow**
+
+Layout:
+- Step indicator at top: Step 1 of 4 (dot progress)
+- Header: "Who's coming?"
+- Subheader: "Add your squad"
+- Member cards (white, rounded):
+  - You (owner) — avatar + name + "Organizer" tag
+  - Sarah M. — avatar + name + green "Joined" status
+  - Jake R. — avatar + name + yellow "Invited" status  
+  - + Add member button (dashed border circle)
+- Below: Invite code display: `BARCE-7X9K` with copy button
+- Share options row: iMessage, WhatsApp, Copy Link icons
+- Bottom: "Next: Pick Your Destination →" primary button (teal)
+
+**Key detail:** Show the transition from group chat energy to structured trip — the invite code is the bridge.
+
+---
+
+## Mock Frame 5: Trip Randomizer (Quiz)
+**Screen: Trip Randomizer — Quiz Question**
+
+Layout:
+- Fun header: "🎲 Trip Roulette" with playful subtitle "Answer 5 questions. We pick your adventure."
+- Progress: Question 3 of 5 (progress bar, teal fill)
+- Question card (large, centered):
+  - "What's your group's energy level?"
+  - Four option cards (tap to select, one highlighted with teal border):
+    - 🧘 "Beach & chill" 
+    - 🚶 "City exploring"
+    - ⛰️ "Adventure mode"
+    - 🎉 "Full send"
+- "Adventure mode" is selected (teal border glow, checkmark)
+- Bottom: "Next →" button
+
+**Second frame (result screen):**
+- Confetti/sparkle animation implied
+- "Your Trip: Lisbon, Portugal 🇵🇹"
+- Trip card showing: 5 days, estimated $1,800 for 4 people
+- Key activities preview (3 small cards)
+- Two buttons: "Let's Go!" (primary) and "Spin Again" (secondary/outline)
+
+---
+
+## Mock Frame 6: Budget Settlement
+**Screen: Trip View — Post-Trip Settlement**
+
+Layout:
+- Header: "Trip Complete! 🎉" 
+- Subheader: "Here's who owes what"
+- Total spent card: "$2,247 total" with "Budget: $2,400 — Under budget! 🎯"
+- Settlement cards (who owes whom):
+  - Jake owes Sarah: $47.50 → "Settle" button
+  - You owe Jake: $23.00 → "Settle" button  
+  - Sarah owes You: $12.25 → "Request" button
+- Each card: two avatars with arrow between, amount, action button
+- Below: Detailed breakdown expandable section showing per-category actual vs estimated
+- Note at bottom: "Settlements powered by SideQuest+" with subtle upsell
+
+---
+
+## Mock Frame 7: SideQuest vs SideQuest+ Comparison
+**Screen: Settings or Paywall — Plan Comparison**
+
+Layout:
+- Header: "Unlock the Full Adventure"
+- Two cards side by side (or stacked on mobile):
+
+**SideQuest (Free):**
+- ✓ Groups up to 3 people
+- ✓ Swipe & discover activities
+- ✓ Basic itinerary builder
+- ✓ Budget breakdowns (view only)
+- ✓ 1 active trip at a time
+- Current plan indicator
+
+**SideQuest+ ($X/mo or per-trip):**
+- ✓ Everything in Free
+- ✓ Unlimited group size
+- ✓ AI schedule optimization
+- ✓ Budget settlements & splitting
+- ✓ Booking assistance
+- ✓ Unlimited active trips
+- ✓ Trip Randomizer
+- ✓ Priority SideQuest access
+- "Upgrade" button (sunset gradient)
+
+- Bottom: "First trip on SideQuest+ is free" promotional badge
+
+**Note:** This is for internal/pitch reference. Don't finalize pricing — we're pre-launch.
+
+---
+
+## Mock Frame 8: Profile & Gamification
+**Screen: Profile View**
+
+Layout:
+- Hero header with gradient (teal → forest) and user avatar (large, centered)
+- Name: "Hadi M." with rank badge: "🥇 Gold Explorer"
+- XP bar: 2,450 / 5,000 XP to Platinum
+- Stats row (3 columns): "4 Trips" · "12 SideQuests" · "3 Countries"
+- Country stamps section: small flag icons for visited countries (🇪🇸 🇫🇷 🇬🇧)
+- Badges earned: grid of small badge icons (Early Adopter, Budget King, Group Leader, etc.)
+- Recent activity list: "Completed Barcelona Trip +100 XP" etc.
+
+---
+
+## Build Instructions
+
+For each frame, create a static image (Figma, or code-generated via SwiftUI snapshot) that:
+
+1. Uses iPhone 15 Pro frame/bezel (can use a device mockup template)
+2. Shows the iOS status bar (time, signal, battery)
+3. Uses the SideQuest tab bar at bottom
+4. Contains realistic data — real city names, plausible prices, actual-looking content
+5. Follows iOS Human Interface Guidelines for spacing, touch targets, typography
+6. Uses the current SideQuest color palette (sage backgrounds, white cards, teal accents)
+
+**Output format:** High-res PNG at 2x (786x1704px) for each frame, plus versions placed inside device mockups for landing page use.
+
+---
+
+## Where These Get Used
+
+| Frame | Landing Page Section | Pitch Use |
+|-------|---------------------|-----------|
+| Swipe & Vote | Features section (replace current mockup) | Core feature demo |
+| Budget Lock | Features section (replace current mockup) | "Budget alignment" slide |
+| Squad Itinerary | Features section (replace current mockup) | "Itinerary" slide |
+| Group Chat → Trip | Problem section or new section | "Get out the GC" narrative |
+| Trip Randomizer | Could add as feature preview | Fun/viral feature for pitch |
+| Budget Settlement | SideQuest+ preview section | Monetization slide |
+| Plan Comparison | Not on landing page | Monetization/pricing slide |
+| Profile & Gamification | Could add as feature preview | Engagement/retention slide |
