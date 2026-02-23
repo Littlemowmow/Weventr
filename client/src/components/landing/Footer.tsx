@@ -1,4 +1,5 @@
 import { Logo } from "@/components/ui/logo";
+import { Link } from "wouter";
 
 export function Footer() {
   const scrollToSection = (id: string) => {

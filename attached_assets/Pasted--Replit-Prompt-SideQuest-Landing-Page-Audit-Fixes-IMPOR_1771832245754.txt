@@ -1,0 +1,219 @@
+# Replit Prompt: SideQuest Landing Page — Audit Fixes
+
+**IMPORTANT: Do NOT change the design, layout, colors, fonts, spacing, or visual appearance of anything on the page. Every change below is under-the-hood infrastructure, meta tags, or minor text swaps. The page should look identical before and after.**
+
+**Already done (skip these):**
+- Waitlist form submit button — already says "Claim Your Spot"
+- Hero CTA button — already says "Claim Your Spot"
+- Mobile menu CTA — already says "Claim Your Spot"
+- Referral `ref` param capture — already implemented in WaitlistSection useEffect
+
+---
+
+## 14 Items to Implement
+
+### 1. Fix `og:image` to absolute URL
+Currently uses relative `/images/hero-bamboo.png`.
+Change to: `content="https://sidequest.app/images/hero-bamboo.png"`
+
+### 2. Add `og:url` meta tag
+Missing entirely. Add to `<head>`:
+`<meta property="og:url" content="https://sidequest.app/" />`
+
+### 3. Add `apple-touch-icon` link
+Missing, and `apple-touch-icon.png` doesn't exist in `client/public/` yet. Just add the link tag referencing the path — the image file will be added later:
+`<link rel="apple-touch-icon" href="/apple-touch-icon.png" />`
+
+### 4. Add `apple-mobile-web-app-capable`
+Missing. Add to `<head>`:
+`<meta name="apple-mobile-web-app-capable" content="yes" />`
+
+### 5. Add JSON-LD structured data (SoftwareApplication + FAQPage)
+Missing. FAQ content already exists in `FAQSection.tsx` (8 Q&As) — pull the actual questions and answers from there to populate the FAQPage schema. Add both blocks before closing `</head>`:
+
+**SoftwareApplication:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SideQuest",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "iOS",
+  "description": "Group trip planning app that turns group chat chaos into actual trips. Swipe, vote, and plan with friends.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "SideQuest",
+    "url": "https://sidequest.app"
+  }
+}
+</script>
+```
+
+**FAQPage:** Populate from the 8 Q&As in `FAQSection.tsx`. Match the questions and answers exactly.
+
+### 6. Desktop nav CTA text change
+Desktop nav says "Get Early Access" (line 84). Change to "Claim Your Spot" to match hero, mobile menu, and waitlist form. Same action (scroll to #waitlist).
+
+### 7. Add GTM container (placeholder ID)
+Nothing exists currently. Add the GTM snippet:
+
+**In `<head>` (as high as possible):**
+```html
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+<!-- REPLACE GTM-XXXXXXX WITH ACTUAL GTM ID -->
+```
+
+**Immediately after `<body>`:**
+```html
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager -->
+```
+
+### 8. UTM + click ID capture on page load
+Currently only `ref` param is captured. On page mount, capture these additional URL params and store them in sessionStorage:
+
+```javascript
+function getCapturedParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_content: params.get('utm_content') || '',
+    utm_term: params.get('utm_term') || '',
+    gclid: params.get('gclid') || '',
+    fbclid: params.get('fbclid') || '',
+    ttclid: params.get('ttclid') || '',
+    msclkid: params.get('msclkid') || ''
+  };
+}
+
+sessionStorage.setItem('sq_attribution', JSON.stringify(getCapturedParams()));
+```
+
+Add this alongside the existing `ref` param capture logic in WaitlistSection or at a higher level so it runs on page load.
+
+### 9. Pass attribution data with form POST
+Form payload currently doesn't include attribution. On waitlist form submission, pull the stored attribution from sessionStorage and merge it into the POST body:
+
+```javascript
+const attribution = JSON.parse(sessionStorage.getItem('sq_attribution') || '{}');
+
+const payload = {
+  email: formEmail,
+  name: formName,
+  university: formUniversity,
+  // ...existing fields
+  ...attribution
+};
+```
+
+No visible form fields — all captured automatically from the URL.
+
+### 10. dataLayer event pushes (signup + referral copy)
+No dataLayer usage currently exists anywhere.
+
+**On successful waitlist signup (in the success handler after POST returns 200 or 409):**
+```javascript
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'generate_lead',
+  method: 'waitlist_signup',
+  email_provided: true
+});
+```
+
+**On referral link copy (when user clicks the copy button):**
+```javascript
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'share',
+  method: 'referral_link_copy'
+});
+```
+
+### 11. Create `robots.txt`
+Missing. Create at `client/public/robots.txt`:
+```
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://sidequest.app/sitemap.xml
+```
+
+### 12. Create `sitemap.xml`
+Missing. Create at `client/public/sitemap.xml`:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sidequest.app/</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+### 13. Add waitlist count display near form
+No count display currently exists, but the server already has a `GET /api/waitlist/count` endpoint. Wire it up:
+
+1. On page load, call `GET /api/waitlist/count` to get the current count
+2. Display it near the waitlist form as: **"Join X+ students on the waitlist"** or similar
+3. Style it to match existing text styles nearby — same font, similar size, existing colors. No new visual elements.
+4. After a successful signup, increment the displayed count by 1
+
+Use the real API endpoint, not a hardcoded number.
+
+### 14. Update footer Privacy/Terms links
+Currently `<span>` elements with `cursor-default`. Change them to actual links:
+- Privacy Policy → `<a href="/privacy">`
+- Terms of Service → `<a href="/terms">`
+
+Don't create the actual pages — just update the elements to be proper links ready for when the pages are added.
+
+---
+
+## Summary
+
+| # | Change | Touches Design? |
+|---|--------|----------------|
+| 1 | Fix og:image to absolute URL | No |
+| 2 | Add og:url meta tag | No |
+| 3 | Add apple-touch-icon link (image file added later) | No |
+| 4 | Add apple-mobile-web-app-capable | No |
+| 5 | Add JSON-LD structured data from existing FAQ content | No |
+| 6 | Desktop nav CTA "Get Early Access" → "Claim Your Spot" | Text only |
+| 7 | Add GTM container (placeholder GTM-XXXXXXX) | No |
+| 8 | UTM + click ID capture alongside existing ref capture | No |
+| 9 | Merge attribution data into form POST payload | No |
+| 10 | dataLayer pushes on signup + referral copy | No |
+| 11 | Create robots.txt in client/public/ | No |
+| 12 | Create sitemap.xml in client/public/ | No |
+| 13 | Waitlist count via existing /api/waitlist/count endpoint | Minimal — existing styles |
+| 14 | Footer spans → anchor tags for /privacy and /terms | No |
+
+**Do NOT:**
+- Change colors, fonts, spacing, shadows, gradients, or layout
+- Move, resize, or restyle any existing sections
+- Add new visual sections or components
+- Modify the hero, problem section, features, comparison, FAQ, demo, or any other content
+- Add a cookie consent banner (handled separately)
+- Add pixel code for Meta/TikTok directly (goes through GTM)
+
+Proceed with all 14 items.

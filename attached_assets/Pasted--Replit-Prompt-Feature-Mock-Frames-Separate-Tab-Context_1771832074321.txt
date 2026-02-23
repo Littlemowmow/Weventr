@@ -1,0 +1,49 @@
+# Replit Prompt: Feature Mock Frames (Separate Tab)
+
+**Context:** The landing page already has phone mockups showing app screens in the Features section (Swipe & Vote, Budget Lock, Squad Itinerary) and in the interactive demo. I need NEW mock frames for additional features. These go in a **separate page/tab** — do NOT replace or remove any existing mockups or designs on the landing page.
+
+**Design approach:** Match the exact same style, colors, phone frame treatment, and visual language already used in the existing mockups on the landing page. Don't introduce new design patterns — just extend what's already there.
+
+---
+
+## Create mock frames for these features:
+
+### 1. Group Chat → Trip Creation ("Get Out the GC")
+Show the flow of going from a group chat to a structured trip:
+- Adding members / inviting friends
+- Invite code display with share options
+- The transition from chaos to organized trip setup
+
+### 2. Trip Randomizer / Quiz
+Two screens:
+- **Quiz screen:** Fun question like "What's your group's energy level?" with selectable options (beach & chill, city exploring, adventure mode, full send). Show a progress bar (question 3 of 5).
+- **Result screen:** Surprise destination reveal (e.g., "Your Trip: Lisbon, Portugal 🇵🇹") with trip preview card showing days, estimated cost for the group, and key activity previews. Two CTAs: "Let's Go!" and "Spin Again"
+
+### 3. Budget Settlement (Post-Trip)
+Show the end-of-trip settlement screen:
+- Total spent vs budget comparison
+- Who owes whom (member-to-member settlement cards with amounts)
+- Settle/Request action buttons
+- "Under budget!" or similar status indicator
+
+### 4. SideQuest vs SideQuest+ Comparison
+A plan comparison showing free vs premium tiers:
+- **Free:** Groups up to 3, swipe & discover, basic itinerary, budget breakdowns (view only), 1 active trip
+- **SideQuest+:** Unlimited group size, AI schedule optimization, budget settlements & splitting, booking assistance, unlimited trips, Trip Randomizer, priority access
+- Include "First trip on SideQuest+ is free" as a promo line
+
+### 5. Profile & Gamification
+Show a user profile with:
+- Avatar and username with adventure rank badge (e.g., "Gold Explorer")
+- XP progress bar
+- Stats row (trips, sidequests completed, countries)
+- Country stamp collection (flag icons)
+- Badges earned grid
+
+---
+
+## Requirements:
+- Use the SAME phone frame style, mockup treatment, and design language as the existing feature mockups on the current landing page
+- Use realistic data — real city names, plausible prices, actual-sounding usernames
+- These are for a **separate page or tab** (e.g., `/features` or a "See All Features" expandable section) — do NOT touch or replace anything on the current landing page
+- Each mock should be a self-contained phone screen that could also be pulled into a pitch deck or App Store screenshots later
