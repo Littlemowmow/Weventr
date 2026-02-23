@@ -1,15 +1,49 @@
 import { motion } from "framer-motion";
-import { Heart, X, Check, MapPin, DollarSign, Grip, Sparkles, ArrowRight } from "lucide-react";
+import { Heart, X, Check, MapPin, DollarSign, Grip, Sparkles, ArrowRight, Star } from "lucide-react";
 import { Link } from "wouter";
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="glass-card rounded-[2.5rem] p-2.5 w-full max-w-[280px] mx-auto">
-      <div className="bg-white/5 rounded-[2rem] overflow-hidden relative border border-white/5">
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 h-4 w-14 bg-black rounded-full z-20" />
-        <div className="pt-8 pb-6 px-4">
-          {children}
+    <div className="relative mx-auto" style={{ width: 272 }}>
+      {/* Outer shell */}
+      <div
+        className="relative rounded-[3rem] p-[3px]"
+        style={{
+          background: "linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.1)",
+        }}
+      >
+        {/* Side volume buttons */}
+        <div className="absolute -left-[4px] top-[88px] w-[4px] h-7 rounded-l-full" style={{ background: "rgba(255,255,255,0.08)" }} />
+        <div className="absolute -left-[4px] top-[124px] w-[4px] h-7 rounded-l-full" style={{ background: "rgba(255,255,255,0.08)" }} />
+        {/* Power button */}
+        <div className="absolute -right-[4px] top-[104px] w-[4px] h-10 rounded-r-full" style={{ background: "rgba(255,255,255,0.08)" }} />
+
+        {/* Screen */}
+        <div className="rounded-[2.7rem] overflow-hidden" style={{ background: "#0d0d0f" }}>
+          {/* Notch */}
+          <div className="flex justify-center pt-3 pb-2">
+            <div className="h-[18px] w-[80px] rounded-full" style={{ background: "#000", boxShadow: "0 0 0 1px rgba(255,255,255,0.05)" }} />
+          </div>
+          {/* Screen content */}
+          <div className="px-4 pb-6">
+            {children}
+          </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ScreenHeader({ label, subtitle }: { label: string; subtitle: string }) {
+  return (
+    <div className="flex items-center justify-between mb-4 pt-1">
+      <div>
+        <div className="text-white font-semibold text-sm leading-tight">{label}</div>
+        <div className="text-white/35 text-[11px] mt-0.5">{subtitle}</div>
+      </div>
+      <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <span className="text-white/40 text-[10px] font-bold">···</span>
       </div>
     </div>
   );
@@ -18,32 +52,85 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 function SwipeVoteMockup() {
   return (
     <PhoneFrame>
-      <div className="text-center mb-3">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Swipe to Vote</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; 5 members</div>
-      </div>
-      <div className="relative rounded-2xl overflow-hidden shadow-lg mb-4 aspect-[3/4] border border-white/10">
-        <img src="/images/hero-barcelona.jpg" loading="lazy" decoding="async" className="w-full h-full object-cover" alt="Barcelona beach" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3 text-white">
-          <div className="text-lg font-bold font-display">Barceloneta Beach</div>
-          <div className="flex items-center gap-2 text-xs opacity-70 mt-0.5">
-            <MapPin size={10} /> Beach &middot; Free
+      <ScreenHeader label="Vote on spots" subtitle="Barcelona · 5 members" />
+
+      <div className="relative rounded-2xl overflow-hidden mb-3 border border-white/8" style={{ aspectRatio: "3/4" }}>
+        <img
+          src="/images/hero-barcelona.jpg"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover"
+          alt="Barcelona beach"
+        />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} />
+
+        {/* Vote progress */}
+        <div className="absolute top-3 left-3 right-3 flex items-center gap-2">
+          <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.15)" }}>
+            <div className="h-full rounded-full" style={{ width: "50%", background: "rgba(255,255,255,0.7)" }} />
+          </div>
+          <div className="text-[10px] font-semibold text-white/70">4 of 8</div>
+        </div>
+
+        <div className="absolute bottom-3 left-3 right-3">
+          <div className="text-white font-bold text-base font-display leading-tight">Barceloneta Beach</div>
+          <div className="flex items-center gap-1.5 text-[11px] text-white/60 mt-1">
+            <MapPin size={9} />
+            <span>Beach</span>
+            <span className="text-white/30">·</span>
+            <span className="text-emerald-400 font-semibold">Free</span>
+          </div>
+          <div className="flex items-center gap-1 mt-1.5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={10} className={i < 4 ? "text-orange-400 fill-orange-400" : "text-white/20"} />
+            ))}
+            <span className="text-[10px] text-white/40 ml-1">4.2</span>
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-6 mb-3">
-        <div className="w-14 h-14 rounded-full bg-red-500/10 border-2 border-red-500/20 flex items-center justify-center text-red-400 shadow-sm hover:scale-110 transition-transform cursor-default">
-          <X size={24} />
-        </div>
-        <div className="w-14 h-14 rounded-full bg-emerald-500/10 border-2 border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm hover:scale-110 transition-transform cursor-default">
-          <Heart size={24} />
-        </div>
+
+      <div className="flex items-center justify-center gap-5 mb-3">
+        <button
+          className="flex items-center justify-center rounded-full transition-transform hover:scale-105"
+          style={{
+            width: 52, height: 52,
+            background: "rgba(239,68,68,0.1)",
+            border: "1.5px solid rgba(239,68,68,0.25)",
+          }}
+        >
+          <X size={22} className="text-red-400" strokeWidth={2.5} />
+        </button>
+        <button
+          className="flex items-center justify-center rounded-full transition-transform hover:scale-105"
+          style={{
+            width: 64, height: 64,
+            background: "rgba(249,115,22,0.12)",
+            border: "2px solid rgba(249,115,22,0.3)",
+            boxShadow: "0 0 20px rgba(249,115,22,0.15)",
+          }}
+        >
+          <Heart size={26} className="text-orange-400 fill-orange-400/30" strokeWidth={2} />
+        </button>
+        <button
+          className="flex items-center justify-center rounded-full transition-transform hover:scale-105"
+          style={{
+            width: 52, height: 52,
+            background: "rgba(239,68,68,0.1)",
+            border: "1.5px solid rgba(239,68,68,0.25)",
+          }}
+        >
+          <X size={22} className="text-red-400" strokeWidth={2.5} />
+        </button>
       </div>
-      <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2 text-center">
-        <div className="text-xs font-bold text-emerald-400 flex items-center justify-center gap-1.5">
-          <Check size={12} /> Group Match: 4/5 agreed
+
+      <div
+        className="rounded-xl px-3 py-2.5 flex items-center gap-2"
+        style={{ background: "rgba(52,211,153,0.08)", border: "1px solid rgba(52,211,153,0.2)" }}
+      >
+        <div className="w-4 h-4 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(52,211,153,0.2)" }}>
+          <Check size={10} className="text-emerald-400" strokeWidth={3} />
         </div>
+        <span className="text-emerald-400 text-[11px] font-semibold">4 out of 5 agreed on this spot</span>
       </div>
     </PhoneFrame>
   );
@@ -51,44 +138,69 @@ function SwipeVoteMockup() {
 
 function BudgetLockMockup() {
   const people = [
-    { name: "You", emoji: "😎", budget: "$500" },
-    { name: "Sarah", emoji: "👩", budget: "$400" },
-    { name: "Mike", emoji: "🧑", budget: "$350" },
-    { name: "Jess", emoji: "👧", budget: "$450" },
+    { name: "You", emoji: "😎", budget: "$500", pct: 100 },
+    { name: "Sarah", emoji: "👩", budget: "$400", pct: 80 },
+    { name: "Mike", emoji: "🧑", budget: "$350", pct: 70 },
+    { name: "Jess", emoji: "👧", budget: "$450", pct: 90 },
   ];
 
   return (
     <PhoneFrame>
-      <div className="text-center mb-4">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Budget Lock</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; 4 members</div>
+      <ScreenHeader label="Budget Lock" subtitle="Barcelona · 4 members" />
+
+      {/* Sweet spot card */}
+      <div
+        className="rounded-2xl p-4 mb-3"
+        style={{
+          background: "linear-gradient(135deg, rgba(249,115,22,0.12) 0%, rgba(245,158,11,0.06) 100%)",
+          border: "1px solid rgba(249,115,22,0.2)",
+        }}
+      >
+        <div className="flex items-center gap-1.5 mb-2">
+          <Sparkles size={10} className="text-orange-400" />
+          <span className="text-[9px] font-bold text-orange-400 uppercase tracking-widest">Group Sweet Spot</span>
+        </div>
+        <div className="flex items-end gap-2">
+          <div className="text-3xl font-bold font-display text-white leading-none">$350</div>
+          <div className="text-[11px] text-white/40 pb-0.5">per person</div>
+        </div>
+        <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+          <div className="h-full rounded-full" style={{ width: "70%", background: "linear-gradient(to right, #f97316, #f59e0b)" }} />
+        </div>
+        <div className="flex justify-between mt-1">
+          <span className="text-[9px] text-white/30">$0</span>
+          <span className="text-[9px] text-white/30">$500 max</span>
+        </div>
       </div>
-      <div className="space-y-2 mb-4">
-        {people.map((person, i) => (
-          <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-2.5 flex items-center gap-2.5">
-            <div className="text-base">{person.emoji}</div>
-            <div className="flex-1">
-              <div className="text-white text-xs font-bold">{person.name}</div>
+
+      {/* People rows */}
+      <div className="space-y-1.5 mb-3">
+        {people.map((p, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2.5 px-3 py-2 rounded-xl"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+          >
+            <span className="text-sm shrink-0">{p.emoji}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-white text-[12px] font-medium">{p.name}</div>
             </div>
-            <div className="text-white/70 font-bold text-sm">{person.budget}</div>
-            <Check size={12} className="text-emerald-400" />
+            <span className="text-white/60 text-[12px] font-semibold tabular-nums">{p.budget}</span>
+            <div className="w-4 h-4 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(52,211,153,0.15)" }}>
+              <Check size={9} className="text-emerald-400" strokeWidth={3} />
+            </div>
           </div>
         ))}
       </div>
-      <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/5 rounded-2xl p-3.5 mb-3 border border-orange-500/20">
-        <div className="flex items-center gap-1.5 mb-1">
-          <Sparkles size={10} className="text-orange-400" />
-          <div className="text-[9px] font-bold text-orange-400 uppercase tracking-widest">Group Sweet Spot</div>
-        </div>
-        <div className="text-2xl font-bold font-display text-white">$350</div>
-        <div className="text-xs text-white/40 mt-0.5">per person &middot; $1,400 total</div>
-      </div>
-      <div className="flex items-center justify-between bg-white/5 rounded-xl px-3 py-2.5 border border-white/10">
-        <div className="flex items-center gap-2">
-          <DollarSign size={14} className="text-emerald-400" />
-          <span className="text-xs font-medium text-white/50">Real-time splits</span>
-        </div>
-        <div className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">Live</div>
+
+      <div
+        className="flex items-center gap-2 px-3 py-2.5 rounded-xl"
+        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <DollarSign size={13} className="text-emerald-400 shrink-0" />
+        <span className="text-[11px] text-white/40 flex-1">Splits update in real-time</span>
+        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="text-[10px] font-bold text-emerald-400">Live</span>
       </div>
     </PhoneFrame>
   );
@@ -96,39 +208,63 @@ function BudgetLockMockup() {
 
 function SquadItineraryMockup() {
   const items = [
-    { time: "Morning", activity: "La Boqueria Market", icon: "🍊", addedBy: "Jess" },
-    { time: "Afternoon", activity: "Gothic Quarter Walk", icon: "🏛️", addedBy: "Marco" },
-    { time: "Evening", activity: "Sunset Viewpoint Hike", icon: "🌅", addedBy: "Jess" },
+    { time: "9 AM", activity: "La Boqueria Market", icon: "🍊", addedBy: "Jess", color: "rgba(249,115,22,0.15)" },
+    { time: "2 PM", activity: "Gothic Quarter Walk", icon: "🏛️", addedBy: "Marco", color: "rgba(139,92,246,0.15)" },
+    { time: "7 PM", activity: "Sunset Viewpoint Hike", icon: "🌅", addedBy: "Jess", color: "rgba(14,165,233,0.15)" },
   ];
 
   return (
     <PhoneFrame>
-      <div className="text-center mb-4">
-        <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Squad Itinerary</div>
-        <div className="text-xs text-white/40">Barcelona Trip &middot; Day 1</div>
-      </div>
-      <div className="flex gap-2 mb-4">
+      <ScreenHeader label="Barcelona · Day 1" subtitle="Sat, Jun 14 · 3 activities" />
+
+      {/* Day tabs */}
+      <div
+        className="flex rounded-xl p-[3px] mb-4"
+        style={{ background: "rgba(255,255,255,0.05)" }}
+      >
         {["Day 1", "Day 2", "Day 3"].map((d, i) => (
-          <div key={d} className={`flex-1 text-center py-1.5 rounded-lg text-[11px] font-bold ${i === 0 ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "bg-white/5 text-white/30 border border-white/5"}`}>
+          <div
+            key={d}
+            className="flex-1 text-center py-1.5 rounded-[9px] text-[11px] font-semibold"
+            style={
+              i === 0
+                ? { background: "rgba(249,115,22,0.2)", color: "#f97316", boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }
+                : { color: "rgba(255,255,255,0.25)" }
+            }
+          >
             {d}
           </div>
         ))}
       </div>
-      <div className="space-y-3">
+
+      {/* Activity rows */}
+      <div className="space-y-2">
         {items.map((item, i) => (
-          <div key={i} className="bg-white/5 rounded-xl p-3 border border-white/10 flex items-start gap-3 group hover:border-orange-500/20 transition-colors">
-            <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-lg shrink-0">{item.icon}</div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">{item.time}</div>
-              <div className="text-sm font-bold text-white truncate">{item.activity}</div>
-              <div className="text-[10px] text-white/30 mt-0.5">Added by {item.addedBy}</div>
+          <div
+            key={i}
+            className="flex items-center gap-3 p-3 rounded-xl"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0"
+              style={{ background: item.color }}
+            >
+              {item.icon}
             </div>
-            <Grip size={14} className="text-white/15 mt-1 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="text-white text-[12px] font-semibold leading-tight truncate">{item.activity}</div>
+              <div className="text-white/30 text-[10px] mt-0.5">by {item.addedBy}</div>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="text-orange-400 text-[11px] font-bold">{item.time}</div>
+              <Grip size={10} className="text-white/15 mt-1 mx-auto" />
+            </div>
           </div>
         ))}
       </div>
+
       <div className="mt-3 text-center">
-        <div className="text-[10px] text-white/20 font-medium">Drag to reorder &middot; Tap to edit</div>
+        <span className="text-[10px] text-white/20">Drag to reorder · Tap to edit</span>
       </div>
     </PhoneFrame>
   );
