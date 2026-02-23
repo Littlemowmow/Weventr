@@ -1,0 +1,52 @@
+# Landing Page Content & Messaging Audit — Read Everything, Change Nothing
+
+Do NOT make any changes. I need a complete inventory of every piece of copy and messaging on this page so I can rewrite it using market research.
+
+## What I Need
+
+### 1. Page Sections in Scroll Order
+For every section on the page, top to bottom, give me:
+- The exact headline text (word for word)
+- The exact subheadline or body copy (word for word)
+- The exact text on any buttons or CTAs
+- The exact text on any cards, badges, labels, or tags
+- Any placeholder text, tooltip text, or microcopy
+- What the section is trying to communicate (its purpose in the narrative)
+
+### 2. Full Copy Inventory
+List ALL written content on the page:
+- Navigation labels
+- Hero headline + subheadline
+- Every section heading and body paragraph
+- Every card title, description, and label
+- Every button label and CTA
+- Form field labels and placeholder text
+- FAQ questions and answers (full text)
+- Footer copy, taglines, and links
+- Any testimonials or quotes (and note if they're real or made up)
+- Any social proof numbers or claims (and whether they're real)
+- Meta title and meta description
+
+### 3. Messaging Analysis
+For each section, tell me:
+- What emotion or reaction is this section trying to trigger?
+- What problem or desire is it addressing?
+- Who is it speaking to? (the planner friend, the whole group, a solo traveler, etc.)
+- Does the tone feel corporate, casual, Gen Z, generic, etc.?
+- Does anything feel like placeholder copy that was never finalized?
+
+### 4. Visual Storytelling
+- What images or illustrations are shown and what story do they tell?
+- What destinations or cities are featured?
+- Are there any app mockups or screenshots? What do they show?
+- What's the overall visual vibe? (dark/light, adventurous/calm, playful/professional)
+
+### 5. Narrative Arc
+- What story does the page tell from top to bottom?
+- Is there a clear problem → solution → proof → action flow?
+- Where does the narrative feel strong vs where does it lose momentum or get vague?
+- What's missing that a visitor would want to know before signing up?
+
+## Output Format
+
+Give me this as a structured document with the exact text quoted. I need to be able to read your report and know exactly what's on the page without looking at it myself. Be specific — quote every word, don't paraphrase.
