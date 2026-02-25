@@ -1,0 +1,344 @@
+# SideQuest Feature Improvement Plan
+**Grounded in Market Research | February 2026**
+
+---
+
+## The Strategic Problem
+
+Your market research surfaced one brutal finding: **planning-only apps have a 3% failure rate in 2024 — double other travel segments.** The reason is simple — users plan in one place but book elsewhere, so the app never captures value.
+
+SideQuest currently has 6 features that are all planning-phase tools. None of them connect to booking, and none of them generate revenue on their own. The features are good *concepts*, but they need to be redesigned around one principle:
+
+**Every feature must either (a) move the group closer to a real booking, or (b) create value that's impossible to replicate in a group chat.**
+
+If a feature can be replaced by a Google Form + Venmo, it's not differentiated enough.
+
+**📊 What Gen Z Cultural Research Adds to This Problem:**
+
+The 3% failure rate has a cultural twin: the emotional arc of group trip death that 36.9M+ TikTok posts document. The research reveals that most apps (and most of your current features) assume the group is already committed — dates set, people locked in. But the trip dies BEFORE that. The five-stage emotional arc is: spark → wall → silence → death → meme. Your features currently address stages 2-3 (the wall and the planning chaos). Nobody addresses Stage 1→2 — the conversion from "someone drops 'we should go to Barcelona'" to "people have actually committed money and dates." This is the pre-commitment phase, and the research calls it "the most underserved" part of the journey. Every feature below needs to be evaluated against this: does it help the trip survive the silence stage?
+
+The research also reframes the core design principle. It's not just "can this be replaced by Google Form + Venmo?" — it's **"can this be replaced by a group chat?"** Because that's the real competitor. Users currently juggle 4-7 apps per trip (WhatsApp, Google Sheets, Splitwise, Google Maps, Skyscanner, Airbnb, sometimes Canva). If SideQuest doesn't consolidate at least 3 of those, you're just app #8 in the stack.
+
+---
+
+## Feature-by-Feature Upgrades
+
+### 1. Swipe & Vote → "Blind Match" System
+
+**Current state:** Tinder-style swiping on activities, reveals group overlap after.
+
+**What's good:** The blind-swipe mechanic is genuinely better than Troupe's polling system. Troupe uses structured polls with anonymous voting and deadlines — functional, but it feels like filling out a survey. Your version feels like a game. That's a real advantage with your demographic.
+
+**What needs to change based on research:**
+
+- **Add a booking hook to matched activities.** When 4/5 people match on "La Boqueria Food Tour," don't just show a checkmark — show a Viator/GetYourGuide affiliate link with pricing right there. AvoSquado is already doing Viator integration with 400K+ activities. You don't need to build booking infrastructure; you need affiliate deep links on matched results. This is where the 3% failure stat gets addressed — the match moment is your highest-intent conversion point.
+
+- **Add time pressure after matches.** Nxvoy's insight is right: deadlines prevent stalling. When a match surfaces, show "3 people matched — book within 48 hours for group pricing" or similar urgency. Your "Voting Deadlines" feature (currently separate) should be baked INTO the swipe results, not a standalone feature.
+
+- **Show "match strength" not just binary overlap.** If everyone swiped right, that's a 🔥 "Squad Lock" (100% match). If 3/5 did, that's a "majority pick." If 2/5 did with one super-like, surface it differently. Wanderlog just shows a flat list — you can make the reveal moment feel like opening a loot box.
+
+- **Make the card content do more work.** Each swipe card should show: estimated cost per person, time commitment, and distance from accommodation. Right now your cards are discovery-focused. They need to also be *decision-useful* so the group can actually commit based on the swipe, not need a second round of research.
+
+**Priority: HIGHEST — this is your core differentiator. No competitor has blind-match + booking conversion.**
+
+**📊 What Gen Z Cultural Research Says About Swipe & Vote:**
+
+The blind-swipe mechanic directly addresses what the research identifies as "decision paralysis: when your group can't decide between three resorts or two destinations and the conversation goes in circles for weeks." The group chat version of this is 200 messages with zero decisions. Swipe & Vote replaces that circular debate with structured input that feels like a game, not a survey — and that's critical because Gen Z's dominant register around trip planning is "sarcastic acceptance" that things will fail. The feature needs to feel fun enough that people engage *despite* their learned helplessness about group trips.
+
+The match reveal moment should be designed around the language they already use. "Squad Lock" for 100% matches maps to "no cap" energy. Majority picks map to "we move" (continue despite not everyone agreeing). The research shows the phrase "down for whatever" is sarcastic code for "will do zero actual planning" — your app needs to make swiping so low-effort that even the "down for whatever" friend actually participates. The 5-second swipe is your answer to the person who "responded with excited TikToks but wasn't actively planning."
+
+**Critical insight the research adds:** The #1 trigger that gets a trip off the ground is "one person booking first and setting a financial deadline for others." The match reveal should include a "Lock it in" CTA where the organizer commits the group to a matched activity with a 48-hour booking window. This converts the match from inspiration to commitment — the exact transition where trips currently die.
+
+---
+
+### 2. Budget Lock → "Group Sweet Spot" Calculator
+
+**Current state:** Private budget input → calculates group-comfortable maximum → costs visible before booking.
+
+**What's good:** This addresses the #1 source of group travel tension (confirmed by every competitor's marketing copy — Splitwise, SquadTrip, BluKyte all lead with "money is the #1 group travel problem"). Your approach of calculating the sweet spot *before* anyone books is smarter than Splitwise's after-the-fact splitting.
+
+**What needs to change based on research:**
+
+- **Integrate expense splitting INTO the budget lock, not as a separate concern.** Right now you have Budget Lock as one feature, but the post-trip expense tracking is nowhere in your feature set. Splitwise exists because no planning app handles money end-to-end. If you only handle pre-trip budgeting but people still need Splitwise during the trip, you've lost them to a fragmented workflow. Add simple expense tracking tied to the budget they already set.
+
+- **Show budget impact on every activity.** When someone views an activity, show "This is within your group sweet spot" (green) vs. "This exceeds 2 members' budgets" (amber). Make budget awareness passive and ever-present, not a one-time setup screen. Wanderlog added budgeting but it's bolted-on — yours should be structural.
+
+- **Add "Budget Scenarios."** Your market research showed the hybrid monetization model needs multiple revenue streams. Show 3 itinerary versions: budget / mid-range / splurge — each with affiliate links to different tiers. This is both useful for users AND triples your affiliate surface area.
+
+- **Per-person cost breakdowns on everything.** "This activity is $45/person" not "$180 total." College students think in per-person terms. Every price in the app should default to per-person with group size factored in.
+
+**Priority: HIGH — but secondary to Swipe & Vote. Budget is the conversion enabler, not the hook.**
+
+**📊 What Gen Z Cultural Research Says About Budget Lock:**
+
+Money is not just the #1 pain point — it's the #1 *friendship destroyer*. The research surfaces visceral specificity: "I once watched a trip fall apart over a $30 seafood dinner. Thirty. Dollars." And: "getting a pay request of three euros because I had a couple of glasses of rum someone else bought at the supermarket just messes with my mood" (5,900 upvotes on Reddit). The emotional register around money isn't frustration — it's resentment that lingers and ends friendships.
+
+This changes how Budget Lock should feel. It can't be clinical or spreadsheet-like. It needs to feel like *protection* — both for the broke friend who's afraid to speak up and the planner who's tired of discovering budget conflicts after the Airbnb is booked. The research shows 24% of Gen Zers feel pressured by friends to take trips they can't afford, and the "loud budgeting" counter-trend (openly declining what you can't swing) is Gen Z learning to say no. Budget Lock should be positioned as the product version of loud budgeting — "set your real number, no judgment, the app does the math."
+
+Key language insight: "passive-aggressive Venmo requests" is cultural shorthand for post-trip money awkwardness. If your Budget Lock flows into expense tracking during the trip and auto-calculates splits, you've replaced both the pre-trip money anxiety AND the post-trip Venmo drama. That's a Splitwise killer positioning.
+
+The research also reveals a hidden segment: "doom spending" — Gen Z spending recklessly because the future feels hopeless. Some users will set unrealistically high budgets. The "group sweet spot" mechanic naturally protects against this by anchoring to the most budget-conscious member, which is actually what the group needs.
+
+---
+
+### 3. Squad Itinerary → "Live Itinerary" with Attribution + Active Mode
+
+**Current state:** Shared editable day-by-day plan, attributed additions, drag-to-reorder.
+
+**What's good:** Attribution ("Added by Jess") is a subtle but smart feature. It creates social accountability that prevents the "one person plans everything" problem. Wanderlog has real-time collaboration but no attribution — everything is anonymous edits.
+
+**What needs to change based on research:**
+
+- **This needs to transform during the trip.** Your own spec describes a Planning → Active → Reflection lifecycle, and that's exactly right. Polarsteps proved that the "during trip" experience is a separate product. Your Squad Itinerary should become a real-time, map-first checklist during the trip — "you're 5 min from your 2pm activity" with walking directions. Nobody does this well for groups.
+
+- **Add the Itinerary Remix system here.** Your research identified "steal & adapt others' trips" as a differentiator nobody else has. The Squad Itinerary should have a "Remix this itinerary" button that lets other users clone and adapt it. This creates a content flywheel — completed trips become templates for future users. Wanderlog has community guides but they're static. Yours should be forkable, like GitHub repos.
+
+- **Booking confirmation forwarding.** TripIt's single best feature is email forwarding — send a confirmation email, it appears in your itinerary. This is table stakes now. Your itinerary needs to accept forwarded booking confirmations (flights, hotels, restaurants) and auto-populate logistics panels. Without this, people will use TripIt alongside your app, which means you're not the single source of truth.
+
+- **Offline mode is mandatory.** Multiple competitor reviews cite offline access as critical. Study abroad students in Barcelona or Tokyo frequently lose signal. The itinerary must cache locally and sync when reconnected.
+
+**Priority: HIGH — but build this incrementally. Planning mode first, active mode in v2.**
+
+**📊 What Gen Z Cultural Research Says About Squad Itinerary:**
+
+The planner friend is the single most important archetype in Gen Z travel culture. The split-screen TikTok — "my friend planning the entire trip vs. me showing up at the airport" — hit 660,800+ likes. A Bustle writer confessed she "becomes the worst version of herself" planning group trips, creating Google folders and pressing Share "without granting edit access." The research shows planners want two things: (1) visible distribution of labor so they're not doing everything alone, and (2) recognition for the work they do.
+
+Attribution ("Added by Jess") addresses #2 but not #1. The Squad Itinerary needs **task assignment and contribution tracking.** "Jess assigned you: research hostels by Friday." "Marcus hasn't added anything yet." The research explicitly lists "distribution of planning labor" as a top-5 requested feature, with the quote: "So one person doesn't have to do it alone." Make planning contribution visible the same way GitHub shows commit history — who's actually working and who's "just vibing" (their word for going with the flow without helping).
+
+The "one centralized hub" demand is overwhelming in the research: "Group trips fall apart when information sits across multiple apps." The itinerary needs to be the single source of truth — bookings, budget, chat context, documents, all in one place. The quote that nails it: "Your trip deserves better than 200 unread messages and a friend who still doesn't know what time to show up."
+
+The Remix system connects to a specific Gen Z behavior: they already create visual itineraries in Canva and share them on TikTok. Making itineraries remixable taps into an existing content creation habit and turns it into a growth loop.
+
+---
+
+### 4. Voting Deadlines → Merge Into Swipe & Vote (Not Standalone)
+
+**Current state:** Listed as a separate feature — time-bound decision windows.
+
+**What the research says:** Troupe already has deadline-based voting as a core mechanic. Nxvoy explicitly recommends "set a date by which everyone must vote — if they don't vote, they're out." This validates the concept, but it shouldn't be a separate feature.
+
+**What needs to change:**
+
+- **Kill this as a standalone feature. Bake it into Swipe & Vote.** When a trip organizer starts a vote round, they set a deadline. When the deadline hits, non-voters are either auto-skipped or shown as "didn't vote" (social pressure). This is a parameter of voting, not a feature unto itself.
+
+- **Add escalation mechanics.** If someone hasn't voted with 24 hours left, send a push notification. If 12 hours left, show their name as "holding up the group" in the app. Study abroad friend groups respond to social pressure more than arbitrary timers.
+
+- **"Default to yes" option.** For low-stakes decisions (lunch spot, not destination), let users set "auto-approve majority picks if I don't vote." Reduces friction for the 80% of decisions that don't matter much.
+
+**Priority: MEDIUM — important but not a separate development effort.**
+
+**📊 What Gen Z Cultural Research Says About Voting Deadlines:**
+
+This feature is actually more important than "MEDIUM" suggests — the research makes a strong case for upgrading it. The #1 trigger that converts a group chat idea into an actual trip is "one person booking first and setting a financial deadline for others." The research quote: "When you provide the information up front, people can decide if they're able to attend knowing what the commitment will cost them. It's almost like a contract."
+
+The cultural research identifies the canonical kill phrases that signal a trip is about to die: "let me check with work," "Maybe," "I'll see," "I might," "It depends," "I'll let you know later." Deadlines are the direct counter to this language. Without them, the "flake" archetype (which has evolved from behavior to permanent identity in Gen Z culture — someone *is* a flake) has infinite runway to avoid committing.
+
+The escalation mechanics I suggested (showing "holding up the group" for non-voters) are validated by the research. Gen Z travel culture is built on social accountability — the reason the planner friend snaps isn't that planning is hard, it's that nobody else participates. Making non-participation visible creates the same social pressure that currently only exists in passive-aggressive group chat messages.
+
+**Revised priority: HIGH — but still merged into Swipe & Vote, not standalone.** Deadlines are the commitment mechanism that breaks the excitement-to-silence arc. They should be prominent in the UX, not buried as a settings toggle.
+
+---
+
+### 5. Local Recommendations / Hidden Gems → Your Actual Moat
+
+**Current state:** AI-curated suggestions scored on uniqueness, local factor, adventure factor. Three categories: Local Pick, SideQuest, Tourist Essential.
+
+**What's good:** This is genuinely your strongest differentiator. The competitive research confirms nobody does hidden gem curation well. AvoSquado plugs into Viator's 400K activities — but those are all tourist-facing bookable tours. Wanderlog auto-suggests attractions from Google. Neither surfaces the Reddit deep cuts or the thing-a-local-bartender-told-you.
+
+**What needs to change based on research:**
+
+- **Content quality is everything — don't dilute it.** The 3% planning app failure rate is partly about commoditized content. If your "hidden gems" are just repackaged Google Places results, you've lost the moat. Your scraping pipeline (Eater, Infatuation, AllTrails, Reddit) is the right approach. Invest more here than in any other feature. 50 genuinely excellent curated activities per city beats 500 mediocre ones.
+
+- **Add social proof from real travelers, not just AI scores.** "Verified by 12 SideQuest travelers" or "Featured in 3 remix itineraries" makes a recommendation trustworthy. AI curation gets you started; user validation makes it defensible. This connects to your gamification system — travelers who complete SideQuests and verify them are building your content moat for free.
+
+- **Seasonal and temporal filtering.** "This rooftop bar is best at sunset" or "This market is only open Saturday mornings" — time-specific recommendations are something Google can't do well. Your AI curation should tag temporal windows, and the app should surface them contextually ("It's Friday — here's what's happening this weekend in Barcelona").
+
+- **"Why this is a SideQuest" explanation on every card.** You already have this in your activity detail mockup, but make it prominent. The explanation IS the product. "This speakeasy doesn't appear on Google Maps. It's behind an unmarked door on Carrer d'Avinyó. Locals call it..." — that's the kind of copy that makes someone screenshot and share. Which is free marketing.
+
+**Priority: HIGHEST (tied with Swipe & Vote) — this is what makes people download the app in the first place.**
+
+**📊 What Gen Z Cultural Research Says About Hidden Gems:**
+
+This is where the cultural research is most emphatic. The anti-tourist identity is core to Gen Z travel: 80%+ use "hidden gems," 63% prefer "off the beaten path" destinations (Expedia, 25K respondents), 90% want to "experience life like locals do" (GetYourGuide), and 84% would choose a "destination dupe" over the popular original (Contiki). The aesthetic is explicitly anti-algorithm: "they want what the algorithm hasn't ruined yet."
+
+"Destination dupes" (400,000+ social media posts) — lesser-known alternatives to crowded spots — is a massive content category that maps perfectly to your SideQuest badge. Every "SideQuest" activity is essentially a destination dupe for the tourist trap version. Your content taxonomy (Local Pick / SideQuest / Tourist Essential) should lean into this language. Consider adding "The dupe for [famous tourist trap]" as a content format — "Skip La Rambla → Try Carrer de Blai instead (the local version)."
+
+The "Why this is a SideQuest" explanation card is validated as the highest-shareability format. The research shows Gen Z travel content that performs best is specific and insider-feeling: "This speakeasy doesn't appear on Google Maps. It's behind an unmarked door..." That kind of copy gets screenshotted and shared in group chats — which is organic marketing back to the exact context where trips are born.
+
+The scraping sources you've chosen (Eater, Infatuation, AllTrails, Reddit) are precisely the sources Gen Z trusts. The research confirms: they distrust algorithmic recommendations and trust Reddit deep cuts, local bartender tips, and editorial curation. Your AI curation scoring (uniqueness, local factor, adventure factor) aligns with what they're searching for. The key is that the OUTPUT of curation needs to feel like it came from a well-traveled friend, not a database query.
+
+---
+
+### 6. Trip Randomizer → "Tiebreaker AI" (Repositioned)
+
+**Current state:** For when the group is stuck and nobody can pick.
+
+**What the research says:** Nxvoy's approach is smart — AI generates 3 diverse itinerary options and the group picks. This is more useful than pure randomization.
+
+**What needs to change:**
+
+- **Reposition from "randomizer" to "AI tiebreaker."** Random feels lazy. "AI-generated compromise" feels smart. When votes are split 50/50, the AI should generate a third option that incorporates elements of both — not pick one randomly.
+
+- **Generate 3 options, not 1.** "Budget-friendly version," "Adventure-heavy version," "Balanced version." Let the group vote on which vibe, not which specific activities. This sidesteps individual disagreements by reframing the choice as a style preference.
+
+- **Connect to Budget Lock data.** The AI tiebreaker should factor in the group sweet spot budget automatically. If the group is split between an expensive and cheap activity, the AI option should be priced in the middle.
+
+- **This is a premium feature.** AI generation costs money (Claude API calls). Make basic voting free, but "AI Tiebreaker" a Pro feature. This aligns with your freemium monetization model — the free tier handles 80% of decisions, but the AI unlock handles the hard 20%.
+
+**Priority: LOW for MVP — nice differentiator but not what gets people to download.**
+
+**📊 What Gen Z Cultural Research Says About AI Tiebreaker:**
+
+The research upgrades the priority on this. Decision paralysis is described as a core trip-killer: "when your group can't decide between three resorts or two destinations and the conversation goes in circles for weeks." The group chat version of this is the 450-unread-messages thread with zero real decisions. The research also surfaces "hangry" decision-making — groups that delay choosing restaurants until everyone's hungry and angry, then pick badly.
+
+The AI Tiebreaker maps to a specific cultural behavior: Gen Z already uses randomization to break deadlocks ("spin the wheel" apps, "just pick for me" energy). But framing it as "AI compromise" rather than "random" is smarter because it feels like the app understood both sides.
+
+The 3-option format (budget / adventure / balanced) also taps into Gen Z's preference for structured choice. The research shows they explicitly want "ranked-choice voting" and "anything that replaces the 200-message group chat debate with structured input." Three curated options is structured choice, not open-ended chaos.
+
+**Revised priority: MEDIUM — still a premium feature, but more important than initially assessed. Decision paralysis is the Stage 2→3 killer (wall → silence), and this directly breaks it.**
+
+---
+
+## What's MISSING (Features You Need That Aren't in Your Current 6)
+
+Based on the competitive landscape, market research, AND Gen Z cultural research:
+
+### ⚠️ CRITICAL ADDITION: "Trip Spark" — The Pre-Commitment Feature (Phase 0)
+
+**Why this is the most important missing feature:**
+
+The Gen Z research reveals the single biggest gap in every competitor AND in your current feature set: nobody addresses the pre-commitment phase. The emotional arc goes spark → wall → silence → death. Your current features (Swipe & Vote, Budget Lock, Squad Itinerary) all assume the group has already survived the wall and committed to going. But the research says that's where 98% of trips die.
+
+"Trip Spark" would work like this:
+1. **One person creates a trip idea** — just a destination and rough date range. Takes 30 seconds.
+2. **They share a link to their group chat** (iMessage, WhatsApp, wherever the trip idea was born). The link is the bridge FROM the group chat INTO SideQuest.
+3. **Friends tap the link and do 3 things in under 60 seconds:** select their available dates (When2Meet style), set their private budget range, and hit "I'm in" or "Maybe" — no "I'll let you know later" option.
+4. **A countdown deadline** (set by the creator) shows how long people have to commit. When it expires, the app shows who's in and what the date/budget overlap looks like.
+5. **If there's overlap, the trip auto-advances** to planning mode (Swipe & Vote, Budget Lock, Squad Itinerary activate). If there's no overlap, the app surfaces alternatives ("No dates work for everyone, but here are windows where 4/5 overlap").
+
+This directly addresses every cultural pain point the research identifies:
+- Replaces "let me check with work" (the canonical trip-killer phrase) with a forced-response mechanism
+- Makes the flake visible — "Marcus hasn't responded with 12 hours left"
+- Converts the "down for whatever" friend into someone who's actually submitted dates and budget
+- The deadline is the "contract" the research says users want: "It's almost like a contract"
+- The shared link to the group chat meets users WHERE the trip idea is born, then pulls them into SideQuest
+
+**This should be Phase 0 — before Swipe & Vote, before Budget Lock, before everything.** If the trip doesn't survive the commitment phase, none of the other features matter.
+
+---
+
+### 7. Booking Integration (Affiliate)
+**Why:** The #1 reason planning apps die. You need Viator, GetYourGuide, Hostelworld, or Booking.com affiliate links embedded in activity cards and matched results. Not a booking engine — just contextual "Book this" buttons that earn you 4-8% commission. AvoSquado already does this with Viator. Pilot does it with hotels.
+
+**Implementation:** API integration with affiliate networks. Show price, availability, and "Book Now" on every activity where a bookable option exists. Track clicks and conversions.
+
+**📊 Cultural research note:** The research shows Gen Z currently uses Skyscanner, Airbnb, and Hostelworld as separate apps in their 4-7 app travel stack. You don't need to replace all of them — you need to surface the "Book Now" moment at the point of highest intent (right after a group match or when an activity is added to the itinerary). The goal is to prevent the user from leaving SideQuest to go book elsewhere, which is when you lose them.
+
+### 8. In-App Group Chat (Lightweight)
+**Why:** Pilot has integrated chat. Your whole thesis is "take the trip out of the group chat" — but if you don't provide a chat, people go back to iMessage to discuss what they saw in your app. You need a minimal chat tied to the trip context (not a full messaging app). Messages should be linkable to specific activities ("@group check out this spot" with a card preview).
+
+**Implementation:** Supabase real-time subscriptions. You already have the backend for this. Keep it simple — text + activity card sharing. No media uploads in v1.
+
+**📊 Cultural research note:** The "150 unread messages and zero real decisions" problem isn't solved by building another chat — it's solved by making decisions happen OUTSIDE of chat (via Swipe & Vote, deadlines, structured input) and using chat only for discussion, reactions, and hype. The research shows the group chat fails because it's being used for both decisions AND conversation. SideQuest should separate those: decisions in structured features, conversation in lightweight chat. The chat should also support the social dynamics the research highlights — reactions, @mentions, activity card sharing, and the ability to tag something as "planner approved ✓" to reduce noise.
+
+### 9. Expense Tracking (During Trip)
+**Why:** Budget Lock handles pre-trip alignment. But during the trip, someone pays for dinner, someone covers the taxi. Without in-app expense tracking, users open Splitwise and your app becomes secondary. SquadTrip and BluKyte both have this. Even Wanderlog added it.
+
+**Implementation:** Simple "add expense → split evenly or custom → running balance per person." Tie it to the Budget Lock so users can see "you've spent $340 of your $500 sweet spot."
+
+**📊 Cultural research note:** Splitwise has achieved the holy grail — it's become a verb. College students say "just add it to Splitwise" organically. You won't displace Splitwise by building a worse version of it. Instead, tie expense tracking to what Splitwise CAN'T do: your pre-trip budget sweet spot. The UX should be "you're 68% through your budget with 3 days left" — contextual awareness that Splitwise doesn't have because it doesn't know your trip budget. The research also surfaces "passive-aggressive Venmo requests" as cultural shorthand for post-trip money awkwardness. Auto-calculated splits with one-tap settlement would directly address this.
+
+---
+
+## Prioritized Build Order (Revised with Cultural Research)
+
+Based on market research, competitive analysis, AND Gen Z cultural research:
+
+| Phase | Feature | Why This Order | Revenue Impact |
+|-------|---------|----------------|----------------|
+| **0** | 🚨 Trip Spark (Pre-Commitment) | Trips die before your other features activate. This is the bridge from group chat → app. Without it, you're building for a user who never arrives. | Indirect (enables everything) |
+| **1** | Hidden Gem Content Pipeline | People download for content, not features. "Hidden gems" is the #1 phrase Gen Z uses for what they want from travel. | Indirect (drives all engagement) |
+| **2** | Swipe & Vote (with blind match + deadlines) | Core differentiator. Replaces the 200-message group chat debate. Makes the "down for whatever" friend actually participate. | Affiliate conversion point |
+| **3** | Booking Integration (affiliate links) | Addresses #1 failure mode of planning apps. Captures value at the match moment (highest intent). | Direct revenue |
+| **4** | Budget Lock + Per-Person Pricing | "Loud budgeting" built into the product. Addresses the #1 friendship-destroying pain point. | Increases booking likelihood |
+| **5** | Squad Itinerary (planning mode) | Where matched activities live. Serves the planner friend (your primary user). Task delegation prevents planner burnout. | Retention |
+| **6** | AI Tiebreaker (Premium) | ⬆️ Upgraded from #10. Decision paralysis is a Stage 2→3 killer. Premium feature = subscription revenue. | Subscription revenue |
+| **7** | In-App Group Chat | Prevents users leaving to iMessage. Separates decisions (structured) from conversation (chat). | Retention |
+| **8** | Expense Tracking | Replaces Splitwise by connecting to Budget Lock context. "You're 68% through your budget with 3 days left." | Retention |
+| **9** | Gamification + Remix System | Long-term engagement + content flywheel. "Destination dupes" content format. | User-generated content moat |
+| **10** | Active Trip Mode | During-trip value. Map-first transformation. | Retention + verification |
+
+**📊 What changed from the original order based on cultural research:**
+- **Trip Spark added as Phase 0** — the research proves the pre-commitment gap is the #1 killer, and no competitor addresses it
+- **AI Tiebreaker moved from #10 to #6** — decision paralysis is more destructive than initially assessed
+- **Deadlines upgraded within Swipe & Vote** — they're the commitment mechanism, not a secondary parameter
+- **Squad Itinerary now explicitly serves the planner friend** — task delegation and visible contribution are core, not nice-to-have
+
+---
+
+## The Revenue Connection
+
+Your research showed you need ~$5-7K/month by month 12. Here's how these features connect to that:
+
+**Affiliate revenue (from Booking Integration + Swipe matches):**
+- 5,000 users × 8% click affiliate on match → 400 clicks
+- 400 clicks × 4% convert → 16 bookings
+- 16 bookings × $80 avg × 8% commission = ~$100/month
+- At 50K users: ~$1,000/month
+
+**Freemium subscription (AI Tiebreaker + Premium features):**
+- 5,000 users × 3% convert × $4.99/month = ~$750/month
+- At 50K users: ~$7,500/month
+
+**B2B university licensing:**
+- 5 programs × $500/semester = $2,500/semester (~$420/month)
+
+The subscription path is where the real money is. Affiliate alone won't get you to $5K/month without massive scale. The feature roadmap above is designed to make the free tier addictive enough that 3-5% of users pay for premium.
+
+---
+
+## Key Decisions to Make Now
+
+1. **Affiliate partner:** Viator vs. GetYourGuide vs. both? Viator has 400K+ activities and AvoSquado already proved the integration works. Start there.
+
+2. **What goes behind the paywall?** Recommendation: AI Tiebreaker, unlimited trips (free = 2 active trips), advanced budget scenarios, and itinerary remix. Keep Swipe & Vote, basic Budget Lock, and basic itinerary free forever.
+
+3. **Content depth vs. breadth:** 6 cities with 50+ quality activities each, or 20 cities with 15 each? Research says depth wins. Users in Barcelona don't care that you also cover Tokyo until they go to Tokyo. Nail the study abroad cities first.
+
+4. **Group chat: build or skip for MVP?** Recommendation: Skip for MVP. It's important for retention but not for acquisition. People will use iMessage alongside your app for v1 and that's okay. Add chat in v1.5 after you've validated that groups actually use the swipe-match-book flow.
+
+5. **Trip Spark share mechanic: link or iMessage extension?** Recommendation: Start with a simple shareable link (lower effort, works across all platforms). iMessage extension is Phase 2 — it's more native but requires a separate Swift module and App Store review.
+
+---
+
+## Marketing Language Cheat Sheet (From Cultural Research)
+
+The Gen Z research gives you a ready-made copy playbook. Use these exact patterns:
+
+**Headlines that will land:**
+- "so the trip doesn't die in the groupchat" (you already have this — it's perfect)
+- "make it out of the gc" (the #1 resonant phrase, 36.9M+ TikTok posts in adjacent hashtags)
+- "for the friend who plans everything" (speak directly to your primary user)
+- "no more 'let me check with work'" (names the exact kill phrase they all recognize)
+
+**Phrases to use in UI copy, push notifications, and marketing:**
+- "Squad Lock 🔥" (when everyone matches on an activity)
+- "we move" (when proceeding despite not-everyone-agreeing)
+- "made it out the gc ✓" (completion/booking confirmation moment)
+- "[Name] is holding up the group" (deadline pressure notification)
+- "the dupe for [tourist trap]" (SideQuest activity framing)
+
+**Emotional triggers with instant recognition:**
+- The 150-unread-message group chat with zero decisions
+- The friend who responds with excited TikToks but never books
+- The Google Doc no one opens
+- The Doodle poll with zero overlap
+- "Started with 8, ended with 6… but we move!"
+
+**Phrases to AVOID (read as corporate/dated per research):**
+- "Travel management" / "streamline" / "consolidate" (TripIt's SAP language)
+- "All-in-one travel companion" (generic, used by everyone)
+- "Multi-platform support" (reads like a B2B sales deck)
+- Any feature-first marketing without an emotional hook
+
+**The voice that works:** Brutal specificity + sarcastic empathy. Not corporate, not generic. The research says the most effective competitor copy "names the pain with brutal specificity" — like "someone drops 'We should totally go to Portugal!' and suddenly there are 47 unread messages, three competing spreadsheets, and one person doing all the actual work." Mirror the exact moments they recognize and you sound like their most frustrated friend, which is the voice Gen Z trusts.
