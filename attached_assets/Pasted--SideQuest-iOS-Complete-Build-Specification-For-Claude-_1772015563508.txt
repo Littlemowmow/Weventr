@@ -1,0 +1,1168 @@
+# SideQuest iOS — Complete Build Specification
+## For Claude Code Terminal Implementation
+
+---
+
+## SECTION 1: PROJECT OVERVIEW & EXISTING STATE
+
+### What Is SideQuest
+A group travel app — "so the trip doesn't die in the groupchat." Surfaces hidden gems, coordinates group decisions, and moves friend groups from idea → booked trip through a structured funnel.
+
+### Tech Stack
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| UI | SwiftUI | iOS 17+ |
+| Architecture | MVVM | — |
+| Backend | Supabase (PostgreSQL + Auth + Storage + Realtime) | — |
+| Vector Search | Pinecone (llama-text-embed-v2, 1024 dim) | — |
+| AI | Claude API (Anthropic) | — |
+| Auth | Supabase Auth (Email + Apple Sign-In) | — |
+| Package Manager | Swift Package Manager | — |
+| Min Target | iOS 17.0, Xcode 15+, Swift 5.9+ | — |
+
+### Supabase Credentials (Already Configured)
+```
+Project URL: https://rljbpvpjdofykvoszupl.supabase.co
+Anon Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamJwdnBqZG9meWt2b3N6dXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MzMxMzcsImV4cCI6MjA4NTMwOTEzN30.tWSPu6LP4pXQPfweiQFQXkJcsbipTOegg1R89gVA-Gk
+Region: US East
+```
+
+### Dependencies
+```swift
+// Package.swift / SPM
+.package(url: "https://github.com/supabase/supabase-swift.git", from: "2.41.0")
+```
+
+---
+
+## SECTION 2: FILE STRUCTURE
+
+```
+SideQuest/
+├── SideQuest.xcodeproj/
+├── SideQuest/
+│   ├── App/
+│   │   └── SideQuestApp.swift              # @main, AppState, RootView, SplashView
+│   │
+│   ├── Core/
+│   │   ├── Design/
+│   │   │   ├── DesignTokens.swift          # Colors, spacing, sizing, animation constants
+│   │   │   ├── Typography.swift            # Font definitions
+│   │   │   ├── Components.swift            # SQButton, SQCard, SQBadge, SQTextField, etc.
+│   │   │   ├── Gradients.swift             # Brand gradients, swipe overlays
+│   │   │   └── Shadows.swift               # Cinematic shadow system
+│   │   └── Extensions/
+│   │       ├── Color+Hex.swift             # Hex color initializer
+│   │       └── View+Extensions.swift       # Common view modifiers
+│   │
+│   ├── Models/
+│   │   └── Models.swift                    # ALL data models (single file)
+│   │
+│   ├── Services/
+│   │   ├── SupabaseService.swift           # Singleton, auth, DB operations
+│   │   ├── KeychainService.swift           # Session persistence
+│   │   └── LocationService.swift           # CLLocationManager wrapper
+│   │
+│   ├── Features/
+│   │   ├── Authentication/
+│   │   │   ├── AuthView.swift              # Login / signup screens
+│   │   │   └── AuthViewModel.swift         # Auth state management
+│   │   │
+│   │   ├── Onboarding/
+│   │   │   ├── OnboardingContainerView.swift
+│   │   │   ├── OnboardingViewModel.swift
+│   │   │   ├── OnboardingWelcomeView.swift
+│   │   │   ├── OnboardingTripIntentView.swift
+│   │   │   ├── OnboardingTravelStyleView.swift
+│   │   │   ├── OnboardingInterestsView.swift
+│   │   │   ├── OnboardingBudgetView.swift
+│   │   │   ├── OnboardingPaceView.swift
+│   │   │   ├── OnboardingNotificationsView.swift
+│   │   │   └── OnboardingAllSetView.swift
+│   │   │
+│   │   ├── TripSpark/                      # NEW — Phase 0
+│   │   │   ├── TripSparkCreateView.swift   # Create trip idea
+│   │   │   ├── TripSparkResponseView.swift # Friend response flow
+│   │   │   ├── TripSparkStatusView.swift   # Who's responded, countdown
+│   │   │   ├── TripSparkResultView.swift   # Overlap reveal, advance to planning
+│   │   │   └── TripSparkViewModel.swift
+│   │   │
+│   │   ├── Discovery/                      # Phase 1 — Blind Match
+│   │   │   ├── DiscoveryView.swift         # Card stack + swipe UI
+│   │   │   ├── DiscoveryViewModel.swift
+│   │   │   ├── DiscoveryFiltersView.swift
+│   │   │   ├── ActivityDetailView.swift    # Full activity detail sheet
+│   │   │   ├── MatchRevealView.swift       # NEW — Squad Lock / Majority / Split
+│   │   │   └── MatchRevealViewModel.swift
+│   │   │
+│   │   ├── Budget/                         # Phase 2
+│   │   │   ├── BudgetLockView.swift        # Refined budget input
+│   │   │   ├── BudgetSweetSpotView.swift   # Group sweet spot display
+│   │   │   ├── BudgetScenariosView.swift   # Budget / mid / splurge
+│   │   │   ├── ExpenseTrackingView.swift   # During-trip expenses
+│   │   │   └── BudgetViewModel.swift
+│   │   │
+│   │   ├── Trips/                          # Phase 3 — Squad Itinerary
+│   │   │   ├── TripsView.swift             # Trip list / active trip
+│   │   │   ├── TripDetailView.swift        # Single trip with tabs
+│   │   │   ├── ItineraryView.swift         # Day-by-day timeline
+│   │   │   ├── TaskDelegationView.swift    # NEW — assign tasks to members
+│   │   │   ├── CreateTripView.swift
+│   │   │   ├── TripsViewModel.swift
+│   │   │   └── TripDetailViewModel.swift
+│   │   │
+│   │   ├── Profile/
+│   │   │   ├── ProfileView.swift
+│   │   │   ├── ProfileViewModel.swift
+│   │   │   ├── SettingsView.swift
+│   │   │   └── RankDetailView.swift
+│   │   │
+│   │   └── AITiebreaker/                   # Phase 6 — Premium
+│   │       ├── TiebreakerView.swift
+│   │       └── TiebreakerViewModel.swift
+│   │
+│   └── Database/
+│       └── schema.sql                      # Complete SQL schema
+```
+
+---
+
+## SECTION 3: APP ARCHITECTURE & NAVIGATION
+
+### Entry Point
+```swift
+@main
+struct SideQuestApp: App {
+    @StateObject private var authViewModel = AuthViewModel()
+    @StateObject private var appState = AppState()
+
+    var body: some Scene {
+        WindowGroup {
+            RootView()
+                .environmentObject(authViewModel)
+                .environmentObject(appState)
+                .preferredColorScheme(.dark)
+        }
+    }
+}
+```
+
+### AppState
+```swift
+@MainActor
+class AppState: ObservableObject {
+    @Published var selectedTab: Tab = .discover
+    @Published var hasCompletedOnboarding: Bool
+    @Published var showJoinTripSheet: Bool = false
+    @Published var navigateToTripId: UUID?
+    @Published var activeTripSparkId: UUID?
+
+    enum Tab: Int, CaseIterable {
+        case discover = 0
+        case trip = 1
+        case profile = 2
+
+        var title: String {
+            switch self {
+            case .discover: return "Discover"
+            case .trip: return "Trips"
+            case .profile: return "Profile"
+            }
+        }
+
+        var icon: String {
+            switch self {
+            case .discover: return "safari.fill"
+            case .trip: return "calendar.circle.fill"
+            case .profile: return "person.circle.fill"
+            }
+        }
+    }
+
+    init() {
+        self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+    }
+}
+```
+
+### Navigation Flow
+```
+App Launch
+    │
+    ▼
+RootView
+    ├── isCheckingSession? → SplashView (logo + spinner)
+    ├── !isAuthenticated → AuthView (login/signup)
+    ├── !hasCompletedOnboarding → OnboardingContainerView (8 steps)
+    └── Ready → MainTabView
+                  ├── Tab 0: Discover (DiscoveryView)
+                  ├── Tab 1: Trips (TripsView)
+                  └── Tab 2: Profile (ProfileView)
+```
+
+### MainTabView
+```swift
+struct MainTabView: View {
+    @EnvironmentObject var appState: AppState
+
+    var body: some View {
+        TabView(selection: $appState.selectedTab) {
+            DiscoveryView()
+                .tabItem { Label("Discover", systemImage: "safari.fill") }
+                .tag(AppState.Tab.discover)
+
+            TripsView()
+                .tabItem { Label("Trips", systemImage: "calendar.circle.fill") }
+                .tag(AppState.Tab.trip)
+
+            ProfileView()
+                .tabItem { Label("Profile", systemImage: "person.circle.fill") }
+                .tag(AppState.Tab.profile)
+        }
+        .tint(.sqTeal)
+    }
+}
+```
+
+---
+
+## SECTION 4: COMPLETE DATABASE SCHEMA
+
+### Existing Tables (Already in Supabase)
+
+```sql
+-- profiles, activities, trips, trip_members, itineraries, itinerary_days,
+-- itinerary_activities, saved_activities, activity_votes, user_follows,
+-- country_stamps, saved_itineraries, raw_activities
+-- (These are already created. See schema.sql in repo for full DDL.)
+```
+
+### NEW Tables to Create
+
+```sql
+-- ============================================
+-- TRIP SPARKS (Phase 0 — Pre-Commitment)
+-- ============================================
+CREATE TABLE IF NOT EXISTS trip_sparks (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    creator_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    destination TEXT NOT NULL,
+    rough_date_start DATE,
+    rough_date_end DATE,
+    deadline TIMESTAMPTZ NOT NULL,
+    shareable_code TEXT UNIQUE NOT NULL,  -- 8-char alphanumeric for link
+    status TEXT NOT NULL DEFAULT 'collecting'
+        CHECK (status IN ('collecting', 'expired', 'advanced', 'cancelled')),
+    trip_id UUID REFERENCES trips(id),   -- set when advanced to planning
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS trip_spark_responses (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    trip_spark_id UUID NOT NULL REFERENCES trip_sparks(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    available_dates DATE[] NOT NULL,
+    budget_accommodation NUMERIC(10,2),  -- per night max
+    budget_transport NUMERIC(10,2),      -- round trip max
+    budget_food NUMERIC(10,2),           -- per day max
+    budget_activities NUMERIC(10,2),     -- per day max
+    budget_total NUMERIC(10,2),          -- hard ceiling
+    commitment TEXT NOT NULL CHECK (commitment IN ('in', 'maybe')),
+    responded_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(trip_spark_id, user_id)
+);
+
+-- RLS for trip_sparks
+ALTER TABLE trip_sparks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view sparks they created or responded to" ON trip_sparks
+    FOR SELECT USING (
+        creator_id = auth.uid()
+        OR id IN (SELECT trip_spark_id FROM trip_spark_responses WHERE user_id = auth.uid())
+    );
+CREATE POLICY "Users can create sparks" ON trip_sparks
+    FOR INSERT WITH CHECK (creator_id = auth.uid());
+CREATE POLICY "Creators can update their sparks" ON trip_sparks
+    FOR UPDATE USING (creator_id = auth.uid());
+
+-- RLS for trip_spark_responses
+ALTER TABLE trip_spark_responses ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view responses for their sparks" ON trip_spark_responses
+    FOR SELECT USING (
+        user_id = auth.uid()
+        OR trip_spark_id IN (SELECT id FROM trip_sparks WHERE creator_id = auth.uid())
+    );
+CREATE POLICY "Users can submit responses" ON trip_spark_responses
+    FOR INSERT WITH CHECK (user_id = auth.uid());
+CREATE POLICY "Users can update their responses" ON trip_spark_responses
+    FOR UPDATE USING (user_id = auth.uid());
+
+-- ============================================
+-- SWIPE ROUNDS (Phase 1 — Blind Match)
+-- ============================================
+CREATE TABLE IF NOT EXISTS swipe_rounds (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    trip_id UUID NOT NULL REFERENCES trips(id) ON DELETE CASCADE,
+    created_by UUID NOT NULL REFERENCES auth.users(id),
+    deadline TIMESTAMPTZ,
+    default_to_yes BOOLEAN DEFAULT false,
+    status TEXT NOT NULL DEFAULT 'active'
+        CHECK (status IN ('active', 'completed', 'expired')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS activity_swipes (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    round_id UUID NOT NULL REFERENCES swipe_rounds(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES auth.users(id),
+    activity_id UUID NOT NULL REFERENCES activities(id),
+    direction TEXT NOT NULL CHECK (direction IN ('right', 'left', 'super')),
+    swiped_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(round_id, user_id, activity_id)
+);
+
+CREATE TABLE IF NOT EXISTS match_results (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    round_id UUID NOT NULL REFERENCES swipe_rounds(id) ON DELETE CASCADE,
+    activity_id UUID NOT NULL REFERENCES activities(id),
+    match_strength TEXT NOT NULL
+        CHECK (match_strength IN ('squad_lock', 'majority', 'split', 'noped')),
+    yes_count INTEGER NOT NULL DEFAULT 0,
+    total_voters INTEGER NOT NULL DEFAULT 0,
+    super_like_by UUID[],
+    is_booked BOOLEAN DEFAULT false,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- RLS for swipe tables
+ALTER TABLE swipe_rounds ENABLE ROW LEVEL SECURITY;
+ALTER TABLE activity_swipes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE match_results ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Trip members can view rounds" ON swipe_rounds
+    FOR SELECT USING (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+        OR created_by = auth.uid()
+    );
+CREATE POLICY "Trip members can create rounds" ON swipe_rounds
+    FOR INSERT WITH CHECK (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+
+CREATE POLICY "Users can view own swipes" ON activity_swipes
+    FOR SELECT USING (user_id = auth.uid());
+CREATE POLICY "Users can swipe" ON activity_swipes
+    FOR INSERT WITH CHECK (user_id = auth.uid());
+
+CREATE POLICY "Trip members can view results" ON match_results
+    FOR SELECT USING (
+        round_id IN (
+            SELECT id FROM swipe_rounds WHERE trip_id IN (
+                SELECT trip_id FROM trip_members WHERE user_id = auth.uid()
+            )
+        )
+    );
+
+-- ============================================
+-- BUDGET LOCK (Phase 2)
+-- ============================================
+CREATE TABLE IF NOT EXISTS budget_locks (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    trip_id UUID NOT NULL REFERENCES trips(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES auth.users(id),
+    accommodation_per_night NUMERIC(10,2),
+    transport_round_trip NUMERIC(10,2),
+    food_per_day NUMERIC(10,2),
+    activities_per_day NUMERIC(10,2),
+    total_cap NUMERIC(10,2),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(trip_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS expenses (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    trip_id UUID NOT NULL REFERENCES trips(id) ON DELETE CASCADE,
+    paid_by UUID NOT NULL REFERENCES auth.users(id),
+    amount NUMERIC(10,2) NOT NULL,
+    currency TEXT DEFAULT 'USD',
+    description TEXT NOT NULL,
+    category TEXT CHECK (category IN ('accommodation', 'transport', 'food', 'activities', 'other')),
+    split_type TEXT DEFAULT 'even' CHECK (split_type IN ('even', 'custom')),
+    split_details JSONB,  -- for custom splits: {"user_id": amount}
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE budget_locks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE expenses ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Trip members can view budgets" ON budget_locks
+    FOR SELECT USING (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+CREATE POLICY "Users set own budget" ON budget_locks
+    FOR INSERT WITH CHECK (user_id = auth.uid());
+CREATE POLICY "Users update own budget" ON budget_locks
+    FOR UPDATE USING (user_id = auth.uid());
+
+CREATE POLICY "Trip members can view expenses" ON expenses
+    FOR SELECT USING (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+CREATE POLICY "Trip members can add expenses" ON expenses
+    FOR INSERT WITH CHECK (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+
+-- ============================================
+-- ITINERARY TASKS (Phase 3 — Squad Itinerary)
+-- ============================================
+CREATE TABLE IF NOT EXISTS itinerary_tasks (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    trip_id UUID NOT NULL REFERENCES trips(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    assigned_to UUID REFERENCES auth.users(id),
+    assigned_by UUID NOT NULL REFERENCES auth.users(id),
+    due_date DATE,
+    is_completed BOOLEAN DEFAULT false,
+    completed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE itinerary_tasks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Trip members can view tasks" ON itinerary_tasks
+    FOR SELECT USING (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+CREATE POLICY "Trip members can create tasks" ON itinerary_tasks
+    FOR INSERT WITH CHECK (
+        trip_id IN (SELECT trip_id FROM trip_members WHERE user_id = auth.uid())
+    );
+CREATE POLICY "Assigned users can update tasks" ON itinerary_tasks
+    FOR UPDATE USING (
+        assigned_to = auth.uid() OR assigned_by = auth.uid()
+    );
+
+-- ============================================
+-- AFFILIATE LINKS
+-- ============================================
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS affiliate_link TEXT;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS affiliate_price NUMERIC(10,2);
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS affiliate_provider TEXT;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS why_sidequest TEXT;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS best_time TEXT;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS seasonality TEXT;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS estimated_cost_per_person NUMERIC(10,2);
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS duration_minutes INTEGER;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS verified_count INTEGER DEFAULT 0;
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS remix_count INTEGER DEFAULT 0;
+
+-- ============================================
+-- INDEXES
+-- ============================================
+CREATE INDEX IF NOT EXISTS idx_trip_sparks_creator ON trip_sparks(creator_id);
+CREATE INDEX IF NOT EXISTS idx_trip_sparks_code ON trip_sparks(shareable_code);
+CREATE INDEX IF NOT EXISTS idx_trip_spark_responses_spark ON trip_spark_responses(trip_spark_id);
+CREATE INDEX IF NOT EXISTS idx_swipe_rounds_trip ON swipe_rounds(trip_id);
+CREATE INDEX IF NOT EXISTS idx_activity_swipes_round ON activity_swipes(round_id);
+CREATE INDEX IF NOT EXISTS idx_activity_swipes_user ON activity_swipes(user_id);
+CREATE INDEX IF NOT EXISTS idx_match_results_round ON match_results(round_id);
+CREATE INDEX IF NOT EXISTS idx_budget_locks_trip ON budget_locks(trip_id);
+CREATE INDEX IF NOT EXISTS idx_expenses_trip ON expenses(trip_id);
+CREATE INDEX IF NOT EXISTS idx_itinerary_tasks_trip ON itinerary_tasks(trip_id);
+```
+
+---
+
+## SECTION 5: DESIGN SYSTEM
+
+### Colors
+```swift
+extension Color {
+    // Brand Core
+    static let sqTeal = Color(hex: "#0F4C5C")
+    static let sqSand = Color(hex: "#D9C5A0")
+    static let sqForest = Color(hex: "#1B4332")
+    static let sqSky = Color(hex: "#A3D5FF")
+
+    // Energy & Adventure
+    static let sqSunset = Color(hex: "#FF7A3D")
+    static let sqGold = Color(hex: "#FFCA2A")
+    static let sqRushRed = Color(hex: "#E63946")
+
+    // Neutrals
+    static let sqBlack = Color(hex: "#0E0E0E")
+    static let sqCharcoal = Color(hex: "#2A2A2A")
+    static let sqGray = Color(hex: "#B3B3B3")
+
+    // Semantic
+    static let sqPrimary = sqTeal
+    static let sqAccent = sqSunset
+    static let sqSuccess = sqForest
+    static let sqWarning = sqGold
+    static let sqAction = sqSky
+
+    // UI
+    static let sqBackground = sqBlack
+    static let sqCardBackground = sqCharcoal
+    static let sqTextPrimary = Color.white
+    static let sqTextSecondary = sqGray
+}
+```
+
+### Typography
+```swift
+extension Font {
+    static let sqLargeTitle = Font.system(size: 32, weight: .bold, design: .rounded)
+    static let sqTitle = Font.system(size: 28, weight: .bold, design: .rounded)
+    static let sqTitle2 = Font.system(size: 24, weight: .bold, design: .rounded)
+    static let sqTitle3 = Font.system(size: 20, weight: .semibold, design: .rounded)
+    static let sqHeadline = Font.system(size: 18, weight: .semibold)
+    static let sqBody = Font.system(size: 16, weight: .regular)
+    static let sqBodyBold = Font.system(size: 16, weight: .semibold)
+    static let sqSubheadline = Font.system(size: 14, weight: .regular)
+    static let sqCaption = Font.system(size: 12, weight: .regular)
+    static let sqCaptionBold = Font.system(size: 12, weight: .semibold)
+}
+```
+
+### Spacing & Sizing
+```swift
+enum DesignTokens {
+    static let spacingXS: CGFloat = 4
+    static let spacingS: CGFloat = 8
+    static let spacingM: CGFloat = 16
+    static let spacingL: CGFloat = 24
+    static let spacingXL: CGFloat = 32
+    static let spacingXXL: CGFloat = 48
+
+    static let radiusS: CGFloat = 8
+    static let radiusM: CGFloat = 12
+    static let radiusL: CGFloat = 16
+    static let radiusXL: CGFloat = 20
+    static let radiusXXL: CGFloat = 24
+
+    static let iconS: CGFloat = 16
+    static let iconM: CGFloat = 24
+    static let iconL: CGFloat = 32
+
+    static let animationFast: Double = 0.2
+    static let animationNormal: Double = 0.35
+    static let animationSlow: Double = 0.5
+}
+```
+
+### Reusable Components
+```swift
+// SQButton — primary action button
+SQButton("Lock it in", style: .primary) { action }
+SQButton("Maybe later", style: .secondary) { action }
+SQButton("Cancel", style: .destructive) { action }
+
+// SQCard — content container
+SQCard { content }  // sqCharcoal bg, radiusL, cinematic shadow
+
+// SQBadge — type indicators
+SQBadge(text: "SideQuest", style: .sidequest)   // sqSunset
+SQBadge(text: "Local Pick", style: .localPick)   // sqForest
+SQBadge(text: "Tourist Essential", style: .tourist) // sqSand
+
+// SQTextField — input field
+SQTextField(placeholder: "Destination", text: $destination, icon: "mappin")
+
+// SQLoadingView — loading state
+SQLoadingView(message: "Finding your matches...")
+
+// SQEmptyState — empty state
+SQEmptyState(icon: "sparkles", title: "No activities yet", message: "...", actionTitle: "Explore") { }
+
+// Budget indicator dot
+BudgetIndicator(status: .withinBudget)  // green
+BudgetIndicator(status: .exceedsSome)   // amber
+BudgetIndicator(status: .overBudget)    // red
+
+// Match strength badge
+MatchBadge(strength: .squadLock)   // 🔥 fire gradient
+MatchBadge(strength: .majority)    // ✅ green
+MatchBadge(strength: .split)       // 🤷 gray + "AI Tiebreaker?" CTA
+```
+
+### Shadows
+```swift
+extension View {
+    func cinematicCardShadow() -> some View {
+        self
+            .shadow(color: .black.opacity(0.06), radius: 4, y: 4)
+            .shadow(color: .black.opacity(0.12), radius: 10, y: 8)
+            .shadow(color: .black.opacity(0.08), radius: 16, y: 12)
+    }
+}
+```
+
+---
+
+## SECTION 6: THE FUNNEL (Non-Negotiable Flow)
+
+```
+Phase 0: Trip Spark → group commits dates + budget
+Phase 1: Blind Match → group agrees on activities
+Phase 2: Budget Lock → costs transparent + aligned
+Phase 3: Squad Itinerary → plan built + bookings made
+Phase 4: Active Trip → during travel (v2)
+Phase 5: Reflection + Remix → content flywheel (v2)
+```
+
+**Rule: Every screen must belong to a phase. If it doesn't, ask which phase it serves.**
+
+---
+
+## SECTION 7: FEATURE BREAKDOWNS (High → Low Level)
+
+---
+
+### AUTHENTICATION
+
+**High Level:** Email + Apple Sign-In. Session persists in Keychain. New users auto-get a profile row.
+
+**Screens:**
+
+**AuthView** — Two modes: Login and Sign Up
+- Login: email field, password field, "Sign In" button, "Forgot Password?" link, divider, "Sign in with Apple" button, "Don't have an account? Sign Up" toggle
+- Sign Up: email, password, confirm password, "Create Account" button, same Apple/toggle
+- Error display: inline red text below form
+- Loading: button shows spinner, inputs disabled
+
+**AuthViewModel:**
+```swift
+@MainActor
+class AuthViewModel: ObservableObject {
+    @Published var isAuthenticated = false
+    @Published var isCheckingSession = true
+    @Published var isLoading = false
+    @Published var error: String?
+    @Published var currentUser: User?
+    @Published var currentProfile: Profile?
+
+    private let supabase = SupabaseService.shared
+
+    init() {
+        Task { await checkExistingSession() }
+    }
+
+    func checkExistingSession() async { ... }
+    func signIn(email: String, password: String) async { ... }
+    func signUp(email: String, password: String) async { ... }
+    func signInWithApple(result: Result<ASAuthorization, Error>) async { ... }
+    func signOut() async { ... }
+    func resetPassword(email: String) async { ... }
+    func loadUserProfile(userId: UUID) async { ... }
+}
+```
+
+**Validation Rules:**
+- Email: non-empty, contains "@"
+- Password: ≥ 8 characters
+- Confirm password: matches password
+- Show specific error messages for each failure
+
+**Supabase Calls:**
+- `supabase.auth.signIn(email:password:)`
+- `supabase.auth.signUp(email:password:)`
+- `supabase.auth.signInWithIdToken(credentials:)` (Apple)
+- `supabase.auth.signOut()`
+- On signup: auto-insert profile row via database trigger
+
+---
+
+### ONBOARDING (8 Screens)
+
+**High Level:** Collects preferences to personalize discovery. Linear flow with progress bar. Skip-able but encouraged.
+
+**Container:** OnboardingContainerView — progress bar top, TabView with page style, nav buttons bottom.
+
+**Screens in order:**
+
+| # | Screen | What it collects | UI Pattern |
+|---|--------|-----------------|------------|
+| 0 | Welcome | Nothing — branding | Logo, tagline, "Get Started" button |
+| 1 | Trip Intent | Planning vs exploring | 2 large tappable cards |
+| 2 | Travel Style | Multi-select styles | 2-column grid, selectable cards with emoji + title |
+| 3 | Interests | Multi-select interests | 3-column grid of tag pills |
+| 4 | Budget | Budget level | Horizontal slider (Budget ↔ Mid ↔ Luxury) |
+| 5 | Pace | Trip pace | Horizontal slider (Relaxed ↔ Packed) |
+| 6 | Notifications | Push permission | System prompt + explanation |
+| 7 | All Set | Nothing — confirmation | Checkmark animation, "Start Exploring" button |
+
+**OnboardingViewModel:**
+```swift
+@MainActor
+class OnboardingViewModel: ObservableObject {
+    @Published var currentStep: OnboardingStep = .welcome
+    @Published var tripIntent: TripIntent?
+    @Published var selectedTravelStyles: Set<TravelStyle> = []
+    @Published var selectedInterests: Set<Interest> = []
+    @Published var budgetLevel: Double = 0.5    // 0=budget, 1=luxury
+    @Published var paceLevel: Double = 0.5      // 0=relaxed, 1=packed
+    @Published var notificationsEnabled = false
+
+    func advance() { ... }  // next step
+    func goBack() { ... }   // previous step
+    func canAdvance() -> Bool { ... }  // validation
+    func complete() async { ... }  // save to Supabase profiles.preferences
+}
+```
+
+**Enums:**
+```swift
+enum OnboardingStep: Int, CaseIterable {
+    case welcome = 0, tripIntent, travelStyle, interests, budget, pace, notifications, allSet
+}
+
+enum TripIntent: String, CaseIterable {
+    case planning, exploring
+}
+
+enum TravelStyle: String, CaseIterable, Identifiable {
+    case adventurer, foodie, culturist, relaxer, partier, photographer, budgetTraveler, luxurySeeker
+    var id: String { rawValue }
+    var emoji: String { ... }
+    var title: String { ... }
+}
+
+enum Interest: String, CaseIterable, Identifiable {
+    case nature, history, nightlife, art, food, adventure, shopping, photography, music, sports, wellness, architecture
+    var id: String { rawValue }
+}
+```
+
+**On Complete:** Save preferences to `profiles.preferences` as JSONB. Set `UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")`. Transition to MainTabView.
+
+---
+
+### PHASE 0: TRIP SPARK
+
+**High Level:** One person creates a trip idea, shares a link, friends respond with dates + budget + commitment before a deadline.
+
+**Screen: TripSparkCreateView**
+- Input: Destination (text field with map pin icon)
+- Input: Rough date range (two date pickers, optional)
+- Input: Deadline (date + time picker, default 72 hours from now)
+- Button: "Create Trip Spark" → generates shareable link
+- After creation: show share sheet with link, then navigate to TripSparkStatusView
+
+**Screen: TripSparkResponseView** (opened via Universal Link by friends)
+- Header: "[Creator] wants to go to [Destination]!"
+- Deadline countdown prominently displayed
+- Section 1: Date availability grid (calendar-style, tap dates you're free)
+- Section 2: Budget sliders (5 sliders — accommodation/night, transport, food/day, activities/day, total cap)
+  - Auto-calculator: if (accommodation × nights) + transport + (food × days) + (activities × days) > total cap → show amber warning
+- Section 3: Two large buttons — "I'm in ✓" and "Maybe 🤷" — NO third option
+- Submit → saves to trip_spark_responses
+
+**Screen: TripSparkStatusView** (creator sees this)
+- Destination + deadline countdown at top
+- List of invitees with status:
+  - ✅ Responded — "I'm in" (green) or "Maybe" (amber)
+  - ⏳ Waiting — "[Name] hasn't responded" with time elapsed
+  - 🚨 At 12 hours left: "[Name] is holding up the group" (red text)
+- Aggregate preview: "4/6 responded • Dates overlap: Jul 15-22 • Budget sweet spot: $1,200"
+- Button: "View Results" (enabled when deadline passes OR all have responded)
+
+**Screen: TripSparkResultView**
+- Overlap visualization:
+  - Date range that works for most people (green highlight)
+  - Budget sweet spot per category (bar chart or simple numbers)
+  - Who's in vs maybe vs didn't respond
+- If viable: "Let's plan this trip! →" button → creates Trip in `trips` table, adds members, advances to Phase 1
+- If no overlap: "No dates work for everyone" → suggest alternatives ("4/5 overlap on Jul 15-20")
+
+**TripSparkViewModel:**
+```swift
+@MainActor
+class TripSparkViewModel: ObservableObject {
+    @Published var destination = ""
+    @Published var startDate: Date?
+    @Published var endDate: Date?
+    @Published var deadline = Calendar.current.date(byAdding: .hour, value: 72, to: Date())!
+    @Published var spark: TripSpark?
+    @Published var responses: [TripSparkResponse] = []
+    @Published var isCreating = false
+    @Published var error: String?
+
+    // Create
+    func createSpark() async { ... }
+    func generateShareableLink() -> URL { ... }
+
+    // Response
+    func submitResponse(dates: [Date], budgets: BudgetInput, commitment: CommitmentLevel) async { ... }
+
+    // Status
+    func loadResponses() async { ... }
+    func calculateOverlap() -> DateOverlap { ... }
+    func calculateBudgetSweetSpot() -> BudgetSweetSpot { ... }
+
+    // Advance
+    func advanceToPlanning() async -> UUID { ... }  // returns trip ID
+
+    // Real-time
+    func subscribeToResponses() { ... }  // Supabase Realtime
+}
+```
+
+**Universal Link Setup:**
+- URL format: `https://sidequest.app/spark/{shareable_code}`
+- Fallback: mobile web page that prompts App Store download
+- In-app: parse code → load TripSparkResponseView
+
+---
+
+### PHASE 1: BLIND MATCH (Discovery / Swipe & Vote)
+
+**High Level:** Once a trip exists (from Trip Spark or manual creation), group members swipe through activities for that destination. Blind — nobody sees others' picks until reveal.
+
+**Screen: DiscoveryView** (enhanced for group context)
+- Top bar: Destination name + filter icon + "X activities left"
+- If in a trip context: show "Swipe round for [Trip Name] • Deadline: [time]"
+- Card stack: 3 cards visible, top card interactive
+- Swipe gestures: right (save), left (skip), up (super-like)
+- Bottom action buttons: ✕ (skip), ⭐ (super-like), ♥ (save)
+- When all cards swiped or deadline hit: navigate to MatchRevealView
+
+**Each Swipe Card must show:**
+- Hero image (full bleed, AsyncImage with sqCharcoal placeholder)
+- Gradient overlay bottom 40%
+- Experience tag badge: "🗺 SideQuest" / "📍 Local Pick" / "⭐ Tourist Essential"
+- Activity title (H2, white, bold)
+- Location line: 📍 + neighborhood/area name
+- **Cost per person** (bold, prominent)
+- **Duration**: "2-3 hrs" / "Half day" / "Full day"
+- **Budget indicator dot**: 🟢🟡🔴 based on group sweet spot
+- Tags row: small pills ("Outdoor", "Free", "Evening")
+
+**Swipe Animation Specs:**
+- Drag threshold: 100pt horizontal, 100pt vertical (super-like)
+- Rotation: proportional to drag, max ±15°
+- Opacity overlays:
+  - Right drag: green gradient from right edge, intensity scales with drag distance
+  - Left drag: red gradient from left edge
+  - Up drag: gold gradient from bottom
+- Badges appear at 50pt:
+  - "LIKE" — green border, 12° rotation, top-right
+  - "NOPE" — red border, -12° rotation, top-left
+  - "SUPER ⭐" — gold border, center top
+- Spring animation on release: stiffness 400, damping 30
+
+**Screen: MatchRevealView**
+- Header: "Your group's picks are in!"
+- Animated reveal (stagger items 0.1s apart):
+  - 🔥 **Squad Lock** section — fire gradient border, glow animation
+    - Each activity card with image, title, price/person
+    - **"Lock it in →"** CTA button (sqSunset gradient) with affiliate link
+  - ✅ **Majority Picks** section — green accent
+    - Same cards, "Add to itinerary" button
+  - 🤷 **Split Decisions** section — gray
+    - Cards with "Your group is split — AI Tiebreaker?" button (premium gate)
+  - ❌ **Noped** — collapsed/hidden, expandable
+- Bottom: "Build itinerary with matches →" button → Phase 3
+
+**MatchRevealViewModel:**
+```swift
+@MainActor
+class MatchRevealViewModel: ObservableObject {
+    @Published var squadLocks: [MatchedActivity] = []
+    @Published var majorityPicks: [MatchedActivity] = []
+    @Published var splits: [MatchedActivity] = []
+    @Published var noped: [MatchedActivity] = []
+    @Published var isCalculating = true
+
+    func calculateMatches(roundId: UUID) async { ... }
+    func addToItinerary(activityId: UUID, tripId: UUID) async { ... }
+    func openAffiliateLink(url: String) { ... }
+}
+
+struct MatchedActivity: Identifiable {
+    let id: UUID
+    let activity: Activity
+    let matchStrength: MatchStrength
+    let yesCount: Int
+    let totalVoters: Int
+    let superLikedBy: [UUID]
+    let affiliateLink: String?
+    let pricePerPerson: Double?
+}
+```
+
+**DiscoveryViewModel (enhanced):**
+```swift
+@MainActor
+class DiscoveryViewModel: ObservableObject {
+    @Published var activities: [Activity] = []
+    @Published var currentIndex = 0
+    @Published var isLoading = false
+    @Published var error: String?
+    @Published var activeRound: SwipeRound?
+    @Published var swipeCount = 0
+
+    // Filters
+    @Published var selectedCity: String?
+    @Published var selectedTypes: Set<String> = []
+    @Published var priceRange: ClosedRange<Double> = 0...200
+
+    func loadActivities(city: String) async { ... }
+    func swipe(activity: Activity, direction: SwipeDirection) async { ... }
+    func loadForTrip(tripId: UUID) async { ... }  // trip-context mode
+    func startSwipeRound(tripId: UUID, deadline: Date?) async { ... }
+}
+```
+
+---
+
+### PHASE 2: BUDGET LOCK
+
+**High Level:** Refines rough Trip Spark budgets with real pricing data. Shows group sweet spot. Budget indicators on everything.
+
+**Screen: BudgetLockView** (within trip detail)
+- Header: "Set your budget for [Destination]"
+- 5 slider inputs (pre-filled from Trip Spark response if exists):
+  - Accommodation per night: $0 - $500 slider
+  - Transport (round trip): $0 - $2000 slider
+  - Food per day: $0 - $200 slider
+  - Activities per day: $0 - $200 slider
+  - Total trip cap: calculated preview + manual override
+- Auto-math: "Based on [X] nights, your spending adds up to $[Y]"
+- Warning if exceeds cap: amber banner
+- "Save Budget" button
+
+**Screen: BudgetSweetSpotView** (group overview, within trip)
+- "Group Sweet Spot" header
+- Per-category sweet spot bars (visual):
+  - Accommodation: $XX/night (min of all members)
+  - Food: $XX/day
+  - Activities: $XX/day
+  - Total per person: $X,XXX
+- Member status: "5/6 members have set budgets" — "[Name] hasn't set budget yet"
+- "View Scenarios" button → BudgetScenariosView
+
+**Screen: BudgetScenariosView**
+- 3 itinerary cards side by side (horizontal scroll):
+  - 💰 Budget: total $X, activities list
+  - ⚖️ Mid-Range: total $X, activities list
+  - 💎 Splurge: total $X, activities list
+- Each card has affiliate links for its tier
+- "Apply to itinerary" button on selected scenario
+
+**BudgetViewModel:**
+```swift
+@MainActor
+class BudgetViewModel: ObservableObject {
+    @Published var userBudget: BudgetLock?
+    @Published var groupSweetSpot: BudgetSweetSpot?
+    @Published var expenses: [Expense] = []
+    @Published var totalSpent: Double = 0
+    @Published var budgetRemaining: Double = 0
+    @Published var budgetPercentUsed: Double = 0
+
+    func loadBudget(tripId: UUID) async { ... }
+    func saveBudget(tripId: UUID, budget: BudgetInput) async { ... }
+    func calculateSweetSpot(tripId: UUID) async { ... }
+    func addExpense(tripId: UUID, expense: ExpenseInput) async { ... }
+    func loadExpenses(tripId: UUID) async { ... }
+    func getBalances(tripId: UUID) -> [UserBalance] { ... }
+
+    // Budget indicator for any activity
+    func budgetStatus(for activity: Activity) -> BudgetStatus { ... }
+}
+
+enum BudgetStatus {
+    case withinBudget      // green
+    case exceedsSome(Int)  // amber, number of members exceeded
+    case overBudget        // red
+}
+```
+
+---
+
+### PHASE 3: SQUAD ITINERARY
+
+**High Level:** Day-by-day plan. Matched activities auto-populate. Full attribution. Task delegation. Booking CTAs on unbooked items.
+
+**Screen: TripDetailView** (the main trip screen)
+- Hero header: cover image + gradient overlay
+  - Trip mode badge ("Planning" / "Active")
+  - Trip title
+  - Destination with map pin
+  - Date range
+  - Member avatar stack (up to 5 + overflow)
+- Tab selector: "Itinerary" | "Activities" | "Members"
+- Content switches on tab selection
+
+**Itinerary Tab:**
+- Day selector: horizontal scroll pills ("Day 1", "Day 2", ...)
+- Timeline view for selected day:
+  - Time slots: Morning / Afternoon / Evening
+  - Each slot: timeline dot + connecting line + activity card
+  - Activity card: small image, title, time, duration pill, budget indicator
+  - Attribution: small text "Added by [Name]" below each item
+  - Unbooked items: amber border + "Book →" CTA
+  - Empty slots: "Add activity" button (+ icon)
+- Bottom: "Generate with AI ✨" button (premium)
+
+**Activities Tab (Your Picks):**
+- 2-column grid of matched/saved activities
+- Each card: image, title, type badge, price/person, budget indicator
+- Tap to open ActivityDetailView
+- "Add more" button → opens Discovery in trip context
+
+**Members Tab:**
+- Member list with roles (Owner, Member)
+- Contribution stats: "Added X items, completed Y tasks"
+- "[Name] hasn't added anything yet" for zero-contribution members
+- Invite link button
+- Task delegation section:
+  - "Assign a task" button
+  - List of tasks with assignee, due date, completion status
+  - Push notification when assigned
+
+**TripDetailViewModel:**
+```swift
+@MainActor
+class TripDetailViewModel: ObservableObject {
+    @Published var trip: Trip?
+    @Published var members: [TripMember] = []
+    @Published var itineraryItems: [ItineraryItem] = []
+    @Published var tasks: [ItineraryTask] = []
+    @Published var selectedDay = 1
+    @Published var isLoading = false
+
+    func loadTrip(id: UUID) async { ... }
+    func loadMembers(tripId: UUID) async { ... }
+    func loadItinerary(tripId: UUID, day: Int) async { ... }
+    func addToItinerary(activityId: UUID, day: Int, timeSlot: TimeSlot) async { ... }
+    func reorderItem(from: Int, to: Int) async { ... }
+    func removeItem(id: UUID) async { ... }
+    func assignTask(title: String, to: UUID, dueDate: Date?) async { ... }
+    func completeTask(id: UUID) async { ... }
+    func loadTasks(tripId: UUID) async { ... }
+    func getMemberContributions() -> [MemberContribution] { ... }
+}
+
+struct MemberContribution {
+    let userId: UUID
+    let username: String
+    let avatarUrl: String?
+    let itemsAdded: Int
+    let tasksCompleted: Int
+    let tasksAssigned: Int
+}
+```
+
+---
+
+### PROFILE
+
+**High Level:** User stats, rank, saved activities, country stamps, settings.
+
+**Screen: ProfileView**
+- Hero header with teal→forest gradient
+  - Avatar (80pt circle, sqSunset border ring)
+  - Display name
+  - @username (gray)
+  - "Edit Profile" outline button
+- Stats row (3 items): Trips / Countries / XP
+- Rank card:
+  - Current rank icon + name (e.g., "🥉 Bronze Explorer")
+  - XP progress bar (sqSunset fill, sqCharcoal track)
+  - "X / Y XP to [Next Rank]"
+- Content tabs: "Saved" | "Completed" | "Stamps"
+- Saved tab: 2-column grid of saved activity cards
+- Completed tab: list of completed trips
+- Stamps tab: circular country flags grid (earned = full color, locked = grayscale + lock)
+- Settings gear icon → SettingsView
+
+**Rank System:**
+| Rank | XP Required |
+|------|------------|
+| Bronze | 0 |
+| Silver | 500 |
+| Gold | 2,000 |
+| Platinum | 5,000 |
+| Diamond | 12,000 |
+| Obsidian | 25,000 |
+
+---
+
+## SECTION 8: STATES EVERY SCREEN MUST HANDLE
+
+Every screen needs these 4 states implemented:
+
+| State | Pattern |
+|-------|---------|
+| **Loading** | `SQLoadingView(message: "...")` — centered spinner + message on sqBlack bg |
+| **Empty** | `SQEmptyState(icon:title:message:actionTitle:action:)` — icon, title, body, optional CTA |
+| **Error** | Red banner at top with error message + "Retry" button |
+| **Content** | Normal view with data |
+
+```swift
+// Standard pattern for every view:
+var body: some View {
+    Group {
+        if viewModel.isLoading {
+            SQLoadingView(message: "Loading...")
+        } else if let error = viewModel.error {
+            ErrorBanner(message: error) { Task { await viewModel.retry() } }
+        } else if viewModel.items.isEmpty {
+            SQEmptyState(icon: "sparkles", title: "Nothing here yet", message: "...", actionTitle: "Get started") { }
+        } else {
+            contentView
+        }
+    }
+    .task { await viewModel.load() }
+}
+```
+
+---
+
+## SECTION 9: IN-APP LANGUAGE
+
+| Concept | User-Facing Term |
+|---------|-----------------|
+| 100% match | Squad Lock 🔥 |
+| 60-80% match | Majority Pick ✅ |
+| 50/50 match | "Your group is split" |
+| Non-responder at 12hrs | "[Name] is holding up the group" |
+| Trip booked | "made it out the gc ✓" |
+| Proceed without consensus | "we move" |
+| Hidden gem alt | "the dupe for [tourist trap]" |
+| Budget OK | "Within your sweet spot" |
+| Budget exceeded | "Over [X] members' budgets" |
+| Budget spent | "You're X% through your budget" |
+
+**Never use:** "streamline," "consolidate," "travel management," "all-in-one companion"
+
+---
+
+## SECTION 10: BUILD ORDER
+
+1. **Auth + Onboarding** (foundation, already partially built)
+2. **Design System** (tokens, components, shadows, gradients)
+3. **Activity Model + Discovery** (swipe cards, standalone mode first)
+4. **Trip Spark** (Phase 0 — the bridge from group chat)
+5. **Blind Match** (swipe in trip context + match reveal)
+6. **Budget Lock** (sweet spot calculator + indicators)
+7. **Squad Itinerary** (day-by-day plan + attribution + tasks)
+8. **Profile** (stats, rank, saved, stamps)
+9. **Booking Integration** (affiliate links at high-intent moments)
+10. **AI Tiebreaker** (premium feature, Claude API)
+11. **Expense Tracking** (during-trip, ties to budget lock)
+12. **Polish** (animations, haptics, error states, empty states, offline)
+
+---
+
+## SECTION 11: VALIDATION QUESTIONS (Check Before Every Screen)
+
+1. Which phase does this screen belong to? (0-5)
+2. Does this move the group closer to booking?
+3. Is this serving the planner friend?
+4. Can the "down for whatever" friend use this in under 10 seconds?
+5. Does this show prices per-person?
+6. Does this create social pressure on non-participants?
+7. Is there a booking CTA at the highest-intent moment?
+8. Would this look like enterprise software? (If yes, redesign)
