@@ -27,7 +27,7 @@ function AutoPlayChat() {
       setVisibleMessages(i);
       if (i >= CHAT_MESSAGES.length) {
         clearInterval(interval);
-        setTimeout(() => setShowSolution(true), 2400);
+        setTimeout(() => setShowSolution(true), 3800);
       }
     }, 550);
     return () => clearInterval(interval);

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const archetypes = [
   {
     emoji: "📋",
-    name: "Group Leader",
+    name: "The Planner",
     description: "Creates the Google Doc. Sends the When2Meet. Does all the research. Gets zero credit. One more \"let me check with work\" away from going solo.",
     punchline: "SideQuest takes this off your plate.",
     accent: "border-orange-500/20 bg-orange-500/5",
@@ -19,7 +19,7 @@ const archetypes = [
   },
   {
     emoji: "🏝️",
-    name: "Down For Whatever",
+    name: "The Viber",
     description: "\"I'm down for whatever.\" \"You guys decide.\" Shows up at the airport with no idea what's happening. Fun to travel with. Impossible to plan with.",
     punchline: "SideQuest lets them vote without having to organize anything.",
     accent: "border-blue-500/20 bg-blue-500/5",
