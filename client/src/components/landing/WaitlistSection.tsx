@@ -150,7 +150,7 @@ export function WaitlistSection() {
              {waitlistCount !== null && (
                <div className="flex items-center justify-center gap-1.5 text-white/40 text-sm font-medium mb-6" data-testid="text-waitlist-count">
                  <Users size={14} className="text-orange-400/60" />
-                 <span>Join <span className="text-white/60 font-semibold">{waitlistCount.toLocaleString()}+</span> students already signed up</span>
+                 <span>Join <span className="text-white/60 font-semibold">hundreds of</span> students already signed up</span>
                </div>
              )}
 
