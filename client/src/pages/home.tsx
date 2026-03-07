@@ -16,9 +16,9 @@ export default function Home() {
         <Hero />
         <SocialProofSection />
         <div className="section-divider max-w-4xl mx-auto" />
-        <ArchetypesSection />
-        <div className="section-divider max-w-4xl mx-auto" />
         <WaitlistSection />
+        <div className="section-divider max-w-4xl mx-auto" />
+        <ArchetypesSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <FAQSection />
       </main>
