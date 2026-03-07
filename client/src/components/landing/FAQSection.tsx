@@ -4,6 +4,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export function FAQSection() {
   const faqs = [
     {
+      q: "How do you say Weventr?",
+      a: "We + Adventure = Weventr 😊"
+    },
+    {
       q: "Why Weventr? What makes it different?",
       a: "Most travel apps focus on booking flights and hotels. Weventr focuses on the part nobody else solves — the messy group coordination that happens before you book anything. Budget debates, destination voting, splitting costs fairly. We turn chaotic group chats into an organized trip plan everyone agrees on. And unlike a booking app, we don't care where you book — we just make sure your group actually agrees before you do."
     },
