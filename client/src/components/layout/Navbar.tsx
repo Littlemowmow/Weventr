@@ -52,8 +52,6 @@ export function Navbar() {
 
   const links = [
     { label: "Demo", id: "demo" },
-    { label: "Features", id: "features" },
-    { label: "Cities", id: "cities" },
     { label: "FAQ", id: "faq" },
   ];
 

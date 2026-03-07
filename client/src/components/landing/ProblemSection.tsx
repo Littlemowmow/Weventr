@@ -197,7 +197,7 @@ export function ProblemSection() {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <button
-            onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-white/15 text-white font-semibold hover:bg-white hover:text-black transition-all duration-300 text-base group"
             data-testid="button-sound-familiar"
           >

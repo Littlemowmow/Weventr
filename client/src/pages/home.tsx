@@ -2,8 +2,6 @@ import { Hero } from "@/components/landing/Hero";
 import { Navbar } from "@/components/layout/Navbar";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { ArchetypesSection } from "@/components/landing/ArchetypesSection";
-import { FeaturesSection } from "@/components/landing/FeaturesSection";
-import { ContentSection } from "@/components/landing/ContentSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
 import { WaitlistSection } from "@/components/landing/WaitlistSection";
 import { FAQSection } from "@/components/landing/FAQSection";
@@ -22,10 +20,6 @@ export default function Home() {
         <ProblemSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <ArchetypesSection />
-        <div className="section-divider max-w-4xl mx-auto" />
-        <FeaturesSection />
-        <div className="section-divider max-w-4xl mx-auto" />
-        <ContentSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <ComparisonSection />
         <div className="section-divider max-w-4xl mx-auto" />
