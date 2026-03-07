@@ -1,10 +1,11 @@
 import { type WaitlistEntry, type InsertWaitlistEntry, waitlistEntries } from "@shared/schema";
 import { db } from "./db";
-import { eq, count } from "drizzle-orm";
+import { eq, count, and } from "drizzle-orm";
 
 export interface IStorage {
   createWaitlistEntry(entry: InsertWaitlistEntry): Promise<WaitlistEntry>;
   getWaitlistEntryByEmail(email: string): Promise<WaitlistEntry | undefined>;
+  getWaitlistEntryByPhone(phone: string): Promise<WaitlistEntry | undefined>;
   getWaitlistEntryByReferralCode(code: string): Promise<WaitlistEntry | undefined>;
   getWaitlistCount(): Promise<number>;
   getAllWaitlistEntries(): Promise<WaitlistEntry[]>;
@@ -18,6 +19,11 @@ export class DatabaseStorage implements IStorage {
 
   async getWaitlistEntryByEmail(email: string): Promise<WaitlistEntry | undefined> {
     const [result] = await db.select().from(waitlistEntries).where(eq(waitlistEntries.email, email));
+    return result;
+  }
+
+  async getWaitlistEntryByPhone(phone: string): Promise<WaitlistEntry | undefined> {
+    const [result] = await db.select().from(waitlistEntries).where(eq(waitlistEntries.phone, phone));
     return result;
   }
 

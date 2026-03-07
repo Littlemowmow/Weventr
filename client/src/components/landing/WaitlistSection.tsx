@@ -28,7 +28,7 @@ export function WaitlistSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "already_registered">("idle");
   const [referralCode, setReferralCode] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [referredBy, setReferredBy] = useState<string | null>(null);
@@ -92,8 +92,7 @@ export function WaitlistSection() {
 
       if (res.status === 409) {
         setReferralCode(data.referralCode);
-        setStatus("success");
-        pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
+        setStatus("already_registered");
         return;
       }
 
@@ -142,7 +141,52 @@ export function WaitlistSection() {
              )}
 
              <div aria-live="polite">
-               {status === "success" ? (
+               {status === "already_registered" ? (
+                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left" data-testid="status-waitlist-already">
+                     <div className="text-center mb-6">
+                        <div className="text-4xl mb-3" aria-hidden="true">👋</div>
+                        <div className="text-2xl font-bold mb-1">You already signed up — thank you!</div>
+                        <p className="text-white/50 text-sm">We've got you on the list. In the meantime, share your referral link with friends to move up.</p>
+                     </div>
+
+                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-5 rounded-2xl">
+                        <div className="text-center mb-4">
+                          <div className="text-white font-bold text-base mb-1">Get your friends on here too.</div>
+                          <p className="text-white/50 text-xs">Friends who sign up with your link move you both up the list.</p>
+                        </div>
+                        <div className="flex gap-2 mb-3">
+                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code-existing">
+                            {window.location.origin}?ref={referralCode}
+                          </div>
+                          <Button
+                            className={`font-bold min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
+                            data-testid="button-copy-referral-existing"
+                            onClick={handleCopy}
+                          >
+                            {copied ? "Copied!" : "Copy link"}
+                          </Button>
+                        </div>
+                        <Button
+                          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl h-12"
+                          data-testid="button-share-referral-existing"
+                          onClick={() => {
+                            const url = `${window.location.origin}?ref=${referralCode}`;
+                            const text = "Join me on Weventr — finally a way to plan group trips without the chaos.";
+                            if (navigator.share) {
+                              navigator.share({ title: "Weventr", text, url }).catch(() => {});
+                            } else {
+                              navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+                                setCopied(true);
+                                setTimeout(() => setCopied(false), 2000);
+                              }).catch(() => {});
+                            }
+                          }}
+                        >
+                          Share with your group chat
+                        </Button>
+                     </div>
+                  </div>
+               ) : status === "success" ? (
                   <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left" data-testid="status-waitlist-success">
                      <div className="text-center mb-6">
                         <div className="text-4xl mb-3" aria-hidden="true">🎉</div>

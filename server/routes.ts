@@ -18,9 +18,19 @@ export async function registerRoutes(
 
       parsed.data.email = parsed.data.email.toLowerCase().trim();
 
-      const existing = await storage.getWaitlistEntryByEmail(parsed.data.email);
-      if (existing) {
-        return res.status(409).json({ error: "already_registered", referralCode: existing.referralCode });
+      const existingEmail = await storage.getWaitlistEntryByEmail(parsed.data.email);
+      if (existingEmail) {
+        return res.status(409).json({ error: "already_registered", referralCode: existingEmail.referralCode });
+      }
+
+      if (parsed.data.phone) {
+        const normalizedPhone = parsed.data.phone.replace(/\D/g, "");
+        if (normalizedPhone.length >= 7) {
+          const existingPhone = await storage.getWaitlistEntryByPhone(parsed.data.phone);
+          if (existingPhone) {
+            return res.status(409).json({ error: "already_registered", referralCode: existingPhone.referralCode });
+          }
+        }
       }
 
       if (parsed.data.referredBy) {
