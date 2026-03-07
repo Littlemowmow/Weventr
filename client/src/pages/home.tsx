@@ -5,7 +5,7 @@ import { ArchetypesSection } from "@/components/landing/ArchetypesSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
 import { WaitlistSection } from "@/components/landing/WaitlistSection";
 import { FAQSection } from "@/components/landing/FAQSection";
-import { ComparisonSection } from "@/components/landing/ComparisonSection";
+
 import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
@@ -20,8 +20,6 @@ export default function Home() {
         <ProblemSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <ArchetypesSection />
-        <div className="section-divider max-w-4xl mx-auto" />
-        <ComparisonSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <FAQSection />
         <div className="section-divider max-w-4xl mx-auto" />
