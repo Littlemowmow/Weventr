@@ -158,40 +158,65 @@ export function WaitlistSection() {
                {status === "success" ? (
                   <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left" data-testid="status-waitlist-success">
                      <div className="text-center mb-6">
-                        <div className="text-4xl mb-4" aria-hidden="true">🚀</div>
-                        <div className="text-2xl font-bold">You're on the list!</div>
+                        <div className="text-4xl mb-3" aria-hidden="true">🎉</div>
+                        <div className="text-2xl font-bold mb-1">You're on the waitlist!</div>
+                        <p className="text-white/50 text-sm">We'll email you as soon as the TestFlight beta opens.</p>
                      </div>
 
-                     <div className="space-y-4 mb-8 bg-black/20 p-6 rounded-2xl border border-white/5">
-                        <div className="font-bold text-white/90 mb-3">Here's what happens next:</div>
-                        <ol className="list-decimal list-inside space-y-3 text-white/70 text-sm leading-relaxed">
-                          <li><span className="text-white font-medium">We'll email you a confirmation shortly.</span></li>
-                          <li><span className="text-white font-medium">Share your link with your travel crew</span> — you need friends on here anyway.</li>
-                          <li><span className="text-white font-medium">When we open beta access, you'll be first to know.</span></li>
-                        </ol>
-                     </div>
-
-                     <div className="bg-orange-500/20 border border-orange-500/30 p-4 rounded-xl text-center">
-                        <div className="text-xs font-bold text-orange-200 uppercase tracking-wider mb-2">Your Unique Share Link</div>
-                        <div className="flex gap-2">
-                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-lg font-mono text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code">
+                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-5 rounded-2xl mb-6">
+                        <div className="text-center mb-4">
+                          <div className="text-white font-bold text-base mb-1">Want earlier access? Invite friends.</div>
+                          <p className="text-white/50 text-xs">Send this to friends who love traveling with groups.</p>
+                        </div>
+                        <div className="flex gap-2 mb-3">
+                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code">
                             {window.location.origin}?ref={referralCode}
                           </div>
                           <Button
-                            className={`font-bold min-w-[80px] transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
+                            className={`font-bold min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
                             data-testid="button-copy-referral"
                             onClick={handleCopy}
                           >
-                            {copied ? "Copied!" : "Copy"}
+                            {copied ? "Copied!" : "Copy link"}
                           </Button>
                         </div>
-                        <div className="text-[10px] text-orange-200 mt-2 font-medium">
+                        <Button
+                          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl h-12"
+                          data-testid="button-share-referral"
+                          onClick={() => {
+                            const url = `${window.location.origin}?ref=${referralCode}`;
+                            const text = "Join me on Weventr — finally a way to plan group trips without the chaos.";
+                            if (navigator.share) {
+                              navigator.share({ title: "Weventr", text, url }).catch(() => {});
+                            } else {
+                              navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+                                setCopied(true);
+                                setTimeout(() => setCopied(false), 2000);
+                              }).catch(() => {});
+                            }
+                          }}
+                        >
+                          Share with your group chat
+                        </Button>
+                        <div className="text-[11px] text-orange-200/70 mt-3 font-medium text-center">
                           Friends who sign up with your link move you both up the list
                         </div>
                      </div>
-                     <p className="text-white/30 text-xs mt-4 font-medium">
-                       Spring break plans are dying in group chats right now. Don't let yours be next.
-                     </p>
+
+                     <div className="space-y-4 bg-black/20 p-5 rounded-2xl border border-white/5 mb-5">
+                        <div className="font-bold text-white/90 mb-2 text-sm">Here's what happens next:</div>
+                        <ol className="list-decimal list-inside space-y-2.5 text-white/70 text-sm leading-relaxed">
+                          <li><span className="text-white font-medium">Check your inbox</span> — confirmation is on the way.</li>
+                          <li><span className="text-white font-medium">Share your link</span> — you need friends on here anyway.</li>
+                          <li><span className="text-white font-medium">We'll notify you</span> when the TestFlight beta opens.</li>
+                        </ol>
+                     </div>
+
+                     <div className="flex items-center justify-center gap-2 text-white/30 text-xs font-medium">
+                       <span>Built by founders at the University of Michigan</span>
+                       <span className="text-orange-400/40">|</span>
+                       <span>Early testers from UMich, travel creators, and student orgs</span>
+                     </div>
                   </div>
                ) : (
                   <form onSubmit={handleSubmit} aria-label="Join waitlist" className="flex flex-col gap-4 max-w-lg mx-auto bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">

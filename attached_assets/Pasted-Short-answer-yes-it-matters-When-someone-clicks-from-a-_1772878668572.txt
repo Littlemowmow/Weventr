@@ -1,0 +1,117 @@
+Short answer: **yes, it matters.** When someone clicks from a DM, the **waitlist form should be visible immediately** without scrolling.
+
+In growth terms this is called **reducing friction in the conversion funnel**. Every extra step (scrolling, reading, searching) reduces sign-ups.
+
+### Best practice
+
+When someone clicks your link from that message, they should land on **one of these two things instantly**:
+
+1. **The waitlist form above the fold**
+2. **Directly scrolled to the waitlist section**
+
+---
+
+# Recommended Fix (Very Easy)
+
+Use a **section anchor link**.
+
+Example:
+
+```
+sidequest.com/#waitlist
+```
+
+Then on your site the form section has:
+
+```
+id="waitlist"
+```
+
+So when people click the link they land **right at the form**.
+
+You still keep the rest of the page below for people who want to explore.
+
+---
+
+# Why This Matters
+
+When sending DMs like your message:
+
+Hey! I’m building a startup at the University of Michigan called **SideQuest**.
+
+We just submitted our **TestFlight beta to Apple**, and while we wait for approval we’re letting people join the early access list.
+
+If you want to try it when the beta opens, you can join the waitlist here:
+
+[link]
+
+people are usually:
+
+* on their phone
+* clicking quickly
+* not reading the page carefully
+
+If they click and **don’t see a form immediately**, many will leave.
+
+Even small friction drops conversions.
+
+Typical effects:
+
+| Landing Experience     | Conversion |
+| ---------------------- | ---------- |
+| Form visible instantly | 25–40%     |
+| Requires scrolling     | 10–20%     |
+
+---
+
+# Ideal Landing Layout
+
+Even better is:
+
+**Hero section**
+
+```
+Headline
+Short explanation
+WAITLIST FORM
+```
+
+Then below:
+
+* screenshots
+* explanation
+* features
+
+So technically **no scrolling needed at all**.
+
+---
+
+# One More Small Optimization
+
+Change your CTA wording slightly on the page:
+
+Instead of:
+
+> Join the waitlist
+
+Use:
+
+> Get Early Access
+
+It consistently converts better.
+
+---
+
+✅ **My recommendation for your situation:**
+
+Send them to:
+
+```
+sidequest.com/#waitlist
+```
+
+so the form appears **instantly**.
+
+---
+
+If you want, I can also show you **3 tiny landing page tweaks that often double waitlist conversions for early startups** (especially for social apps like SideQuest).
