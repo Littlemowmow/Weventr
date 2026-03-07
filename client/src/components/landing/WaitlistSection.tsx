@@ -253,10 +253,10 @@ export function WaitlistSection() {
                           aria-label="Questions or feedback"
                           value={feedback}
                           onChange={(e) => setFeedback(e.target.value)}
-                          className="w-full min-h-[80px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
+                          className="w-full min-h-[100px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-base leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
                           data-testid="input-feedback"
                         />
-                        <MessageSquare className="absolute left-4 top-4 text-white/40" size={18} aria-hidden="true" />
+                        <MessageSquare className="absolute left-4 top-[18px] text-white/40" size={18} aria-hidden="true" />
                       </div>
                     </fieldset>
 
