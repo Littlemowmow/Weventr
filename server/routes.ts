@@ -50,6 +50,47 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/api/waitlist/export", async (req, res) => {
+    try {
+      const key = req.query.key;
+      if (!process.env.SESSION_SECRET || key !== process.env.SESSION_SECRET) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      const entries = await storage.getAllWaitlistEntries();
+
+      const escape = (val: string | null | undefined) => {
+        if (val == null) return "";
+        const str = String(val);
+        if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+          return `"${str.replace(/"/g, '""')}"`;
+        }
+        return str;
+      };
+
+      const headers = ["ID", "Email", "Phone", "Travel Date", "Travel Type", "Referral Code", "Referred By", "Signed Up"];
+      const rows = entries.map((e) => [
+        e.id,
+        escape(e.email),
+        escape(e.phone),
+        escape(e.travelDate),
+        escape(e.travelType),
+        escape(e.referralCode),
+        escape(e.referredBy),
+        e.createdAt ? new Date(e.createdAt).toISOString() : "",
+      ].join(","));
+
+      const csv = [headers.join(","), ...rows].join("\n");
+
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader("Content-Disposition", "attachment; filename=weventr-waitlist.csv");
+      res.send(csv);
+    } catch (error) {
+      console.error("Export error:", error);
+      res.status(500).json({ error: "Something went wrong" });
+    }
+  });
+
   app.get("/api/waitlist/count", async (_req, res) => {
     try {
       const count = await storage.getWaitlistCount();

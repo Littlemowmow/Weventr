@@ -7,6 +7,7 @@ export interface IStorage {
   getWaitlistEntryByEmail(email: string): Promise<WaitlistEntry | undefined>;
   getWaitlistEntryByReferralCode(code: string): Promise<WaitlistEntry | undefined>;
   getWaitlistCount(): Promise<number>;
+  getAllWaitlistEntries(): Promise<WaitlistEntry[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -28,6 +29,10 @@ export class DatabaseStorage implements IStorage {
   async getWaitlistCount(): Promise<number> {
     const [result] = await db.select({ count: count() }).from(waitlistEntries);
     return result.count;
+  }
+
+  async getAllWaitlistEntries(): Promise<WaitlistEntry[]> {
+    return db.select().from(waitlistEntries).orderBy(waitlistEntries.createdAt);
   }
 }
 
