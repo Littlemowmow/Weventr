@@ -101,7 +101,7 @@ export function ArchetypesSection() {
   const totalVotes = Object.values(counts).reduce((a, b) => a + b, 0);
 
   return (
-    <section className="py-24 px-4">
+    <section className="py-16 sm:py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -110,7 +110,7 @@ export function ArchetypesSection() {
           className="text-center mb-14"
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Every group has them</span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4">
             Which one are you?
           </h2>
           {!submitted && (

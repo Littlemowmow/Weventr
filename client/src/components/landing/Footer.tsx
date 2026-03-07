@@ -6,7 +6,7 @@ export function Footer() {
   };
 
   return (
-    <footer aria-label="Site footer" className="py-16 px-4 border-t border-white/5 overflow-hidden relative">
+    <footer aria-label="Site footer" className="py-10 sm:py-16 px-4 border-t border-white/5 overflow-hidden relative">
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
           

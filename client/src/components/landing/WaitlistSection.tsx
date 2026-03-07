@@ -127,7 +127,7 @@ export function WaitlistSection() {
   const isLoading = status === "loading";
 
   return (
-    <section id="waitlist" className="py-20 px-4 overflow-hidden">
+    <section id="waitlist" className="py-14 sm:py-20 px-3 sm:px-4 overflow-hidden">
       <div className="mx-auto max-w-7xl relative">
 
         <div className="grid grid-cols-2 gap-3 mb-8 lg:hidden px-2">
@@ -247,16 +247,16 @@ export function WaitlistSection() {
           </div>
         </motion.div>
 
-        <div className="bg-gradient-to-b from-white/8 to-white/3 border border-white/10 rounded-[2rem] p-6 sm:p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
+        <div className="bg-gradient-to-b from-white/8 to-white/3 border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
 
            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/15 rounded-full blur-[120px] pointer-events-none" />
            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-rose-500/15 rounded-full blur-[120px] pointer-events-none" />
 
            <div className="relative z-10">
-             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4" data-testid="text-waitlist-title">
+             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-3 sm:mb-4" data-testid="text-waitlist-title">
                Don't let another trip die in the chat.
              </h2>
-             <p className="text-white/60 text-lg mb-3 max-w-xl mx-auto">
+             <p className="text-white/60 text-sm sm:text-lg mb-3 max-w-xl mx-auto">
                Join the waitlist. Then send it to the group chat — you're gonna need them on here anyway.
              </p>
 
@@ -269,24 +269,24 @@ export function WaitlistSection() {
 
              <div aria-live="polite">
                {status === "already_registered" ? (
-                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left" data-testid="status-waitlist-already">
+                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-already">
                      <div className="text-center mb-6">
                         <div className="text-4xl mb-3" aria-hidden="true">👋</div>
-                        <div className="text-2xl font-bold mb-1">You already signed up — thank you!</div>
+                        <div className="text-xl sm:text-2xl font-bold mb-1">You already signed up — thank you!</div>
                         <p className="text-white/50 text-sm">We've got you on the list. In the meantime, share your referral link with friends to move up.</p>
                      </div>
 
-                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-5 rounded-2xl">
+                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-4 sm:p-5 rounded-2xl">
                         <div className="text-center mb-4">
-                          <div className="text-white font-bold text-base mb-1">Get your friends on here too.</div>
+                          <div className="text-white font-bold text-sm sm:text-base mb-1">Get your friends on here too.</div>
                           <p className="text-white/50 text-xs">Friends who sign up with your link move you both up the list.</p>
                         </div>
-                        <div className="flex gap-2 mb-3">
-                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code-existing">
+                        <div className="flex flex-col sm:flex-row gap-2 mb-3">
+                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code-existing">
                             {window.location.origin}?ref={referralCode}
                           </div>
                           <Button
-                            className={`font-bold min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
+                            className={`font-bold w-full sm:w-auto sm:min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
                             data-testid="button-copy-referral-existing"
                             onClick={handleCopy}
                           >
@@ -314,24 +314,24 @@ export function WaitlistSection() {
                      </div>
                   </div>
                ) : status === "success" ? (
-                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left" data-testid="status-waitlist-success">
+                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-success">
                      <div className="text-center mb-6">
                         <div className="text-4xl mb-3" aria-hidden="true">🎉</div>
-                        <div className="text-2xl font-bold mb-1">You're on the waitlist!</div>
+                        <div className="text-xl sm:text-2xl font-bold mb-1">You're on the waitlist!</div>
                         <p className="text-white/50 text-sm">We'll email you as soon as the TestFlight beta opens.</p>
                      </div>
 
-                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-5 rounded-2xl mb-6">
+                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-4 sm:p-5 rounded-2xl mb-6">
                         <div className="text-center mb-4">
-                          <div className="text-white font-bold text-base mb-1">Want earlier access? Invite friends.</div>
+                          <div className="text-white font-bold text-sm sm:text-base mb-1">Want earlier access? Invite friends.</div>
                           <p className="text-white/50 text-xs">Send this to friends who love traveling with groups.</p>
                         </div>
-                        <div className="flex gap-2 mb-3">
-                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code">
+                        <div className="flex flex-col sm:flex-row gap-2 mb-3">
+                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code">
                             {window.location.origin}?ref={referralCode}
                           </div>
                           <Button
-                            className={`font-bold min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
+                            className={`font-bold w-full sm:w-auto sm:min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
                             data-testid="button-copy-referral"
                             onClick={handleCopy}
                           >
@@ -374,14 +374,14 @@ export function WaitlistSection() {
                        Spring break plans are dying in group chats right now. Don't let yours be next.
                      </div>
 
-                     <div className="flex items-center justify-center gap-2 text-white/30 text-xs font-medium">
+                     <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-white/30 text-xs font-medium text-center">
                        <span>Built by founders at the University of Michigan</span>
-                       <span className="text-orange-400/40">|</span>
+                       <span className="text-orange-400/40 hidden sm:inline">|</span>
                        <span>Early testers from UMich, travel creators, and student orgs</span>
                      </div>
                   </div>
                ) : (
-                  <form onSubmit={handleSubmit} aria-label="Join waitlist" className="flex flex-col gap-4 max-w-lg mx-auto bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+                  <form onSubmit={handleSubmit} aria-label="Join waitlist" className="flex flex-col gap-3 sm:gap-4 max-w-lg mx-auto bg-white/5 p-4 sm:p-6 rounded-3xl border border-white/10 backdrop-blur-sm w-full">
                     {errorMsg && (
                       <div role="alert" className="bg-red-500/20 border border-red-500/30 text-red-200 text-sm p-3 rounded-xl text-center" data-testid="status-waitlist-error">
                         {errorMsg}
@@ -396,7 +396,7 @@ export function WaitlistSection() {
                           aria-label="Email address"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-lg focus-visible:ring-orange-500"
+                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-base sm:text-lg focus-visible:ring-orange-500"
                           required
                           autoComplete="email"
                           data-testid="input-email"
@@ -411,7 +411,7 @@ export function WaitlistSection() {
                           aria-label="Phone number"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-lg focus-visible:ring-orange-500"
+                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-base sm:text-lg focus-visible:ring-orange-500"
                           autoComplete="tel"
                           data-testid="input-phone"
                         />
@@ -435,7 +435,7 @@ export function WaitlistSection() {
                       type="submit"
                       disabled={isLoading}
                       aria-busy={isLoading}
-                      className="h-16 rounded-2xl bg-white hover:bg-gray-100 text-black font-bold px-10 text-lg transition-all mt-2 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-[1.02]"
+                      className="h-14 sm:h-16 rounded-2xl bg-white hover:bg-gray-100 text-black font-bold px-10 text-base sm:text-lg transition-all mt-2 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-[1.02]"
                       data-testid="button-submit-waitlist"
                     >
                       {isLoading ? <Loader2 className="animate-spin" /> : "Claim Your Spot"}

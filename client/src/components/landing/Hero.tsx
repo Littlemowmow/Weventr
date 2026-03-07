@@ -33,7 +33,7 @@ export function Hero() {
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-[90vh] flex flex-col justify-center px-4 pt-28 pb-16 overflow-hidden"
+      className="relative min-h-[70vh] lg:min-h-[90vh] flex flex-col justify-center px-4 pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden"
     >
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -52,20 +52,20 @@ export function Hero() {
                 Beta Launching Soon
               </div>
 
-              <h1 className="font-display font-bold leading-[1.05] tracking-tight text-white mb-6" data-testid="text-hero-title">
-                <span className="text-5xl md:text-6xl lg:text-7xl">The trip that actually<br/>makes it out of the <span className="text-gradient-gold">group chat.</span></span>
+              <h1 className="font-display font-bold leading-[1.05] tracking-tight text-white mb-5" data-testid="text-hero-title">
+                <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl">The trip that actually<br/>makes it out of the <span className="text-gradient-gold">group chat.</span></span>
               </h1>
               
-              <p className="text-base md:text-xl text-white/50 leading-relaxed mb-10 max-w-lg" data-testid="text-hero-subtitle">
+              <p className="text-sm sm:text-base md:text-xl text-white/50 leading-relaxed mb-8 lg:mb-10 max-w-lg" data-testid="text-hero-subtitle">
                 Weventr turns "I'm down if you are" into an actual trip. Group voting so nobody gets ignored, budget alignment so nobody goes quiet, and hidden gems your guidebook doesn't know about.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                   <Button 
                     onClick={scrollToWaitlist}
                     size="lg" 
-                    className="rounded-full bg-white hover:bg-white/90 text-black text-base font-semibold h-14 px-10 shadow-2xl shadow-orange-500/15 hover:shadow-orange-500/30 hover:scale-[1.02] transition-all"
+                    className="rounded-full bg-white hover:bg-white/90 text-black text-base font-semibold h-14 px-10 w-full sm:w-auto shadow-2xl shadow-orange-500/15 hover:shadow-orange-500/30 hover:scale-[1.02] transition-all"
                     data-testid="button-hero-cta"
                   >
                     Claim Your Spot <ArrowRight className="ml-2" size={18} />
