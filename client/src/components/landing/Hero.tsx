@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, PlayCircle } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 
 const MOBILE_BREAKPOINT = 1024;
 
@@ -72,17 +72,6 @@ export function Hero() {
                   </Button>
                 </motion.div>
                 
-                <button 
-                  onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
-                  className="flex items-center gap-3 cursor-pointer group px-4 py-2 rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="See the problem"
-                  data-testid="button-hero-demo"
-                >
-                   <div className="w-10 h-10 rounded-full bg-white/15 border border-white/25 flex items-center justify-center group-hover:scale-110 transition-transform">
-                     <PlayCircle className="text-white w-5 h-5" />
-                   </div>
-                   <span className="font-medium text-white/60 group-hover:text-white transition-colors text-sm">Watch a familiar scene</span>
-                </button>
               </div>
 
             </motion.div>
