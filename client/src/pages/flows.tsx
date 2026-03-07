@@ -80,7 +80,7 @@ export default function FlowsPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white" data-testid="flows-page">
-      <header className="sticky top-0 z-50 border-b border-white/8" style={{ background: "rgba(10,10,12,0.9)", backdropFilter: "blur(20px)" }}>
+      <header className="sticky top-0 z-50 border-b border-white/[0.08]" style={{ background: "rgba(10,10,12,0.9)", backdropFilter: "blur(20px)" }}>
         <div className="container mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer group" data-testid="link-back-home">
@@ -92,7 +92,7 @@ export default function FlowsPage() {
         </div>
       </header>
 
-      <div className="sticky top-[57px] z-40 border-b border-white/8" style={{ background: "rgba(10,10,12,0.85)", backdropFilter: "blur(16px)" }}>
+      <div className="sticky top-[57px] z-40 border-b border-white/[0.08]" style={{ background: "rgba(10,10,12,0.85)", backdropFilter: "blur(16px)" }}>
         <div className="container mx-auto max-w-7xl px-4">
           <div className="flex gap-1 py-2 overflow-x-auto scrollbar-hide">
             {PHASES.map((p, i) => (

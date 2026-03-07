@@ -19,7 +19,7 @@ export function CitiesSection() {
             <span className="text-sq-green font-medium tracking-wide uppercase text-sm">Destinations</span>
             <h2 className="text-3xl md:text-4xl font-display font-bold mt-2">Coming first to...</h2>
           </div>
-          <Button variant="link" className="text-sq-green p-0 h-auto font-semibold group">
+          <Button variant="ghost" className="text-sq-green p-0 h-auto font-semibold group">
             More cities coming soon <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>

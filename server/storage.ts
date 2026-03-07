@@ -1,6 +1,6 @@
 import { type WaitlistEntry, type InsertWaitlistEntry, waitlistEntries, archetypeVotes } from "@shared/schema";
 import { db } from "./db";
-import { eq, count, and, sql } from "drizzle-orm";
+import { eq, count, sql } from "drizzle-orm";
 
 export interface IStorage {
   createWaitlistEntry(entry: InsertWaitlistEntry): Promise<WaitlistEntry>;

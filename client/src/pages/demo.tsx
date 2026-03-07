@@ -176,7 +176,7 @@ function IMessageSection() {
                       transition={{ repeat: Infinity, duration: 1.5 }}
                       className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-orange-500/30 cursor-pointer"
                     >
-                      S
+                      W
                     </motion.div>
                     <span className="text-white/40 text-xs font-medium">Tap to plan with Weventr</span>
                   </div>

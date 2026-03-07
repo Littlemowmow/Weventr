@@ -51,7 +51,6 @@ export function Navbar() {
   }, [isMobileMenuOpen]);
 
   const links = [
-    { label: "Demo", id: "demo" },
     { label: "FAQ", id: "faq" },
   ];
 

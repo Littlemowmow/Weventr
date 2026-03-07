@@ -23,7 +23,7 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-white text-sm mb-5">Product</h4>
             <ul className="space-y-3 text-sm text-white/30">
-              <li><button onClick={() => scrollToSection("demo")} className="hover:text-orange-400 transition-colors" data-testid="link-footer-demo">Demo</button></li>
+              <li><a href="/demo" className="hover:text-orange-400 transition-colors" data-testid="link-footer-demo">Demo</a></li>
               <li><button onClick={() => scrollToSection("faq")} className="hover:text-orange-400 transition-colors" data-testid="link-footer-faq">FAQ</button></li>
             </ul>
           </div>

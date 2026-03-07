@@ -4,6 +4,42 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Loader2, MessageSquare, Phone, Users } from "lucide-react";
 
+function ShareReferralBlock({ referralCode, copied, onCopy, onShare, testIdSuffix = "" }: {
+  referralCode: string;
+  copied: boolean;
+  onCopy: () => void;
+  onShare: () => void;
+  testIdSuffix?: string;
+}) {
+  return (
+    <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-4 sm:p-5 rounded-2xl">
+      <div className="text-center mb-4">
+        <div className="text-white font-bold text-sm sm:text-base mb-1">Get your friends on here too.</div>
+        <p className="text-white/50 text-xs">Friends who sign up with your link move you both up the list.</p>
+      </div>
+      <div className="flex flex-col sm:flex-row gap-2 mb-3">
+        <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm text-white/80 truncate border border-white/10" data-testid={`text-referral-code${testIdSuffix}`}>
+          {window.location.origin}?ref={referralCode}
+        </div>
+        <Button
+          className={`font-bold w-full sm:w-auto sm:min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
+          data-testid={`button-copy-referral${testIdSuffix}`}
+          onClick={onCopy}
+        >
+          {copied ? "Copied!" : "Copy link"}
+        </Button>
+      </div>
+      <Button
+        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl h-12"
+        data-testid={`button-share-referral${testIdSuffix}`}
+        onClick={onShare}
+      >
+        Share with your group chat
+      </Button>
+    </div>
+  );
+}
+
 function ChatBubble({ text, isMe }: { text: string; isMe?: boolean }) {
   return (
     <div className={`py-2 px-3 rounded-2xl text-xs max-w-[90%] mb-1.5 ${isMe ? "bg-blue-500 text-white rounded-br-sm ml-auto" : "bg-white/10 text-white/70 rounded-bl-sm mr-auto"}`}>
@@ -63,6 +99,19 @@ export function WaitlistSection() {
       })
       .catch(() => {});
   }, []);
+
+  const handleShare = useCallback(() => {
+    const url = `${window.location.origin}?ref=${referralCode}`;
+    const text = "Join me on Weventr — finally a way to plan group trips without the chaos.";
+    if (navigator.share) {
+      navigator.share({ title: "Weventr", text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }).catch(() => {});
+    }
+  }, [referralCode]);
 
   const handleCopy = useCallback(() => {
     const link = `${window.location.origin}?ref=${referralCode}`;
@@ -192,7 +241,7 @@ export function WaitlistSection() {
           </div>
         </motion.div>
 
-        <div className="bg-gradient-to-b from-white/8 to-white/3 border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
+        <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.03] border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
 
            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/15 rounded-full blur-[120px] pointer-events-none" />
            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-rose-500/15 rounded-full blur-[120px] pointer-events-none" />
@@ -221,42 +270,13 @@ export function WaitlistSection() {
                         <p className="text-white/50 text-sm">We've got you on the list. In the meantime, share your referral link with friends to move up.</p>
                      </div>
 
-                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-4 sm:p-5 rounded-2xl">
-                        <div className="text-center mb-4">
-                          <div className="text-white font-bold text-sm sm:text-base mb-1">Get your friends on here too.</div>
-                          <p className="text-white/50 text-xs">Friends who sign up with your link move you both up the list.</p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-2 mb-3">
-                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code-existing">
-                            {window.location.origin}?ref={referralCode}
-                          </div>
-                          <Button
-                            className={`font-bold w-full sm:w-auto sm:min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
-                            data-testid="button-copy-referral-existing"
-                            onClick={handleCopy}
-                          >
-                            {copied ? "Copied!" : "Copy link"}
-                          </Button>
-                        </div>
-                        <Button
-                          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl h-12"
-                          data-testid="button-share-referral-existing"
-                          onClick={() => {
-                            const url = `${window.location.origin}?ref=${referralCode}`;
-                            const text = "Join me on Weventr — finally a way to plan group trips without the chaos.";
-                            if (navigator.share) {
-                              navigator.share({ title: "Weventr", text, url }).catch(() => {});
-                            } else {
-                              navigator.clipboard.writeText(`${text} ${url}`).then(() => {
-                                setCopied(true);
-                                setTimeout(() => setCopied(false), 2000);
-                              }).catch(() => {});
-                            }
-                          }}
-                        >
-                          Share with your group chat
-                        </Button>
-                     </div>
+                     <ShareReferralBlock
+                       referralCode={referralCode}
+                       copied={copied}
+                       onCopy={handleCopy}
+                       onShare={handleShare}
+                       testIdSuffix="-existing"
+                     />
                   </div>
                ) : status === "success" ? (
                   <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-success">
@@ -266,44 +286,13 @@ export function WaitlistSection() {
                         <p className="text-white/50 text-sm">We'll email you as soon as the TestFlight beta opens.</p>
                      </div>
 
-                     <div className="bg-gradient-to-br from-orange-500/15 to-amber-500/10 border border-orange-500/25 p-4 sm:p-5 rounded-2xl mb-6">
-                        <div className="text-center mb-4">
-                          <div className="text-white font-bold text-sm sm:text-base mb-1">Want earlier access? Invite friends.</div>
-                          <p className="text-white/50 text-xs">Send this to friends who love traveling with groups.</p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-2 mb-3">
-                          <div className="bg-black/30 flex-1 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm text-white/80 truncate border border-white/10" data-testid="text-referral-code">
-                            {window.location.origin}?ref={referralCode}
-                          </div>
-                          <Button
-                            className={`font-bold w-full sm:w-auto sm:min-w-[100px] rounded-xl transition-colors ${copied ? "bg-emerald-500 hover:bg-emerald-500 text-white" : "bg-white text-black hover:bg-white/90"}`}
-                            data-testid="button-copy-referral"
-                            onClick={handleCopy}
-                          >
-                            {copied ? "Copied!" : "Copy link"}
-                          </Button>
-                        </div>
-                        <Button
-                          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl h-12"
-                          data-testid="button-share-referral"
-                          onClick={() => {
-                            const url = `${window.location.origin}?ref=${referralCode}`;
-                            const text = "Join me on Weventr — finally a way to plan group trips without the chaos.";
-                            if (navigator.share) {
-                              navigator.share({ title: "Weventr", text, url }).catch(() => {});
-                            } else {
-                              navigator.clipboard.writeText(`${text} ${url}`).then(() => {
-                                setCopied(true);
-                                setTimeout(() => setCopied(false), 2000);
-                              }).catch(() => {});
-                            }
-                          }}
-                        >
-                          Share with your group chat
-                        </Button>
-                        <div className="text-[11px] text-orange-200/70 mt-3 font-medium text-center">
-                          Friends who sign up with your link move you both up the list
-                        </div>
+                     <div className="mb-6">
+                        <ShareReferralBlock
+                          referralCode={referralCode}
+                          copied={copied}
+                          onCopy={handleCopy}
+                          onShare={handleShare}
+                        />
                      </div>
 
                      <div className="space-y-4 bg-black/20 p-5 rounded-2xl border border-white/5 mb-5">

@@ -1,6 +1,6 @@
 import {
   Heart, X, Check, MapPin, DollarSign, Clock, Grip, Sparkles, Star,
-  Users, Flame, ThumbsUp, HelpCircle, AlertCircle,
+  Users, Flame, ThumbsUp, HelpCircle, AlertCircle, Calendar,
   Home as HomeIcon, Utensils, Plane, Ticket
 } from "lucide-react";
 

@@ -93,7 +93,7 @@ function GroupChatInviteScreen() {
               <div className="flex-1">
                 <div className="text-white font-semibold text-[14px]">{m.name}</div>
               </div>
-              <div className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${m.status === "owner" ? "bg-orange-500/20 text-orange-400" : m.status === "joined" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/8 text-white/30"}`}>
+              <div className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${m.status === "owner" ? "bg-orange-500/20 text-orange-400" : m.status === "joined" ? "bg-emerald-500/15 text-emerald-400" : "bg-white/[0.08] text-white/30"}`}>
                 {m.tag}
               </div>
             </div>
@@ -294,7 +294,7 @@ function BudgetSettlementScreen() {
                 <div className="text-white text-[13px] font-semibold">{s.from} → {s.to}</div>
                 <div className="text-white/30 text-[11px] font-bold">{s.amount}</div>
               </div>
-              <div className={`text-[11px] font-bold px-3 py-1.5 rounded-xl ${s.action === "Settle" ? "bg-orange-500/15 text-orange-400 border border-orange-500/25" : "bg-white/8 text-white/40 border border-white/10"}`}>
+              <div className={`text-[11px] font-bold px-3 py-1.5 rounded-xl ${s.action === "Settle" ? "bg-orange-500/15 text-orange-400 border border-orange-500/25" : "bg-white/[0.08] text-white/40 border border-white/10"}`}>
                 {s.action}
               </div>
             </div>
