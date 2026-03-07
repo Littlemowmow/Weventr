@@ -1,17 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, Phone, Users } from "lucide-react";
-
-const TIMELINE_OPTIONS = [
-  { value: "", label: "When are you traveling? (optional)" },
-  { value: "this_month", label: "This month" },
-  { value: "next_3_months", label: "Next 3 months" },
-  { value: "next_6_months", label: "Next 6 months" },
-  { value: "next_year", label: "Next year" },
-  { value: "just_exploring", label: "Just exploring" },
-];
+import { Loader2, MessageSquare, Phone, Users } from "lucide-react";
 
 function captureAttribution() {
   const params = new URLSearchParams(window.location.search);
@@ -37,7 +27,7 @@ function pushDataLayer(event: Record<string, unknown>) {
 export function WaitlistSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [travelDate, setTravelDate] = useState("");
+  const [feedback, setFeedback] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [referralCode, setReferralCode] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -91,7 +81,7 @@ export function WaitlistSection() {
         body: JSON.stringify({
           email,
           phone: phone || null,
-          travelDate: travelDate || null,
+          feedback: feedback || null,
           travelType: "group",
           referredBy: referredBy || null,
           ...attribution,
@@ -119,12 +109,12 @@ export function WaitlistSection() {
       pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
       setEmail("");
       setPhone("");
-      setTravelDate("");
+      setFeedback("");
     } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setStatus("idle");
     }
-  }, [email, phone, travelDate, referredBy]);
+  }, [email, phone, feedback, referredBy]);
 
   const isLoading = status === "loading";
 
@@ -258,22 +248,15 @@ export function WaitlistSection() {
                       </div>
 
                       <div className="relative">
-                        <Select value={travelDate || undefined} onValueChange={setTravelDate}>
-                          <SelectTrigger
-                            className="h-14 w-full bg-white/10 border-white/10 text-white rounded-2xl pl-12 pr-4 text-base focus:ring-orange-500 data-[placeholder]:text-white/40"
-                            data-testid="select-travel-date"
-                          >
-                            <SelectValue placeholder="When are you traveling? (optional)" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-gray-900 border-white/10 text-white">
-                            {TIMELINE_OPTIONS.filter(o => o.value).map((opt) => (
-                              <SelectItem key={opt.value} value={opt.value} className="text-white focus:bg-white/10 focus:text-white">
-                                {opt.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-lg pointer-events-none" aria-hidden="true">📅</div>
+                        <textarea
+                          placeholder="Questions or feedback? (optional)"
+                          aria-label="Questions or feedback"
+                          value={feedback}
+                          onChange={(e) => setFeedback(e.target.value)}
+                          className="w-full min-h-[80px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
+                          data-testid="input-feedback"
+                        />
+                        <MessageSquare className="absolute left-4 top-4 text-white/40" size={18} aria-hidden="true" />
                       </div>
                     </fieldset>
 
