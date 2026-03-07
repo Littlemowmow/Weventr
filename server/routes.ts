@@ -68,11 +68,12 @@ export async function registerRoutes(
         return str;
       };
 
-      const headers = ["ID", "Email", "Phone", "Travel Date", "Travel Type", "Referral Code", "Referred By", "Signed Up"];
+      const headers = ["ID", "Email", "Phone", "Feedback", "Travel Date", "Travel Type", "Referral Code", "Referred By", "Signed Up"];
       const rows = entries.map((e) => [
         e.id,
         escape(e.email),
         escape(e.phone),
+        escape(e.feedback),
         escape(e.travelDate),
         escape(e.travelType),
         escape(e.referralCode),

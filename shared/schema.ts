@@ -7,6 +7,7 @@ export const waitlistEntries = pgTable("waitlist_entries", {
   id: serial("id").primaryKey(),
   email: text("email").notNull().unique(),
   phone: text("phone"),
+  feedback: text("feedback"),
   travelDate: text("travel_date"),
   travelType: text("travel_type").notNull().default("group"),
   referralCode: text("referral_code").notNull(),
