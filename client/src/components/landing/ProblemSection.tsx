@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import { Link } from "wouter";
+import { ArrowDown } from "lucide-react";
 
 const CHAT_MESSAGES = [
   { text: "ok so are we actually doing Barcelona or not", sender: "Sarah", isMe: false },
@@ -204,13 +203,6 @@ export function ProblemSection() {
             Sound familiar? There's a better way
             <ArrowDown size={18} className="group-hover:translate-y-0.5 transition-transform" />
           </button>
-          <Link
-            href="/demo"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-orange-400 transition-colors text-sm font-medium cursor-pointer group"
-            data-testid="link-watch-demo"
-          >
-              Watch full demo <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-          </Link>
         </motion.div>
       </div>
     </section>
