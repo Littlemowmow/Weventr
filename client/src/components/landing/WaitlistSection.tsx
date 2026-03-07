@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, MessageSquare, Phone, Users } from "lucide-react";
+import { Loader2, Phone, Users } from "lucide-react";
 
 const TIMELINE_OPTIONS = [
   { value: "", label: "When are you traveling? (optional)" },
@@ -37,7 +37,6 @@ function pushDataLayer(event: Record<string, unknown>) {
 export function WaitlistSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [feedback, setFeedback] = useState("");
   const [travelDate, setTravelDate] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [referralCode, setReferralCode] = useState("");
@@ -92,7 +91,6 @@ export function WaitlistSection() {
         body: JSON.stringify({
           email,
           phone: phone || null,
-          feedback: feedback || null,
           travelDate: travelDate || null,
           travelType: "group",
           referredBy: referredBy || null,
@@ -121,13 +119,12 @@ export function WaitlistSection() {
       pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
       setEmail("");
       setPhone("");
-      setFeedback("");
       setTravelDate("");
     } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setStatus("idle");
     }
-  }, [email, phone, feedback, travelDate, referredBy]);
+  }, [email, phone, travelDate, referredBy]);
 
   const isLoading = status === "loading";
 
@@ -254,18 +251,6 @@ export function WaitlistSection() {
                           data-testid="input-phone"
                         />
                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} aria-hidden="true" />
-                      </div>
-
-                      <div className="relative">
-                        <textarea
-                          placeholder="Questions or feedback? (optional)"
-                          aria-label="Questions or feedback"
-                          value={feedback}
-                          onChange={(e) => setFeedback(e.target.value)}
-                          className="w-full min-h-[80px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
-                          data-testid="input-feedback"
-                        />
-                        <MessageSquare className="absolute left-4 top-4 text-white/40" size={18} aria-hidden="true" />
                       </div>
 
                       <div className="relative">
