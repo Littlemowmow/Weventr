@@ -22,6 +22,13 @@ export const insertWaitlistSchema = createInsertSchema(waitlistEntries).omit({
 
 export const waitlistRequestSchema = insertWaitlistSchema.omit({
   referralCode: true,
+}).extend({
+  email: z.string().email().max(254),
+  phone: z.string().max(20).nullable().optional(),
+  feedback: z.string().max(2000).nullable().optional(),
+  travelDate: z.string().max(100).nullable().optional(),
+  travelType: z.string().max(50).optional(),
+  referredBy: z.string().max(20).nullable().optional(),
 });
 
 export type InsertWaitlistEntry = z.infer<typeof insertWaitlistSchema>;

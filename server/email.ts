@@ -1,12 +1,17 @@
 import { Resend } from "resend";
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 function buildWaitlistEmailHtml(params: {
   name: string;
   referralCode: string;
 }): string {
-  const { name, referralCode } = params;
+  const name = escapeHtml(params.name);
+  const referralCode = escapeHtml(params.referralCode);
   const baseUrl = process.env.SITE_URL || "https://weventr.com";
-  const referralUrl = `${baseUrl}?ref=${referralCode}`;
+  const referralUrl = `${escapeHtml(baseUrl)}?ref=${referralCode}`;
 
   return `<!DOCTYPE html>
 <html>

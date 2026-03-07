@@ -130,8 +130,6 @@ export function WaitlistSection() {
     setStatus("loading");
     setErrorMsg("");
 
-    const attribution = JSON.parse(sessionStorage.getItem("sq_attribution") || "{}");
-
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
@@ -142,14 +140,12 @@ export function WaitlistSection() {
           feedback: feedback || null,
           travelType: "group",
           referredBy: referredBy || null,
-          ...attribution,
         }),
       });
 
       const data = await res.json();
 
       if (res.status === 409) {
-        setReferralCode(data.referralCode);
         setStatus("already_registered");
         return;
       }
@@ -263,20 +259,10 @@ export function WaitlistSection() {
 
              <div aria-live="polite">
                {status === "already_registered" ? (
-                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-already">
-                     <div className="text-center mb-6">
-                        <div className="text-4xl mb-3" aria-hidden="true">👋</div>
-                        <div className="text-xl sm:text-2xl font-bold mb-1">You already signed up — thank you!</div>
-                        <p className="text-white/50 text-sm">We've got you on the list. In the meantime, share your referral link with friends to move up.</p>
-                     </div>
-
-                     <ShareReferralBlock
-                       referralCode={referralCode}
-                       copied={copied}
-                       onCopy={handleCopy}
-                       onShare={handleShare}
-                       testIdSuffix="-existing"
-                     />
+                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-center w-full" data-testid="status-waitlist-already">
+                     <div className="text-4xl mb-3" aria-hidden="true">👋</div>
+                     <div className="text-xl sm:text-2xl font-bold mb-1">You already signed up — thank you!</div>
+                     <p className="text-white/50 text-sm">We've got you on the list. Check your email for your referral link to share with friends.</p>
                   </div>
                ) : status === "success" ? (
                   <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-success">

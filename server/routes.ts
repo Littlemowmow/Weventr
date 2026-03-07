@@ -2,34 +2,61 @@ import type { Express } from "express";
 import { type Server } from "http";
 import { storage } from "./storage";
 import { waitlistRequestSchema } from "@shared/schema";
-import { randomBytes } from "crypto";
+import { randomBytes, timingSafeEqual } from "crypto";
 import { sendWaitlistConfirmationEmail } from "./email";
+import rateLimit from "express-rate-limit";
+
+const waitlistLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: "Too many requests, please try again later" },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const voteLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  message: { error: "Too many requests" },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const generalLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  app.post("/api/waitlist", async (req, res) => {
+  app.use("/api/", generalLimiter);
+
+  app.post("/api/waitlist", waitlistLimiter, async (req, res) => {
     try {
       const parsed = waitlistRequestSchema.safeParse(req.body);
       if (!parsed.success) {
-        return res.status(400).json({ error: "Invalid input", details: parsed.error.flatten() });
+        return res.status(400).json({ error: "Invalid input" });
       }
 
       parsed.data.email = parsed.data.email.toLowerCase().trim();
 
       const existingEmail = await storage.getWaitlistEntryByEmail(parsed.data.email);
       if (existingEmail) {
-        return res.status(409).json({ error: "already_registered", referralCode: existingEmail.referralCode });
+        return res.status(409).json({ error: "already_registered" });
       }
 
       if (parsed.data.phone) {
         const normalizedPhone = parsed.data.phone.replace(/\D/g, "");
         if (normalizedPhone.length >= 7) {
-          const existingPhone = await storage.getWaitlistEntryByPhone(parsed.data.phone);
+          const existingPhone = await storage.getWaitlistEntryByPhone(normalizedPhone);
           if (existingPhone) {
-            return res.status(409).json({ error: "already_registered", referralCode: existingPhone.referralCode });
+            return res.status(409).json({ error: "already_registered" });
           }
+          parsed.data.phone = normalizedPhone;
         }
       }
 
@@ -62,8 +89,9 @@ export async function registerRoutes(
 
   app.get("/api/waitlist/export", async (req, res) => {
     try {
-      const key = req.query.key;
-      if (!process.env.SESSION_SECRET || key !== process.env.SESSION_SECRET) {
+      const key = req.headers.authorization?.replace("Bearer ", "");
+      const secret = process.env.SESSION_SECRET;
+      if (!secret || !key || !timingSafeEqual(Buffer.from(key), Buffer.from(secret))) {
         return res.status(401).json({ error: "Unauthorized" });
       }
 
@@ -102,7 +130,7 @@ export async function registerRoutes(
     }
   });
 
-  app.post("/api/archetypes/vote", async (req, res) => {
+  app.post("/api/archetypes/vote", voteLimiter, async (req, res) => {
     try {
       const { archetypes } = req.body;
       const valid = ["The Planner", "The Flaker", "The Viber", "The Budget Ghost"];
