@@ -21,9 +21,9 @@ export default function Home() {
         <div className="section-divider max-w-4xl mx-auto" />
         <ArchetypesSection />
         <div className="section-divider max-w-4xl mx-auto" />
-        <FAQSection />
-        <div className="section-divider max-w-4xl mx-auto" />
         <WaitlistSection />
+        <div className="section-divider max-w-4xl mx-auto" />
+        <FAQSection />
       </main>
       
       <Footer />
