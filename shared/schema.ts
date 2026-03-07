@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, serial } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, serial, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -27,3 +27,11 @@ export const waitlistRequestSchema = insertWaitlistSchema.omit({
 export type InsertWaitlistEntry = z.infer<typeof insertWaitlistSchema>;
 export type WaitlistRequest = z.infer<typeof waitlistRequestSchema>;
 export type WaitlistEntry = typeof waitlistEntries.$inferSelect;
+
+export const archetypeVotes = pgTable("archetype_votes", {
+  id: serial("id").primaryKey(),
+  archetype: text("archetype").notNull().unique(),
+  count: integer("count").notNull().default(0),
+});
+
+export type ArchetypeVote = typeof archetypeVotes.$inferSelect;

@@ -1,6 +1,6 @@
-import { type WaitlistEntry, type InsertWaitlistEntry, waitlistEntries } from "@shared/schema";
+import { type WaitlistEntry, type InsertWaitlistEntry, waitlistEntries, archetypeVotes } from "@shared/schema";
 import { db } from "./db";
-import { eq, count, and } from "drizzle-orm";
+import { eq, count, and, sql } from "drizzle-orm";
 
 export interface IStorage {
   createWaitlistEntry(entry: InsertWaitlistEntry): Promise<WaitlistEntry>;
@@ -9,6 +9,8 @@ export interface IStorage {
   getWaitlistEntryByReferralCode(code: string): Promise<WaitlistEntry | undefined>;
   getWaitlistCount(): Promise<number>;
   getAllWaitlistEntries(): Promise<WaitlistEntry[]>;
+  incrementArchetypeVotes(archetypes: string[]): Promise<void>;
+  getArchetypeVotes(): Promise<Record<string, number>>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -39,6 +41,27 @@ export class DatabaseStorage implements IStorage {
 
   async getAllWaitlistEntries(): Promise<WaitlistEntry[]> {
     return db.select().from(waitlistEntries).orderBy(waitlistEntries.createdAt);
+  }
+
+  async incrementArchetypeVotes(archetypes: string[]): Promise<void> {
+    for (const name of archetypes) {
+      await db
+        .insert(archetypeVotes)
+        .values({ archetype: name, count: 1 })
+        .onConflictDoUpdate({
+          target: archetypeVotes.archetype,
+          set: { count: sql`${archetypeVotes.count} + 1` },
+        });
+    }
+  }
+
+  async getArchetypeVotes(): Promise<Record<string, number>> {
+    const rows = await db.select().from(archetypeVotes);
+    const result: Record<string, number> = {};
+    for (const row of rows) {
+      result[row.archetype] = row.count;
+    }
+    return result;
   }
 }
 

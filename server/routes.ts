@@ -102,6 +102,31 @@ export async function registerRoutes(
     }
   });
 
+  app.post("/api/archetypes/vote", async (req, res) => {
+    try {
+      const { archetypes } = req.body;
+      const valid = ["The Planner", "The Flaker", "The Viber", "The Budget Ghost"];
+      if (!Array.isArray(archetypes) || archetypes.length === 0 || !archetypes.every((a: string) => valid.includes(a))) {
+        return res.status(400).json({ error: "Invalid archetypes" });
+      }
+      await storage.incrementArchetypeVotes(archetypes);
+      const counts = await storage.getArchetypeVotes();
+      res.json({ counts });
+    } catch (error) {
+      console.error("Archetype vote error:", error);
+      res.status(500).json({ error: "Something went wrong" });
+    }
+  });
+
+  app.get("/api/archetypes/votes", async (_req, res) => {
+    try {
+      const counts = await storage.getArchetypeVotes();
+      res.json({ counts });
+    } catch (error) {
+      res.status(500).json({ error: "Something went wrong" });
+    }
+  });
+
   app.get("/api/waitlist/count", async (_req, res) => {
     try {
       const count = await storage.getWaitlistCount();
