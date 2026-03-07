@@ -209,6 +209,10 @@ export function WaitlistSection() {
                         </ol>
                      </div>
 
+                     <div className="text-center text-white/40 text-sm font-medium mb-4">
+                       Spring break plans are dying in group chats right now. Don't let yours be next.
+                     </div>
+
                      <div className="flex items-center justify-center gap-2 text-white/30 text-xs font-medium">
                        <span>Built by founders at the University of Michigan</span>
                        <span className="text-orange-400/40">|</span>
