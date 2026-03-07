@@ -70,9 +70,9 @@ function AutoPlayChat() {
               transition={{ repeat: Infinity, duration: 2 }}
               className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-orange-500/30 mx-auto mb-2"
             >
-              S
+              W
             </motion.div>
-            <div className="text-white text-[11px] font-bold mb-0.5">Open SideQuest</div>
+            <div className="text-white text-[11px] font-bold mb-0.5">Open Weventr</div>
             <div className="text-white/30 text-[9px]">Plan it for real this time</div>
           </div>
         </motion.div>
@@ -105,7 +105,7 @@ export function ProblemSection() {
             <span className="text-gradient">Group Chat.</span>
           </h2>
           <p className="text-lg text-white/50 max-w-xl mx-auto mb-16">
-            Sound familiar? See how SideQuest fixes it.
+            Sound familiar? See how Weventr fixes it.
           </p>
         </motion.div>
 

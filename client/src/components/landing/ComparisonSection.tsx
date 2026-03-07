@@ -66,7 +66,7 @@ export function ComparisonSection() {
               <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center">
                 <Check size={16} className="text-orange-400" />
               </div>
-              The SideQuest way
+              The Weventr way
             </h3>
             <ul className="space-y-4">
               {sidequestWay.map((item, i) => (

@@ -12,11 +12,11 @@ export function Footer() {
           
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-sm">S</div>
+               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-sm">W</div>
                <Logo size="text-xl" className="text-white" />
             </div>
             <p className="text-white/30 text-sm leading-relaxed mb-5">
-              So the trip doesn't die in the groupchat.
+              So the trip doesn't die in the group chat.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export function Footer() {
         </div>
         
         <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/35">
-          <p>&copy; 2026 SideQuest Inc. All rights reserved.</p>
+          <p>&copy; 2026 Weventr Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>

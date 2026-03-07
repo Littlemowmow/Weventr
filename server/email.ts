@@ -6,7 +6,7 @@ function buildWaitlistEmailHtml(params: {
   referralCode: string;
 }): string {
   const { name, destination, referralCode } = params;
-  const baseUrl = process.env.SITE_URL || "https://sidequest.app";
+  const baseUrl = process.env.SITE_URL || "https://weventr.com";
   const referralUrl = `${baseUrl}?ref=${referralCode}`;
 
   const destinationLine = destination
@@ -18,7 +18,7 @@ function buildWaitlistEmailHtml(params: {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to SideQuest</title>
+  <title>Welcome to Weventr</title>
 </head>
 <body style="margin:0;padding:0;background-color:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#0f0f0f;">
@@ -31,8 +31,8 @@ function buildWaitlistEmailHtml(params: {
             <td style="padding:0 0 32px;">
               <table role="presentation" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td style="width:36px;height:36px;background:linear-gradient(135deg,#f97316,#d97706);border-radius:10px;text-align:center;vertical-align:middle;color:#fff;font-weight:800;font-size:18px;">S</td>
-                  <td style="padding-left:10px;font-size:20px;font-weight:700;color:#f9f9f9;letter-spacing:-0.02em;">SideQuest</td>
+                  <td style="width:36px;height:36px;background:linear-gradient(135deg,#f97316,#d97706);border-radius:10px;text-align:center;vertical-align:middle;color:#fff;font-weight:800;font-size:18px;">W</td>
+                  <td style="padding-left:10px;font-size:20px;font-weight:700;color:#f9f9f9;letter-spacing:-0.02em;">Weventr</td>
                 </tr>
               </table>
             </td>
@@ -47,7 +47,7 @@ function buildWaitlistEmailHtml(params: {
               </h1>
               
               <p style="margin:0 0 24px;color:#a1a1aa;font-size:15px;line-height:1.6;">
-                You've secured your spot for early access to SideQuest. We're building something special for friend groups who are tired of trip plans dying in the group chat — and you'll be first to try it.
+                You've secured your spot for early access to Weventr. We're building something special for friend groups who are tired of trip plans dying in the group chat — and you'll be first to try it.
               </p>
 
               ${destinationLine}
@@ -88,7 +88,7 @@ function buildWaitlistEmailHtml(params: {
                 Questions? Just reply to this email.
               </p>
               <p style="margin:0;color:#3f3f46;font-size:11px;">
-                SideQuest Inc. &middot; The travel app for friend groups.
+                Weventr Inc. &middot; The travel app for friend groups.
               </p>
             </td>
           </tr>
@@ -108,7 +108,7 @@ export async function sendWaitlistConfirmationEmail(params: {
 }): Promise<{ success: boolean; error?: string }> {
   try {
     const apiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "SideQuest <noreply@sidequest.app>";
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "Weventr <noreply@weventr.com>";
 
     if (!apiKey) {
       console.warn("RESEND_API_KEY not set, skipping email");
@@ -127,7 +127,7 @@ export async function sendWaitlistConfirmationEmail(params: {
     await client.emails.send({
       from: fromEmail as string,
       to: params.email,
-      subject: "You're on the list \u{1F680} — SideQuest",
+      subject: "You're on the list \u{1F680} — Weventr",
       html,
     });
 

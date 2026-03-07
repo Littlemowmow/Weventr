@@ -226,7 +226,7 @@ function TripRandomizerResultScreen() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           {[
             { emoji: "🏡", label: "Alfama District", tag: "Local Pick" },
-            { emoji: "🐟", label: "Cervejaria Ramiro", tag: "SideQuest" },
+            { emoji: "🐟", label: "Cervejaria Ramiro", tag: "Weventr" },
             { emoji: "🌊", label: "Cascais Day Trip", tag: "Adventure" },
           ].map((act, i) => (
             <div key={i} className="bg-white/[0.04] border border-white/[0.05] rounded-xl p-2.5 text-center">
@@ -302,7 +302,7 @@ function BudgetSettlementScreen() {
         </div>
 
         <div className="bg-white/[0.03] border border-white/[0.04] rounded-2xl px-4 py-3 mt-4 text-center">
-          <div className="text-[10px] text-white/20 font-medium">Settlements powered by <span className="text-orange-400/50 font-bold">SideQuest+</span></div>
+          <div className="text-[10px] text-white/20 font-medium">Settlements powered by <span className="text-orange-400/50 font-bold">Weventr+</span></div>
         </div>
         <TabBar active="trips" />
       </div>
@@ -329,7 +329,7 @@ function PlanComparisonScreen() {
     "Priority early access",
   ];
   return (
-    <PhoneFrame label="SideQuest vs SideQuest+" glow="bg-amber-400">
+    <PhoneFrame label="Weventr vs Weventr+" glow="bg-amber-400">
       <StatusBar />
       <div className="px-4 flex-1 flex flex-col">
         <div className="text-center mb-4">
@@ -356,7 +356,7 @@ function PlanComparisonScreen() {
 
           <div className="bg-gradient-to-b from-orange-500/[0.12] to-amber-500/[0.06] border border-orange-500/30 rounded-2xl p-3 flex flex-col relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-orange-500 text-white text-[8px] font-bold px-2.5 py-1 rounded-bl-xl rounded-tr-2xl">BEST</div>
-            <div className="text-orange-400 text-[11px] font-bold uppercase tracking-wider mb-1">SideQuest+</div>
+            <div className="text-orange-400 text-[11px] font-bold uppercase tracking-wider mb-1">Weventr+</div>
             <div className="text-white font-bold text-[16px] mb-3">$X<span className="text-white/30 text-[11px] font-normal">/mo</span></div>
             <div className="space-y-2 flex-1">
               {plusFeatures.map((f, i) => (
@@ -373,7 +373,7 @@ function PlanComparisonScreen() {
         </div>
 
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl py-2.5 px-3 text-center">
-          <div className="text-amber-400 text-[11px] font-bold">🎁 First trip on SideQuest+ is free</div>
+          <div className="text-amber-400 text-[11px] font-bold">🎁 First trip on Weventr+ is free</div>
         </div>
         <TabBar active="profile" />
       </div>
@@ -419,7 +419,7 @@ function ProfileGamificationScreen() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 mb-4">
-            {[{ num: "4", label: "Trips" }, { num: "12", label: "SideQuests" }, { num: "3", label: "Countries" }].map((s, i) => (
+            {[{ num: "4", label: "Trips" }, { num: "12", label: "Gems" }, { num: "3", label: "Countries" }].map((s, i) => (
               <div key={i} className="bg-white/[0.04] border border-white/[0.05] rounded-xl py-2.5 text-center">
                 <div className="text-white font-bold text-[16px]">{s.num}</div>
                 <div className="text-white/25 text-[10px]">{s.label}</div>
@@ -468,7 +468,7 @@ const SECTIONS = [
     id: "trip-randomizer-quiz",
     tag: "Trip Roulette",
     title: "Can't decide where to go? Let us pick.",
-    description: "Answer 5 questions about your group's vibe — beach chill vs. adventure mode, budget range, trip length — and SideQuest generates a destination your whole group will actually agree on.",
+    description: "Answer 5 questions about your group's vibe — beach chill vs. adventure mode, budget range, trip length — and Weventr generates a destination your whole group will actually agree on.",
     screen: <TripRandomizerQuizScreen />,
     glow: "from-purple-500/10",
   },
@@ -484,15 +484,15 @@ const SECTIONS = [
     id: "budget-settlement",
     tag: "Budget Settlement",
     title: "Trip's over. Here's who owes what.",
-    description: "No more awkward \"hey can you Venmo me\" texts three weeks later. SideQuest tracks every expense during the trip and generates clean settlement summaries when you land.",
+    description: "No more awkward \"hey can you Venmo me\" texts three weeks later. Weventr tracks every expense during the trip and generates clean settlement summaries when you land.",
     screen: <BudgetSettlementScreen />,
     glow: "from-green-500/10",
   },
   {
     id: "plan-comparison",
-    tag: "SideQuest+",
+    tag: "Weventr+",
     title: "Free to plan. Plus to go further.",
-    description: "The core SideQuest experience — swipe, vote, build an itinerary — is free. Upgrade to SideQuest+ for unlimited groups, AI optimization, expense settlements, and booking assistance.",
+    description: "The core Weventr experience — swipe, vote, build an itinerary — is free. Upgrade to Weventr+ for unlimited groups, AI optimization, expense settlements, and booking assistance.",
     screen: <PlanComparisonScreen />,
     glow: "from-amber-500/10",
   },
@@ -500,7 +500,7 @@ const SECTIONS = [
     id: "profile",
     tag: "Profile & Gamification",
     title: "Your travel story, quantified",
-    description: "Level up your explorer rank with every trip. Collect country stamps, earn badges, and track your SideQuest history. Adventure mode: unlocked.",
+    description: "Level up your explorer rank with every trip. Collect country stamps, earn badges, and track your Weventr history. Adventure mode: unlocked.",
     screen: <ProfileGamificationScreen />,
     glow: "from-blue-500/10",
   },
@@ -542,7 +542,7 @@ export default function FeaturesPage() {
               Every screen. Every feature.
             </h1>
             <p className="text-lg text-white/50 max-w-xl mx-auto">
-              The full SideQuest experience — from trip creation to post-trip settlements.
+              The full Weventr experience — from trip creation to post-trip settlements.
             </p>
           </motion.div>
 

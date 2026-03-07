@@ -9,7 +9,7 @@ export function FeaturesSection() {
       label: "Swipe & Vote",
       title: "Swipe & Vote",
       icon: <Vote size={24} />,
-      description: "Everyone swipes on destinations and activities on their own — no awkward standoffs, no \"I'm down for whatever\" from the friend who never decides. SideQuest surfaces what your group actually agrees on.",
+      description: "Everyone swipes on destinations and activities on their own — no awkward standoffs, no \"I'm down for whatever\" from the friend who never decides. Weventr surfaces what your group actually agrees on.",
     },
     {
       id: "budget-lock",

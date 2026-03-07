@@ -509,7 +509,7 @@ export function BlindMatchSwipe() {
         <img src="/images/hero-barcelona.jpg" loading="lazy" decoding="async" className="w-full h-full object-cover" alt="Activity"/>
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%)" }}/>
         <div className="absolute top-2.5 left-2.5">
-          <div className="px-2 py-0.5 rounded-full text-[9px] font-bold" style={{ background: "rgba(249,115,22,0.2)", color: "#f97316", border: "1px solid rgba(249,115,22,0.3)" }}>🗺 SideQuest</div>
+          <div className="px-2 py-0.5 rounded-full text-[9px] font-bold" style={{ background: "rgba(249,115,22,0.2)", color: "#f97316", border: "1px solid rgba(249,115,22,0.3)" }}>🗺 Weventr</div>
         </div>
         <div className="absolute top-2.5 right-2.5">
           <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "rgba(52,211,153,0.2)" }}>

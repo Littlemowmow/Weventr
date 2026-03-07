@@ -304,7 +304,7 @@ export function AppSimulation() {
                      >
                         <div className="flex flex-col gap-1 p-1 max-h-[300px] overflow-y-auto no-scrollbar">
                           
-                          {/* SideQuest App Item (with Spotlight) */}
+                          {/* Weventr App Item (with Spotlight) */}
                           <div className="relative group">
                               <button 
                                 onClick={() => setStep("selecting")}
@@ -314,12 +314,12 @@ export function AppSimulation() {
                                     <MapPin className="text-white" size={20} />
                                  </div>
                                  <div className="flex flex-col">
-                                    <span className="text-sm font-semibold text-gray-900">SideQuest</span>
+                                    <span className="text-sm font-semibold text-gray-900">Weventr</span>
                                     <span className="text-[10px] text-gray-500">Plan trips together</span>
                                  </div>
                               </button>
                               
-                              {/* Spotlight for SideQuest */}
+                              {/* Spotlight for Weventr */}
                               <motion.div 
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}

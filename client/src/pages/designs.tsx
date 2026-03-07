@@ -186,7 +186,7 @@ function OnboardingWelcome() {
       <div className="px-6 flex-1 flex flex-col items-center justify-center text-center">
         <div className="w-24 h-24 rounded-[1.75rem] bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-4xl shadow-xl shadow-orange-500/25 mb-10">S</div>
         <div className="text-orange-400/50 text-[10px] font-bold uppercase tracking-[0.25em] mb-3">Welcome to</div>
-        <div className="text-white font-bold text-[26px] mb-4">SideQuest</div>
+        <div className="text-white font-bold text-[26px] mb-4">Weventr</div>
         <p className="text-white/25 text-[14px] leading-relaxed mb-12 px-1">Discover hidden gems, plan epic trips, and travel like a local — not a tourist.</p>
         <div className="w-full bg-white rounded-2xl py-4 text-center">
           <span className="text-black font-bold text-[15px]">Let's Go</span>

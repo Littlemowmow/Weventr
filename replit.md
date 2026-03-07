@@ -1,7 +1,7 @@
-# SideQuest Landing Page
+# Weventr Landing Page
 
 ## Overview
-Waitlist landing page for SideQuest, a group travel planning app targeting college students. The app solves group trip coordination via voting, budget alignment, and curated local recommendations. The landing page converts visitors to join the waitlist using emotionally resonant Gen Z messaging.
+Waitlist landing page for Weventr (formerly SideQuest), a group travel planning app targeting college students. The app solves group trip coordination via voting, budget alignment, and curated local recommendations. The landing page converts visitors to join the waitlist using emotionally resonant Gen Z messaging. Domain: weventr.com
 
 ## Tech Stack
 - Frontend: React + Vite + TypeScript

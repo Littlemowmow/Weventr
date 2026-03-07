@@ -44,10 +44,10 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sq-primary/10 text-sq-primary font-bold text-sm mb-6 border border-sq-primary/20" data-testid="badge-beta">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 font-bold text-sm mb-6 border border-orange-500/20" data-testid="badge-beta">
                 <span className="flex h-2 w-2 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sq-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sq-primary"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
                 </span>
                 Beta Launching Soon
               </div>
@@ -57,7 +57,7 @@ export function Hero() {
               </h1>
               
               <p className="text-base md:text-xl text-white/50 leading-relaxed mb-10 max-w-lg" data-testid="text-hero-subtitle">
-                SideQuest turns "I'm down if you are" into an actual trip. Group voting so nobody gets ignored, budget alignment so nobody goes quiet, and hidden gems your guidebook doesn't know about.
+                Weventr turns "I'm down if you are" into an actual trip. Group voting so nobody gets ignored, budget alignment so nobody goes quiet, and hidden gems your guidebook doesn't know about.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">

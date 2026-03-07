@@ -137,7 +137,7 @@ function IMessageSection() {
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Step 1</span>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">It starts where your friends already are</h2>
-            <p className="text-white/50 leading-relaxed text-lg">Open SideQuest right from your iMessage group chat — like GamePigeon, but for trips.</p>
+            <p className="text-white/50 leading-relaxed text-lg">Open Weventr right from your iMessage group chat — like GamePigeon, but for trips.</p>
           </motion.div>
         }
         mockup={
@@ -178,7 +178,7 @@ function IMessageSection() {
                     >
                       S
                     </motion.div>
-                    <span className="text-white/40 text-xs font-medium">Tap to plan with SideQuest</span>
+                    <span className="text-white/40 text-xs font-medium">Tap to plan with Weventr</span>
                   </div>
                 </motion.div>
               )}
@@ -394,14 +394,14 @@ function SwipeSection() {
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Step 4</span>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Discover hidden gems</h2>
-            <p className="text-white/50 leading-relaxed text-lg">Swipe through local SideQuests — rooftop yoga, secret gardens, sunset viewpoints. The stuff your guidebook doesn't know about.</p>
+            <p className="text-white/50 leading-relaxed text-lg">Swipe through local gems — rooftop yoga, secret gardens, sunset viewpoints. The stuff your guidebook doesn't know about.</p>
           </motion.div>
         }
         mockup={
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <PhoneFrame>
               <div className="text-center mb-4">
-                <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">SideQuests</div>
+                <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-1">Hidden Gems</div>
                 <div className="text-white font-display font-bold">Discover</div>
               </div>
               <div className="relative h-[300px] flex items-center justify-center mb-4">
@@ -484,7 +484,7 @@ function GroupVoteSection() {
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Step 5</span>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Democracy, but for vacations</h2>
-            <p className="text-white/50 leading-relaxed text-lg">Everyone votes anonymously — no peer pressure. SideQuest tallies it up and picks what the group actually wants.</p>
+            <p className="text-white/50 leading-relaxed text-lg">Everyone votes anonymously — no peer pressure. Weventr tallies it up and picks what the group actually wants.</p>
           </motion.div>
         }
         mockup={
@@ -568,7 +568,7 @@ function AIScheduleSection() {
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Step 6</span>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">AI builds the perfect schedule</h2>
-            <p className="text-white/50 leading-relaxed text-lg">Weather, crowds, flights, travel times — SideQuest's AI factors in everything to create a schedule that actually makes sense.</p>
+            <p className="text-white/50 leading-relaxed text-lg">Weather, crowds, flights, travel times — Weventr's AI factors in everything to create a schedule that actually makes sense.</p>
           </motion.div>
         }
         mockup={
@@ -652,7 +652,7 @@ function BudgetSection() {
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
             <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Step 7</span>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Everyone sets their budget. We find the sweet spot.</h2>
-            <p className="text-white/50 leading-relaxed text-lg">Each person enters what they can spend — no awkward conversations. SideQuest aligns the group automatically and splits costs fairly.</p>
+            <p className="text-white/50 leading-relaxed text-lg">Each person enters what they can spend — no awkward conversations. Weventr aligns the group automatically and splits costs fairly.</p>
           </motion.div>
         }
         mockup={
@@ -795,7 +795,7 @@ function CTASection() {
           Plan trips the way they should be <span className="text-gradient">planned.</span>
         </h2>
         <p className="text-white/50 text-lg mb-10 max-w-lg mx-auto">
-          Stop letting trips die in the group chat. SideQuest makes it happen.
+          Stop letting trips die in the group chat. Weventr makes it happen.
         </p>
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
           <Button
@@ -886,7 +886,7 @@ export default function DemoPage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4" data-testid="text-demo-hero">
-            See How <span className="text-gradient">SideQuest</span> Works
+            See How <span className="text-gradient">Weventr</span> Works
           </h1>
           <p className="text-white/40 text-lg max-w-xl mx-auto mb-10">
             From group chat to group trip — scroll to see the magic.
@@ -919,7 +919,7 @@ export default function DemoPage() {
       <HookText text="One last thing — who owes who?" />
 
       <SectionWrapper id="budget"><BudgetSection /></SectionWrapper>
-      <HookText text="That's SideQuest. Ready?" />
+      <HookText text="That's Weventr. Ready?" />
 
       <section id="cta"><CTASection /></section>
     </div>
