@@ -81,13 +81,16 @@ export function ArchetypesSection() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center mt-10"
         >
-          <a
+          <motion.a
             href="#waitlist"
             className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors text-lg font-bold drop-shadow-[0_0_12px_rgba(249,115,22,0.5)] hover:drop-shadow-[0_0_20px_rgba(249,115,22,0.7)]"
             data-testid="link-archetype-waitlist"
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.05 }}
           >
             Sign up for the waitlist to see how we actually do this 😉
-          </a>
+          </motion.a>
         </motion.div>
       </div>
     </section>
