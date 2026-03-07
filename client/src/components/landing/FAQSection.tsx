@@ -29,7 +29,7 @@ export function FAQSection() {
     },
     {
       q: "Who's building Weventr?",
-      a: "We're college students at the University of Michigan who got tired of watching amazing trip ideas die in our group chats. We built Weventr because we needed it ourselves."
+      a: "We're a team who got tired of watching amazing trip ideas die in our group chats. We built Weventr because we needed it ourselves."
     },
     {
       q: "When is the beta launching?",
