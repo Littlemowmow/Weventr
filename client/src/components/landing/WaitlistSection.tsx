@@ -130,61 +130,6 @@ export function WaitlistSection() {
     <section id="waitlist" className="py-14 sm:py-20 px-3 sm:px-4 overflow-hidden">
       <div className="mx-auto max-w-7xl relative">
 
-        <div className="grid grid-cols-2 gap-3 mb-8 lg:hidden px-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-red-500/20">
-              <div className="text-[9px] font-bold text-red-400 mb-1.5 uppercase tracking-widest">🔥 Budget Fight</div>
-              <ChatBubble text="Wait… I thought we were splitting this?" />
-              <ChatBubble text="Bro the Airbnb is $200/NIGHT??" isMe />
-              <ChatBubble text="Nobody told me about the boat 💀" />
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-orange-500/20">
-              <div className="text-[9px] font-bold text-orange-400 mb-1.5 uppercase tracking-widest">📅 Date Clash</div>
-              <ChatBubble text="June works for me!" isMe />
-              <ChatBubble text="Let me check with work" />
-              <ChatBubble text="...so is this still happening?" />
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-white/10">
-              <div className="text-[9px] font-bold text-white/40 mb-1.5 uppercase tracking-widest">🤷‍♂️ Indecision</div>
-              <ChatBubble text="I'm down for whatever" />
-              <ChatBubble text="Same, you guys decide" isMe />
-              <ChatBubble text="So no one's deciding??" isMe />
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-red-500/20">
-              <div className="text-[9px] font-bold text-red-400 mb-1.5 uppercase tracking-widest">💀 Logistics Fail</div>
-              <ChatBubble text="Did anyone book the train?" isMe />
-              <ChatBubble text="..." />
-              <ChatBubble text="I thought Mike was doing it 💀" />
-            </div>
-          </motion.div>
-        </div>
-
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
