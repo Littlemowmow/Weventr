@@ -38,7 +38,6 @@ export async function registerRoutes(
 
       sendWaitlistConfirmationEmail({
         email: entry.email,
-        destination: entry.destination,
         referralCode: entry.referralCode,
       }).catch(err => {
         console.error("Background email send failed:", err);

@@ -2,16 +2,11 @@ import { Resend } from "resend";
 
 function buildWaitlistEmailHtml(params: {
   name: string;
-  destination?: string | null;
   referralCode: string;
 }): string {
-  const { name, destination, referralCode } = params;
+  const { name, referralCode } = params;
   const baseUrl = process.env.SITE_URL || "https://weventr.com";
   const referralUrl = `${baseUrl}?ref=${referralCode}`;
-
-  const destinationLine = destination
-    ? `<p style="margin:0 0 24px;color:#a1a1aa;font-size:15px;line-height:1.6;">We'll make sure <strong style="color:#f9f9f9;">${destination}</strong> is loaded with hidden gems before you get there.</p>`
-    : "";
 
   return `<!DOCTYPE html>
 <html>
@@ -49,8 +44,6 @@ function buildWaitlistEmailHtml(params: {
               <p style="margin:0 0 24px;color:#a1a1aa;font-size:15px;line-height:1.6;">
                 You've secured your spot for early access to Weventr. We're building something special for friend groups who are tired of trip plans dying in the group chat — and you'll be first to try it.
               </p>
-
-              ${destinationLine}
 
               <!-- Divider -->
               <div style="height:1px;background:#2a2a2a;margin:0 0 24px;"></div>
@@ -103,7 +96,6 @@ function buildWaitlistEmailHtml(params: {
 
 export async function sendWaitlistConfirmationEmail(params: {
   email: string;
-  destination?: string | null;
   referralCode: string;
 }): Promise<{ success: boolean; error?: string }> {
   try {
@@ -120,7 +112,6 @@ export async function sendWaitlistConfirmationEmail(params: {
 
     const html = buildWaitlistEmailHtml({
       name,
-      destination: params.destination,
       referralCode: params.referralCode,
     });
 

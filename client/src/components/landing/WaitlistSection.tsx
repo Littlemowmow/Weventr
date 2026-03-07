@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useCallback } from "react";
-import { Loader2, MapPin, GraduationCap, Users } from "lucide-react";
+import { Loader2, Phone, Users } from "lucide-react";
 
 const TIMELINE_OPTIONS = [
   { value: "", label: "When are you traveling? (optional)" },
@@ -36,9 +36,8 @@ function pushDataLayer(event: Record<string, unknown>) {
 
 export function WaitlistSection() {
   const [email, setEmail] = useState("");
-  const [destination, setDestination] = useState("");
+  const [phone, setPhone] = useState("");
   const [travelDate, setTravelDate] = useState("");
-  const [university, setUniversity] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [referralCode, setReferralCode] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -91,10 +90,9 @@ export function WaitlistSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          destination: destination || null,
+          phone: phone || null,
           travelDate: travelDate || null,
           travelType: "group",
-          university: university || null,
           referredBy: referredBy || null,
           ...attribution,
         }),
@@ -120,14 +118,13 @@ export function WaitlistSection() {
       setWaitlistCount((c) => (c !== null ? c + 1 : c));
       pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
       setEmail("");
-      setDestination("");
+      setPhone("");
       setTravelDate("");
-      setUniversity("");
     } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setStatus("idle");
     }
-  }, [email, destination, travelDate, university, referredBy]);
+  }, [email, phone, travelDate, referredBy]);
 
   const isLoading = status === "loading";
 
@@ -150,7 +147,7 @@ export function WaitlistSection() {
              {waitlistCount !== null && (
                <div className="flex items-center justify-center gap-1.5 text-white/40 text-sm font-medium mb-6" data-testid="text-waitlist-count">
                  <Users size={14} className="text-orange-400/60" />
-                 <span>Join <span className="text-white/60 font-semibold">hundreds of</span> students already signed up</span>
+                 <span>Join <span className="text-white/60 font-semibold">hundreds</span> already signed up</span>
                </div>
              )}
 
@@ -219,29 +216,16 @@ export function WaitlistSection() {
 
                       <div className="relative">
                         <Input
-                          type="text"
-                          placeholder="Your university (optional)"
-                          aria-label="Your university"
-                          value={university}
-                          onChange={(e) => setUniversity(e.target.value)}
+                          type="tel"
+                          placeholder="Phone number (optional)"
+                          aria-label="Phone number"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
                           className="h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-lg focus-visible:ring-orange-500"
-                          autoComplete="organization"
-                          data-testid="input-university"
+                          autoComplete="tel"
+                          data-testid="input-phone"
                         />
-                        <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} aria-hidden="true" />
-                      </div>
-
-                      <div className="relative">
-                        <Input
-                          type="text"
-                          placeholder="Where are you going? (optional)"
-                          aria-label="Travel destination"
-                          value={destination}
-                          onChange={(e) => setDestination(e.target.value)}
-                          className="h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-lg focus-visible:ring-orange-500"
-                          data-testid="input-destination"
-                        />
-                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} aria-hidden="true" />
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} aria-hidden="true" />
                       </div>
 
                       <div className="relative">
