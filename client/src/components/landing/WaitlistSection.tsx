@@ -1,7 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import { Loader2, MessageSquare, Phone, Users } from "lucide-react";
+
+function ChatBubble({ text, isMe }: { text: string; isMe?: boolean }) {
+  return (
+    <div className={`py-2 px-3 rounded-2xl text-xs max-w-[90%] mb-1.5 ${isMe ? "bg-blue-500 text-white rounded-br-sm ml-auto" : "bg-white/10 text-white/70 rounded-bl-sm mr-auto"}`}>
+      {text}
+    </div>
+  );
+}
 
 function captureAttribution() {
   const params = new URLSearchParams(window.location.search);
@@ -118,8 +127,71 @@ export function WaitlistSection() {
   const isLoading = status === "loading";
 
   return (
-    <section id="waitlist" className="py-20 px-4">
-      <div className="container mx-auto max-w-5xl">
+    <section id="waitlist" className="py-20 px-4 overflow-hidden">
+      <div className="container mx-auto max-w-5xl relative">
+
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", bounce: 0.4 }}
+          className="absolute left-0 xl:-left-16 top-12 hidden lg:block w-56 z-20"
+        >
+          <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
+            <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">🔥 Budget Fight</div>
+            <ChatBubble text="Wait… I thought we were splitting this?" />
+            <ChatBubble text="Bro the Airbnb is $200/NIGHT??" isMe />
+            <ChatBubble text="Nobody told me about the boat 💀" />
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", bounce: 0.4, delay: 0.1 }}
+          className="absolute right-0 xl:-right-16 top-24 hidden lg:block w-56 z-20"
+        >
+          <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-orange-500/20 rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
+            <div className="text-[10px] font-bold text-orange-400 mb-2 uppercase tracking-widest">📅 Date Clash</div>
+            <ChatBubble text="June works for me!" isMe />
+            <ChatBubble text="Let me check with work" />
+            <ChatBubble text="..." isMe />
+            <ChatBubble text="...so is this still happening?" />
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", bounce: 0.4, delay: 0.2 }}
+          className="absolute left-4 xl:-left-8 bottom-32 hidden lg:block w-52 z-20"
+        >
+          <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+            <div className="text-[10px] font-bold text-white/40 mb-2 uppercase tracking-widest">🤷‍♂️ Indecision</div>
+            <ChatBubble text="I'm down for whatever" />
+            <ChatBubble text="Same, you guys decide" isMe />
+            <ChatBubble text="..." />
+            <ChatBubble text="So no one's deciding??" isMe />
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", bounce: 0.4, delay: 0.3 }}
+          className="absolute right-0 xl:-right-12 bottom-24 hidden lg:block w-52 z-20"
+        >
+          <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+            <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">💀 Logistics Fail</div>
+            <ChatBubble text="Did anyone book the train?" isMe />
+            <ChatBubble text="..." />
+            <ChatBubble text="I thought Mike was doing it 💀" />
+          </div>
+        </motion.div>
+
         <div className="bg-gradient-to-b from-white/8 to-white/3 border border-white/10 rounded-[2rem] p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
 
            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/15 rounded-full blur-[120px] pointer-events-none" />
