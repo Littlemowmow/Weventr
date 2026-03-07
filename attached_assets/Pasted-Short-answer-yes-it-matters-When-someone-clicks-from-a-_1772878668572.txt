@@ -18,7 +18,7 @@ Use a **section anchor link**.
 Example:
 
 ```
-sidequest.com/#waitlist
+weventr.com/#waitlist
 ```
 
 Then on your site the form section has:
@@ -37,7 +37,7 @@ You still keep the rest of the page below for people who want to explore.
 
 When sending DMs like your message:
 
-Hey! I’m building a startup at the University of Michigan called **SideQuest**.
+Hey! I’m building a startup at the University of Michigan called **Weventr**.
 
 We just submitted our **TestFlight beta to Apple**, and while we wait for approval we’re letting people join the early access list.
 
@@ -107,11 +107,11 @@ It consistently converts better.
 Send them to:
 
 ```
-sidequest.com/#waitlist
+weventr.com/#waitlist
 ```
 
 so the form appears **instantly**.
 
 ---
 
-If you want, I can also show you **3 tiny landing page tweaks that often double waitlist conversions for early startups** (especially for social apps like SideQuest).
+If you want, I can also show you **3 tiny landing page tweaks that often double waitlist conversions for early startups** (especially for social apps like Weventr).
