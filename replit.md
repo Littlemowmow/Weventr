@@ -12,7 +12,7 @@ Waitlist landing page for SideQuest, a group travel planning app targeting colle
 - Routing: wouter
 
 ## Pages
-- `/` — Landing page (home) with 11 sections: Hero, Social Proof, Problem, Archetypes, Features, Comparison, Cities, FAQ, Waitlist, Footer
+- `/` — Landing page (home) with 11 sections: Hero, Social Proof, Problem, Archetypes, Features (text-only cards, no mockups), Comparison, Cities, FAQ, Waitlist, Footer
 - `/demo` — Interactive demo page
 - `/designs` — Design showcase page
 - `/features` — Features detail page
@@ -30,7 +30,7 @@ Waitlist landing page for SideQuest, a group travel planning app targeting colle
 - `client/src/components/landing/` — Landing page sections
 - `client/src/components/layout/` — Navbar, layout components
 - `client/src/components/ui/` — shadcn/ui components
-- `client/src/components/mockups/` — iPhone 17 Pro mockup components (consolidated design file)
+- `client/src/components/mockups/` — iPhone 17 Pro mockup components (archived, not used on landing page; available for /flows and /designs pages)
 - `client/src/pages/` — Page components (home, demo, designs, features, flows)
 - `server/` — Express backend + Vite dev server
 - `shared/` — Shared schema types
