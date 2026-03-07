@@ -225,7 +225,7 @@ export function ArchetypesSection() {
         >
           <motion.a
             href="#waitlist"
-            className="inline-flex items-center gap-2 animate-rainbow-text text-lg font-bold drop-shadow-[0_0_16px_rgba(249,115,22,0.6)] hover:drop-shadow-[0_0_24px_rgba(249,115,22,0.8)]"
+            className="inline-flex items-center gap-2 animate-glow-text text-lg font-bold drop-shadow-[0_0_12px_rgba(249,115,22,0.4)] hover:drop-shadow-[0_0_20px_rgba(249,115,22,0.7)]"
             data-testid="link-archetype-waitlist"
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
