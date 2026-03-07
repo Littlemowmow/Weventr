@@ -83,7 +83,7 @@ export function ArchetypesSection() {
         >
           <a
             href="#waitlist"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-orange-400 transition-colors text-sm font-medium"
+            className="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors text-lg font-bold drop-shadow-[0_0_12px_rgba(249,115,22,0.5)] hover:drop-shadow-[0_0_20px_rgba(249,115,22,0.7)]"
             data-testid="link-archetype-waitlist"
           >
             Sign up for the waitlist to see how we actually do this 😉
