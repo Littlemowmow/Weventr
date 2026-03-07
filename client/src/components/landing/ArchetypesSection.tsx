@@ -73,6 +73,22 @@ export function ArchetypesSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center mt-10"
+        >
+          <a
+            href="#waitlist"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-orange-400 transition-colors text-sm font-medium"
+            data-testid="link-archetype-waitlist"
+          >
+            Sign up for the waitlist to see how we actually do this 😉
+          </a>
+        </motion.div>
       </div>
     </section>
   );
