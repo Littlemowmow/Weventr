@@ -81,7 +81,7 @@ export function Hero() {
                    <div className="w-10 h-10 rounded-full bg-white/15 border border-white/25 flex items-center justify-center group-hover:scale-110 transition-transform">
                      <PlayCircle className="text-white w-5 h-5" />
                    </div>
-                   <span className="font-medium text-white/60 group-hover:text-white transition-colors text-sm">Try the demo</span>
+                   <span className="font-medium text-white/60 group-hover:text-white transition-colors text-sm">Watch a familiar scene</span>
                 </button>
               </div>
 
