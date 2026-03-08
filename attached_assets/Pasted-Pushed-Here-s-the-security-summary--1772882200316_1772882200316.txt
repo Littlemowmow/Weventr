@@ -1,0 +1,34 @@
+Pushed. Here's the security summary:                                                                                                                                                                      
+                                                                                                                                                                                                            
+  Security Fixes Applied                                                                                                                                                                                    
+                                                                                                                                                                                                            
+  ┌──────────────────────────────┬─────────────────────────────────────────────────────────────────────┐                                                                                                    
+  │        Vulnerability         │                                 Fix                                 │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ No rate limiting             │ express-rate-limit — 5/15min waitlist, 10/min votes, 60/min general │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤
+  │ Email enumeration            │ 409 no longer returns referral codes                                │                                                                                                    
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ HTML injection in emails     │ escapeHtml() sanitizes all interpolated values                      │                                                                                                    
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ No security headers          │ helmet adds X-Frame-Options, X-Content-Type-Options, HSTS, etc.     │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ Export auth via query string │ Moved to Authorization: Bearer <token> header with timingSafeEqual  │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ PII in server logs           │ Stopped logging response bodies                                     │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ No body size limit           │ 100kb limit on JSON and URL-encoded bodies                          │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ No input length limits       │ Email 254, phone 20, feedback 2000, etc.                            │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ Phone normalization bug      │ Now normalizes to digits before DB lookup and storage               │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ Client sends extra fields    │ Stripped UTM params from request body                               │                                                                                                  
+  ├──────────────────────────────┼─────────────────────────────────────────────────────────────────────┤                                                                                                    
+  │ .gitignore missing .env      │ Added .env and .env.*                                               │                                                                                                  
+  └──────────────────────────────┴─────────────────────────────────────────────────────────────────────┘                                                                                                    
+                                                                                                                                                                                                          
+  Remaining recommendation                                                                                                                                                                                  
+                                                                                                                                                                                                          
+  - On your Replit deploy, update your export script to use Authorization: Bearer <SESSION_SECRET> header instead of ?key=<SESSION_SECRET> in the URL.                                                      
+   

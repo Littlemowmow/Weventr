@@ -1,10 +1,11 @@
 import { Hero } from "@/components/landing/Hero";
 import { Navbar } from "@/components/layout/Navbar";
-import { ArchetypesSection } from "@/components/landing/ArchetypesSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
+import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
+import { MidPageCTA } from "@/components/landing/MidPageCTA";
+import { ArchetypesSection } from "@/components/landing/ArchetypesSection";
 import { WaitlistSection } from "@/components/landing/WaitlistSection";
 import { FAQSection } from "@/components/landing/FAQSection";
-
 import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
@@ -16,9 +17,12 @@ export default function Home() {
         <Hero />
         <SocialProofSection />
         <div className="section-divider max-w-4xl mx-auto" />
-        <WaitlistSection />
+        <HowItWorksSection />
+        <MidPageCTA />
         <div className="section-divider max-w-4xl mx-auto" />
         <ArchetypesSection />
+        <div className="section-divider max-w-4xl mx-auto" />
+        <WaitlistSection />
         <div className="section-divider max-w-4xl mx-auto" />
         <FAQSection />
       </main>

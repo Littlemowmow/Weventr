@@ -1,0 +1,35 @@
+ Pushed. Here's a summary of everything fixed:                                                                                                                                                             
+                                                                                                                                                                                                            
+  Changes Pushed                                                                                                                                                                                            
+                                                                                                                                                                                                            
+  ┌────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────┐                                                                    
+  │                          Fix                           │                                  File(s)                                  │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ CRASH: Missing Calendar import                         │ iPhone17ProMockupSideQuestDesigns.tsx                                     │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤
+  │ Broken "Demo" nav link (scrolled to nonexistent #demo) │ Navbar.tsx — removed broken scroll link; Footer.tsx — now routes to /demo │                                                                    
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ Invalid Tailwind opacity (white/8, white/3)            │ WaitlistSection.tsx, features.tsx, flows.tsx                              │                                                                    
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ Wrong brand logo ("S" → "W")                           │ demo.tsx                                                                  │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ TS error: missing sonner                               │ package.json                                                              │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ TS error: invalid Button variant                       │ CitiesSection.tsx                                                         │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ Dead code: duplicate .dark theme                       │ index.css — removed 40 lines of identical copy                            │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ Dead code: unused and import                           │ storage.ts                                                                │
+  ├────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────┤                                                                    
+  │ Duplicate share logic (~60 lines)                      │ WaitlistSection.tsx — extracted ShareReferralBlock component              │
+  └────────────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────┘                                                                    
+                                                            
+  TypeScript: 0 errors. Landing page layout/content untouched.                                                                                                                                              
+                                                            
+✻ Cogitated for 5m 0s                                                                                                                                                                                       
+                                                            
+⏺ Agent "Explore Weventr codebase structure" completed                                                                                                                                                      
+  
+⏺ The background exploration agent finished and confirmed my findings. Everything has been fixed and pushed to main. The landing page is untouched visually — all changes were bug fixes, dead code removal,
+   and code quality improvements.                                   
+                               

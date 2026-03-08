@@ -35,6 +35,15 @@ export type InsertWaitlistEntry = z.infer<typeof insertWaitlistSchema>;
 export type WaitlistRequest = z.infer<typeof waitlistRequestSchema>;
 export type WaitlistEntry = typeof waitlistEntries.$inferSelect;
 
+export const referralClicks = pgTable("referral_clicks", {
+  id: serial("id").primaryKey(),
+  referralCode: text("referral_code").notNull(),
+  fingerprint: text("fingerprint").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ReferralClick = typeof referralClicks.$inferSelect;
+
 export const archetypeVotes = pgTable("archetype_votes", {
   id: serial("id").primaryKey(),
   archetype: text("archetype").notNull().unique(),

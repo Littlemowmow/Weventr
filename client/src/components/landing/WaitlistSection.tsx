@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
 import { Loader2, MessageSquare, Phone, Users } from "lucide-react";
+import { useFadeIn } from "@/hooks/use-fade-in";
 
 function ShareReferralBlock({ referralCode, copied, onCopy, onShare, testIdSuffix = "" }: {
   referralCode: string;
@@ -42,8 +42,23 @@ function ShareReferralBlock({ referralCode, copied, onCopy, onShare, testIdSuffi
 
 function ChatBubble({ text, isMe }: { text: string; isMe?: boolean }) {
   return (
-    <div className={`py-2 px-3 rounded-2xl text-xs max-w-[90%] mb-1.5 ${isMe ? "bg-blue-500 text-white rounded-br-sm ml-auto" : "bg-white/10 text-white/70 rounded-bl-sm mr-auto"}`}>
+    <div className={`py-1.5 px-2.5 rounded-xl text-[11px] max-w-[90%] mb-1 leading-relaxed ${isMe ? "bg-blue-500/80 text-white rounded-br-sm ml-auto" : "bg-white/[0.08] text-white/60 rounded-bl-sm mr-auto"}`}>
       {text}
+    </div>
+  );
+}
+
+function ChatDecoration({ direction, delay, className, children }: {
+  direction: "left" | "right";
+  delay: number;
+  className: string;
+  children: React.ReactNode;
+}) {
+  const { ref, isVisible } = useFadeIn(delay);
+  const fadeClass = direction === "left" ? "fade-in-left" : "fade-in-right";
+  return (
+    <div ref={ref} className={`${fadeClass}${isVisible ? " visible" : ""} ${className}`}>
+      {children}
     </div>
   );
 }
@@ -79,6 +94,9 @@ export function WaitlistSection() {
   const [referredBy, setReferredBy] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [waitlistCount, setWaitlistCount] = useState<number | null>(null);
+  const [position, setPosition] = useState<number | null>(null);
+  const [totalCount, setTotalCount] = useState<number | null>(null);
+  const [referralSignups, setReferralSignups] = useState<number>(0);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -88,6 +106,21 @@ export function WaitlistSection() {
       const url = new URL(window.location.href);
       url.searchParams.delete("ref");
       window.history.replaceState({}, "", url.pathname + url.search);
+
+      const fp = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + "x" + screen.height,
+        Intl.DateTimeFormat().resolvedOptions().timeZone,
+      ].join("|");
+      crypto.subtle.digest("SHA-256", new TextEncoder().encode(fp)).then((buf) => {
+        const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        fetch("/api/referral/click", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ referralCode: ref, fingerprint: hash }),
+        }).catch(() => {});
+      }).catch(() => {});
     }
 
     sessionStorage.setItem("sq_attribution", JSON.stringify(captureAttribution()));
@@ -146,6 +179,10 @@ export function WaitlistSection() {
       const data = await res.json();
 
       if (res.status === 409) {
+        if (data.referralCode) setReferralCode(data.referralCode);
+        if (data.position != null) setPosition(data.position);
+        if (data.totalCount != null) setTotalCount(data.totalCount);
+        if (data.referralSignups != null) setReferralSignups(data.referralSignups);
         setStatus("already_registered");
         return;
       }
@@ -157,6 +194,8 @@ export function WaitlistSection() {
       }
 
       setReferralCode(data.referralCode);
+      if (data.position != null) setPosition(data.position);
+      if (data.totalCount != null) setTotalCount(data.totalCount);
       setStatus("success");
       setWaitlistCount((c) => (c !== null ? c + 1 : c));
       pushDataLayer({ event: "generate_lead", method: "waitlist_signup", email_provided: true });
@@ -175,28 +214,16 @@ export function WaitlistSection() {
     <section id="waitlist" className="py-14 sm:py-20 px-3 sm:px-4 overflow-hidden">
       <div className="mx-auto max-w-7xl relative">
 
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", bounce: 0.4 }}
-          className="absolute left-0 xl:-left-16 top-12 hidden lg:block w-56 z-20"
-        >
+        <ChatDecoration direction="left" delay={0} className="absolute left-0 xl:-left-16 top-12 hidden lg:block w-56 z-20">
           <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
             <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">🔥 Budget Fight</div>
             <ChatBubble text="Wait… I thought we were splitting this?" />
             <ChatBubble text="Bro the Airbnb is $200/NIGHT??" isMe />
             <ChatBubble text="Nobody told me about the boat 💀" />
           </div>
-        </motion.div>
+        </ChatDecoration>
 
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", bounce: 0.4, delay: 0.1 }}
-          className="absolute right-0 xl:-right-16 top-24 hidden lg:block w-56 z-20"
-        >
+        <ChatDecoration direction="right" delay={0.1} className="absolute right-0 xl:-right-16 top-24 hidden lg:block w-56 z-20">
           <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-orange-500/20 rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
             <div className="text-[10px] font-bold text-orange-400 mb-2 uppercase tracking-widest">📅 Date Clash</div>
             <ChatBubble text="June works for me!" isMe />
@@ -204,15 +231,9 @@ export function WaitlistSection() {
             <ChatBubble text="..." isMe />
             <ChatBubble text="...so is this still happening?" />
           </div>
-        </motion.div>
+        </ChatDecoration>
 
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", bounce: 0.4, delay: 0.2 }}
-          className="absolute left-4 xl:-left-8 bottom-32 hidden lg:block w-52 z-20"
-        >
+        <ChatDecoration direction="left" delay={0.2} className="absolute left-4 xl:-left-8 bottom-32 hidden lg:block w-52 z-20">
           <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
             <div className="text-[10px] font-bold text-white/40 mb-2 uppercase tracking-widest">🤷‍♂️ Indecision</div>
             <ChatBubble text="I'm down for whatever" />
@@ -220,22 +241,16 @@ export function WaitlistSection() {
             <ChatBubble text="..." />
             <ChatBubble text="So no one's deciding??" isMe />
           </div>
-        </motion.div>
+        </ChatDecoration>
 
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", bounce: 0.4, delay: 0.3 }}
-          className="absolute right-0 xl:-right-12 bottom-24 hidden lg:block w-52 z-20"
-        >
+        <ChatDecoration direction="right" delay={0.3} className="absolute right-0 xl:-right-12 bottom-24 hidden lg:block w-52 z-20">
           <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
             <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">💀 Logistics Fail</div>
             <ChatBubble text="Did anyone book the train?" isMe />
             <ChatBubble text="..." />
             <ChatBubble text="I thought Mike was doing it 💀" />
           </div>
-        </motion.div>
+        </ChatDecoration>
 
         <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.03] border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 md:p-14 text-center relative overflow-hidden max-w-3xl mx-auto hover:border-white/15 transition-colors">
 
@@ -246,9 +261,14 @@ export function WaitlistSection() {
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-3 sm:mb-4" data-testid="text-waitlist-title">
                Don't let another trip die in the chat.
              </h2>
-             <p className="text-white/60 text-sm sm:text-lg mb-3 max-w-xl mx-auto">
+             <p className="text-white/60 text-sm sm:text-lg mb-2 max-w-xl mx-auto">
                Join the waitlist. Then send it to the group chat — you're gonna need them on here anyway.
              </p>
+
+             <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 mb-4" data-testid="text-beta-incentive">
+               <span className="text-orange-400 text-sm">✦</span>
+               <span className="text-orange-300/90 text-xs sm:text-sm font-medium">Early waitlist members get a chance at lifetime access to exclusive perks</span>
+             </div>
 
              {waitlistCount !== null && (
                <div className="flex items-center justify-center gap-1.5 text-white/40 text-sm font-medium mb-6" data-testid="text-waitlist-count">
@@ -259,17 +279,55 @@ export function WaitlistSection() {
 
              <div aria-live="polite">
                {status === "already_registered" ? (
-                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-center w-full" data-testid="status-waitlist-already">
-                     <div className="text-4xl mb-3" aria-hidden="true">👋</div>
-                     <div className="text-xl sm:text-2xl font-bold mb-1">You already signed up — thank you!</div>
-                     <p className="text-white/50 text-sm">We've got you on the list. Check your email for your referral link to share with friends.</p>
+                  <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-already">
+                     <div className="text-center mb-6">
+                       <div className="text-4xl mb-3" aria-hidden="true">👋</div>
+                       <div className="text-xl sm:text-2xl font-bold mb-1">You're already on the list!</div>
+                       <p className="text-white/50 text-sm">Share with the world so we can make this an experience to last.</p>
+                     </div>
+
+                     <div className="bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/[0.08] rounded-2xl p-5 mb-5 text-center" data-testid="position-card-already">
+                       <div className="text-3xl mb-2" aria-hidden="true">🚀</div>
+                       <div className="text-lg font-display font-bold text-orange-400" data-testid="text-position-already">You're climbing the ranks!</div>
+                       <div className="text-xs text-white/40 mt-2">Share with friends to move up even faster</div>
+                       {referralSignups > 0 && (
+                         <div className="text-xs text-emerald-400/70 mt-3 font-medium bg-emerald-500/10 inline-block px-3 py-1 rounded-full">{referralSignups} friend{referralSignups > 1 ? "s" : ""} signed up through your link</div>
+                       )}
+                     </div>
+
+                     {referralCode && (
+                       <div className="mb-6">
+                         <ShareReferralBlock
+                           referralCode={referralCode}
+                           copied={copied}
+                           onCopy={handleCopy}
+                           onShare={handleShare}
+                         />
+                       </div>
+                     )}
+
+                     <div className="text-center text-white/40 text-sm font-medium">67% of summer trip plans fall off. Don't be part of that percentage.</div>
                   </div>
                ) : status === "success" ? (
                   <div className="bg-white/10 backdrop-blur border border-white/20 text-white p-5 sm:p-8 rounded-3xl inline-block shadow-xl max-w-lg text-left w-full" data-testid="status-waitlist-success">
                      <div className="text-center mb-6">
-                        <div className="text-4xl mb-3" aria-hidden="true">🎉</div>
-                        <div className="text-xl sm:text-2xl font-bold mb-1">You're on the waitlist!</div>
-                        <p className="text-white/50 text-sm">We'll email you as soon as the TestFlight beta opens.</p>
+                        <div className="text-4xl mb-3" aria-hidden="true">🙌</div>
+                        <div className="text-xl sm:text-2xl font-bold mb-1">Thank You!</div>
+                        <p className="text-white/50 text-sm">You're officially on the list. Here's what to do next.</p>
+                     </div>
+
+                     <div className="bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/[0.08] rounded-2xl p-5 mb-5 text-center" data-testid="position-card-success">
+                       <div className="text-3xl mb-2" aria-hidden="true">🚀</div>
+                       <div className="text-lg font-display font-bold text-orange-400" data-testid="text-position-success">You're climbing the ranks!</div>
+                       <div className="text-xs text-white/40 mt-2">Share with friends to move up even faster</div>
+                     </div>
+
+                     <div className="space-y-4 bg-black/20 p-5 rounded-2xl border border-white/5 mb-5">
+                        <div className="font-bold text-white/90 mb-2 text-sm">Next Steps</div>
+                        <ol className="list-decimal list-inside space-y-3 text-white/70 text-sm leading-relaxed">
+                          <li><span className="text-white font-medium">Look out for your email & messages</span> — we'll reach out to you regarding beta access and testing.</li>
+                          <li><span className="text-white font-medium">Share this with the world</span> — the more people who join, the faster we can bring you Weventr!</li>
+                        </ol>
                      </div>
 
                      <div className="mb-6">
@@ -281,17 +339,8 @@ export function WaitlistSection() {
                         />
                      </div>
 
-                     <div className="space-y-4 bg-black/20 p-5 rounded-2xl border border-white/5 mb-5">
-                        <div className="font-bold text-white/90 mb-2 text-sm">Here's what happens next:</div>
-                        <ol className="list-decimal list-inside space-y-2.5 text-white/70 text-sm leading-relaxed">
-                          <li><span className="text-white font-medium">Check your inbox</span> — confirmation is on the way.</li>
-                          <li><span className="text-white font-medium">Share your link</span> — you need friends on here anyway.</li>
-                          <li><span className="text-white font-medium">We'll notify you</span> when the TestFlight beta opens.</li>
-                        </ol>
-                     </div>
-
                      <div className="text-center text-white/40 text-sm font-medium mb-4">
-                       Spring break plans are dying in group chats right now. Don't let yours be next.
+                       67% of summer trip plans never make it past the group chat. Don't be part of that percentage.
                      </div>
 
                      <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-white/30 text-xs font-medium text-center">
@@ -316,7 +365,7 @@ export function WaitlistSection() {
                           aria-label="Email address"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-base sm:text-lg focus-visible:ring-orange-500"
+                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-sm sm:text-base focus-visible:ring-orange-500"
                           required
                           autoComplete="email"
                           data-testid="input-email"
@@ -331,7 +380,7 @@ export function WaitlistSection() {
                           aria-label="Phone number"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-base sm:text-lg focus-visible:ring-orange-500"
+                          className="h-12 sm:h-14 bg-white/10 border-white/10 text-white placeholder:text-white/40 rounded-2xl px-12 text-sm sm:text-base focus-visible:ring-orange-500"
                           autoComplete="tel"
                           data-testid="input-phone"
                         />
@@ -340,16 +389,20 @@ export function WaitlistSection() {
 
                       <div className="relative">
                         <textarea
-                          placeholder="Questions or feedback? (optional)"
-                          aria-label="Questions or feedback"
+                          placeholder="Send us a message! (optional)"
+                          aria-label="Send us a message"
                           value={feedback}
                           onChange={(e) => setFeedback(e.target.value)}
-                          className="w-full min-h-[100px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-base leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
+                          className="w-full min-h-[100px] bg-white/10 border border-white/10 text-white placeholder:text-white/40 rounded-2xl pl-12 pr-4 py-4 text-sm sm:text-base leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 resize-none"
                           data-testid="input-feedback"
                         />
                         <MessageSquare className="absolute left-4 top-[18px] text-white/40" size={18} aria-hidden="true" />
                       </div>
                     </fieldset>
+
+                    <p className="text-white/30 text-xs text-center leading-relaxed px-2" data-testid="text-privacy-note">
+                      We'll only use your email and phone to reach out about beta access and testing — nothing else.
+                    </p>
 
                     <Button
                       type="submit"
@@ -364,8 +417,9 @@ export function WaitlistSection() {
                )}
              </div>
 
-             <div className="mt-8 flex items-center justify-center gap-4 text-white/40 text-sm font-medium">
-               <span>Launching Spring 2026 on iOS</span>
+             <div className="mt-8 flex items-center justify-center gap-2 text-white/25 text-xs font-medium uppercase tracking-wider">
+               <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50"></span>
+               <span>Launching Summer 2026 on iOS</span>
              </div>
            </div>
         </div>

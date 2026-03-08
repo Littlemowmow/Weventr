@@ -26,7 +26,7 @@ function AutoPlayChat() {
       setVisibleMessages(i);
       if (i >= CHAT_MESSAGES.length) {
         clearInterval(interval);
-        setTimeout(() => setShowSolution(true), 5500);
+        setTimeout(() => setShowSolution(true), 7000);
       }
     }, 550);
     return () => clearInterval(interval);
@@ -95,7 +95,7 @@ export function ProblemSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px 0px" }}
           transition={{ duration: 0.5 }}
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">The Problem</span>
@@ -109,73 +109,11 @@ export function ProblemSection() {
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto flex justify-center items-center min-h-[520px] lg:min-h-[600px]">
-           
-          <motion.div 
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", bounce: 0.4 }}
-            className="absolute left-0 top-16 hidden lg:block w-64 z-20"
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
-              <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">🔥 Budget Fight</div>
-              <ChatBubble text="Wait… I thought we were splitting this?" />
-              <ChatBubble text="Bro the Airbnb is $200/NIGHT??" isMe />
-              <ChatBubble text="Nobody told me about the boat 💀" />
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", bounce: 0.4, delay: 0.1 }}
-            className="absolute right-0 top-28 hidden lg:block w-64 z-20"
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-orange-500/20 rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300">
-              <div className="text-[10px] font-bold text-orange-400 mb-2 uppercase tracking-widest">📅 Date Clash</div>
-              <ChatBubble text="June works for me!" isMe />
-              <ChatBubble text="Let me check with work" />
-              <ChatBubble text="..." isMe />
-              <ChatBubble text="...so is this still happening?" />
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", bounce: 0.4, delay: 0.2 }}
-            className="absolute left-8 bottom-24 hidden lg:block w-56 z-20"
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
-              <div className="text-[10px] font-bold text-white/40 mb-2 uppercase tracking-widest">🤷‍♂️ Indecision</div>
-              <ChatBubble text="I'm down for whatever" />
-              <ChatBubble text="Same, you guys decide" isMe />
-              <ChatBubble text="..." />
-              <ChatBubble text="So no one's deciding??" isMe />
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", bounce: 0.4, delay: 0.3 }}
-            className="absolute right-4 bottom-16 hidden lg:block w-60 z-20"
-          >
-            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-red-500/20 -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
-              <div className="text-[10px] font-bold text-red-400 mb-2 uppercase tracking-widest">💀 Logistics Fail</div>
-              <ChatBubble text="Did anyone book the train?" isMe />
-              <ChatBubble text="..." />
-              <ChatBubble text="I thought Mike was doing it 💀" />
-            </div>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px 0px" }}
             transition={{ type: "spring", bounce: 0.3 }}
             className="glass-card rounded-[2.5rem] p-2.5 relative z-10 w-full max-w-[320px] mx-auto border border-white/10"
             data-testid="demo-phone-frame"
@@ -192,7 +130,7 @@ export function ProblemSection() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px 0px" }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <button

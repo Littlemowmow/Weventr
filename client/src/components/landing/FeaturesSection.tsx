@@ -30,28 +30,13 @@ export function FeaturesSection() {
   return (
     <section id="features" className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">How It Works</span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4" data-testid="text-features-title">
-            From chaos to consensus
-          </h2>
-          <p className="text-lg text-white/50 max-w-xl mx-auto">
-            Three features that replace the Google Doc nobody opens, the poll with zero overlap, and the friend doing all the work.
-          </p>
-        </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature, idx) => (
             <motion.div
               key={feature.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.05, margin: "-100px 0px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-colors"
               data-testid={`card-feature-${idx}`}
@@ -71,7 +56,7 @@ export function FeaturesSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px 0px" }}
           className="text-center mt-20"
         >
           <Link href="/features">

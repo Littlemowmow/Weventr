@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2 } from "lucide-react";
+import { useFadeIn } from "@/hooks/use-fade-in";
 
 const archetypes = [
   {
@@ -50,23 +51,104 @@ const archetypes = [
   },
 ];
 
+function ArchetypeCard({ a, idx, selected, submitted, totalVotes, counts, onToggle }: {
+  a: typeof archetypes[0];
+  idx: number;
+  selected: Set<string>;
+  submitted: boolean;
+  totalVotes: number;
+  counts: Record<string, number>;
+  onToggle: (key: string) => void;
+}) {
+  const { ref, isVisible } = useFadeIn(idx * 0.08);
+  const isSelected = selected.has(a.key);
+  const voteCount = counts[a.key] || 0;
+  const pct = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
+
+  return (
+    <div
+      ref={ref}
+      onClick={() => onToggle(a.key)}
+      className={`fade-in${isVisible ? " visible" : ""} rounded-2xl border p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 transition-all duration-300 ${
+        !submitted ? "cursor-pointer hover:translate-y-[-2px]" : ""
+      } ${isSelected ? a.accentSelected : a.accent} ${
+        !submitted ? "hover:border-white/25" : ""
+      }`}
+      style={{ transitionDelay: `${idx * 0.08}s` }}
+      data-testid={`card-archetype-${idx}`}
+    >
+      <div className="flex items-start justify-between">
+        <div className="text-4xl">{a.emoji}</div>
+        {!submitted && (
+          <div
+            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+              isSelected
+                ? `${a.checkColor} border-transparent`
+                : "border-white/20 bg-transparent"
+            }`}
+            data-testid={`checkbox-archetype-${idx}`}
+          >
+            {isSelected && <Check size={14} className="text-white" />}
+          </div>
+        )}
+      </div>
+      <div>
+        <div className="text-white font-display font-bold text-lg mb-2">{a.name}</div>
+        <p className="text-white/50 text-sm leading-relaxed">{a.description}</p>
+      </div>
+      <div className={`mt-auto pt-4 border-t border-white/10 text-xs font-semibold ${a.punchlineColor}`}>
+        {a.punchline}
+      </div>
+
+      {totalVotes > 0 && (
+        <div>
+          <div className="relative h-2 bg-white/10 rounded-full overflow-hidden">
+            <motion.div
+              animate={{ width: `${pct}%` }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className={`absolute inset-y-0 left-0 rounded-full ${a.checkColor}`}
+            />
+          </div>
+          <div className="flex justify-between mt-1.5">
+            <span className="inline-flex items-center gap-1 text-[10px] text-white/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Live
+            </span>
+            <span className="text-[11px] text-white/40">{pct}%</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ArchetypesSection() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [hasVotedBefore, setHasVotedBefore] = useState(false);
+  const heading = useFadeIn();
+  const submitArea = useFadeIn(0.3);
+  const ctaArea = useFadeIn(0.4);
 
   useEffect(() => {
     const voted = localStorage.getItem("archetype_voted");
     if (voted) {
       setHasVotedBefore(true);
       setSubmitted(true);
+    }
+
+    const fetchCounts = () => {
       fetch("/api/archetypes/votes")
         .then((r) => r.json())
         .then((data) => { if (data.counts) setCounts(data.counts); })
         .catch(() => {});
-    }
+    };
+
+    fetchCounts();
+    const interval = setInterval(fetchCounts, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const toggle = (key: string) => {
@@ -103,11 +185,9 @@ export function ArchetypesSection() {
   return (
     <section className="py-16 sm:py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
+        <div
+          ref={heading.ref}
+          className={`fade-in${heading.isVisible ? " visible" : ""} text-center mb-14`}
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Every group has them</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4">
@@ -116,83 +196,27 @@ export function ArchetypesSection() {
           {!submitted && (
             <p className="text-white/40 text-sm">Tap to select — you can pick more than one.</p>
           )}
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {archetypes.map((a, idx) => {
-            const isSelected = selected.has(a.key);
-            const voteCount = counts[a.key] || 0;
-            const pct = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
-
-            return (
-              <motion.div
-                key={a.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                onClick={() => toggle(a.key)}
-                className={`rounded-2xl border p-6 flex flex-col gap-4 transition-all duration-200 ${
-                  !submitted ? "cursor-pointer" : ""
-                } ${isSelected ? a.accentSelected : a.accent} ${
-                  !submitted ? "hover:border-white/30" : ""
-                }`}
-                data-testid={`card-archetype-${idx}`}
-              >
-                <div className="flex items-start justify-between">
-                  <div className="text-4xl">{a.emoji}</div>
-                  {!submitted && (
-                    <div
-                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                        isSelected
-                          ? `${a.checkColor} border-transparent`
-                          : "border-white/20 bg-transparent"
-                      }`}
-                      data-testid={`checkbox-archetype-${idx}`}
-                    >
-                      {isSelected && <Check size={14} className="text-white" />}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <div className="text-white font-display font-bold text-lg mb-2">{a.name}</div>
-                  <p className="text-white/50 text-sm leading-relaxed">{a.description}</p>
-                </div>
-                <div className={`mt-auto pt-4 border-t border-white/10 text-xs font-semibold ${a.punchlineColor}`}>
-                  {a.punchline}
-                </div>
-
-                {submitted && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="relative h-2 bg-white/10 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${pct}%` }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className={`absolute inset-y-0 left-0 rounded-full ${a.checkColor}`}
-                      />
-                    </div>
-                    <div className="flex justify-between mt-1.5 text-[11px] text-white/40">
-                      <span>{voteCount} votes</span>
-                      <span>{pct}%</span>
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-            );
-          })}
+          {archetypes.map((a, idx) => (
+            <ArchetypeCard
+              key={a.key}
+              a={a}
+              idx={idx}
+              selected={selected}
+              submitted={submitted}
+              totalVotes={totalVotes}
+              counts={counts}
+              onToggle={toggle}
+            />
+          ))}
         </div>
 
         {!submitted && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mt-8"
+          <div
+            ref={submitArea.ref}
+            className={`fade-in${submitArea.isVisible ? " visible" : ""} text-center mt-8`}
           >
             <Button
               onClick={handleSubmit}
@@ -203,25 +227,18 @@ export function ArchetypesSection() {
               {submitting ? <Loader2 className="animate-spin mr-2" size={18} /> : null}
               {submitting ? "Submitting..." : `That's me${selected.size > 1 ? " (x" + selected.size + ")" : ""}`}
             </Button>
-          </motion.div>
+          </div>
         )}
 
         {submitted && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mt-6 text-white/40 text-sm"
-          >
+          <div className="text-center mt-6 text-white/40 text-sm">
             {hasVotedBefore ? "You already voted — here are the results so far." : "Thanks for voting! Here's how everyone stacks up."}
-          </motion.div>
+          </div>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-10"
+        <div
+          ref={ctaArea.ref}
+          className={`fade-in${ctaArea.isVisible ? " visible" : ""} text-center mt-10`}
         >
           <motion.a
             href="#waitlist"
@@ -233,7 +250,7 @@ export function ArchetypesSection() {
           >
             Sign up for the waitlist to see how we actually do this 😉
           </motion.a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

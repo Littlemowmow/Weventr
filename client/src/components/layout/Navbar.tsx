@@ -65,11 +65,12 @@ export function Navbar() {
       >
         <div className="container mx-auto max-w-7xl flex justify-between items-center">
           <button
-            className="cursor-pointer bg-transparent border-none p-0"
+            className="cursor-pointer bg-transparent border-none p-0 flex items-center gap-2"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             aria-label="Scroll to top"
           >
-            <Logo className="text-white" />
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white font-bold text-xs">W</div>
+            <Logo className="text-white" size="text-xl" />
           </button>
 
           <div className="hidden md:flex items-center gap-1 font-medium text-sm text-white/40">
