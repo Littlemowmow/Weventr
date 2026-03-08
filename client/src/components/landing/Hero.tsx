@@ -117,12 +117,8 @@ export function Hero() {
       <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          <div className="relative z-10 max-w-xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+          {/* Text content — CSS entrance animation, no JS dependency */}
+          <div className="relative z-10 max-w-xl hero-entrance">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 font-bold text-sm mb-6 border border-orange-500/20" data-testid="badge-beta">
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
@@ -151,16 +147,9 @@ export function Hero() {
                   </Button>
                 </motion.div>
               </div>
-
-            </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:hidden mt-10 mx-auto max-w-[300px]"
-          >
+          <div className="lg:hidden mt-10 mx-auto max-w-[300px] hero-entrance-delayed">
             <motion.div
               className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 cursor-pointer"
               onClick={() => setIsFlipped(!isFlipped)}
@@ -195,15 +184,12 @@ export function Hero() {
                 )}
               </AnimatePresence>
             </motion.div>
-          </motion.div>
+          </div>
 
           <div className="relative h-[550px] lg:h-[650px] w-full hidden lg:block">
             <div className="w-full h-full relative flex items-center justify-center" style={{ perspective: "1200px" }}>
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="w-[440px] h-[580px] relative z-20 cursor-pointer"
+                className="w-[440px] h-[580px] relative z-20 cursor-pointer hero-card-entrance"
                 onClick={() => setIsFlipped(!isFlipped)}
                 style={{ transformStyle: "preserve-3d" }}
                 data-testid="hero-card-desktop"

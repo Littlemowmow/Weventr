@@ -60,7 +60,7 @@ function ArchetypeCard({ a, idx, selected, submitted, totalVotes, counts, onTogg
   counts: Record<string, number>;
   onToggle: (key: string) => void;
 }) {
-  const { ref, isVisible } = useFadeIn(idx * 0.08);
+  const ref = useFadeIn(idx * 0.08);
   const isSelected = selected.has(a.key);
   const voteCount = counts[a.key] || 0;
   const pct = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
@@ -69,7 +69,7 @@ function ArchetypeCard({ a, idx, selected, submitted, totalVotes, counts, onTogg
     <div
       ref={ref}
       onClick={() => onToggle(a.key)}
-      className={`fade-in${isVisible ? " visible" : ""} rounded-2xl border p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 transition-all duration-300 ${
+      className={`fade-in rounded-2xl border p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 transition-all duration-300 ${
         !submitted ? "cursor-pointer hover:translate-y-[-2px]" : ""
       } ${isSelected ? a.accentSelected : a.accent} ${
         !submitted ? "hover:border-white/25" : ""
@@ -128,9 +128,9 @@ export function ArchetypesSection() {
   const [submitting, setSubmitting] = useState(false);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [hasVotedBefore, setHasVotedBefore] = useState(false);
-  const heading = useFadeIn();
-  const submitArea = useFadeIn(0.3);
-  const ctaArea = useFadeIn(0.4);
+  const headingRef = useFadeIn();
+  const submitRef = useFadeIn(0.3);
+  const ctaRef = useFadeIn(0.4);
 
   useEffect(() => {
     const voted = localStorage.getItem("archetype_voted");
@@ -186,8 +186,8 @@ export function ArchetypesSection() {
     <section className="py-16 sm:py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <div
-          ref={heading.ref}
-          className={`fade-in${heading.isVisible ? " visible" : ""} text-center mb-14`}
+          ref={headingRef}
+          className="fade-in text-center mb-14"
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">Every group has them</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4">
@@ -215,8 +215,8 @@ export function ArchetypesSection() {
 
         {!submitted && (
           <div
-            ref={submitArea.ref}
-            className={`fade-in${submitArea.isVisible ? " visible" : ""} text-center mt-8`}
+            ref={submitRef}
+            className="fade-in text-center mt-8"
           >
             <Button
               onClick={handleSubmit}
@@ -237,8 +237,8 @@ export function ArchetypesSection() {
         )}
 
         <div
-          ref={ctaArea.ref}
-          className={`fade-in${ctaArea.isVisible ? " visible" : ""} text-center mt-10`}
+          ref={ctaRef}
+          className="fade-in text-center mt-10"
         >
           <motion.a
             href="#waitlist"

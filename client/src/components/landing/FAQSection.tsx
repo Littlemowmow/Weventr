@@ -41,14 +41,14 @@ export function FAQSection() {
     }
   ];
 
-  const heading = useFadeIn();
+  const headingRef = useFadeIn();
 
   return (
     <section id="faq" className="py-16 sm:py-24 px-4">
       <div className="container mx-auto max-w-3xl">
         <div
-          ref={heading.ref}
-          className={`fade-in${heading.isVisible ? " visible" : ""} text-center mb-12`}
+          ref={headingRef}
+          className="fade-in text-center mb-12"
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">FAQ</span>
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-2" data-testid="text-faq-title">

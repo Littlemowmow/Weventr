@@ -54,10 +54,10 @@ function ChatDecoration({ direction, delay, className, children }: {
   className: string;
   children: React.ReactNode;
 }) {
-  const { ref, isVisible } = useFadeIn(delay);
+  const ref = useFadeIn(delay);
   const fadeClass = direction === "left" ? "fade-in-left" : "fade-in-right";
   return (
-    <div ref={ref} className={`${fadeClass}${isVisible ? " visible" : ""} ${className}`}>
+    <div ref={ref} className={`${fadeClass} ${className}`}>
       {children}
     </div>
   );

@@ -61,13 +61,13 @@ const steps = [
 ];
 
 function StepCard({ step, idx }: { step: typeof steps[0]; idx: number }) {
-  const { ref, isVisible } = useFadeIn(idx * 0.08);
+  const ref = useFadeIn(idx * 0.08);
   const Icon = step.icon;
 
   return (
     <div
       ref={ref}
-      className={`fade-in${isVisible ? " visible" : ""} relative rounded-2xl border ${step.border} bg-gradient-to-br ${step.accent} p-5 sm:p-6 flex flex-col gap-4 hover:scale-[1.02] transition-all duration-300 ${idx === steps.length - 1 && steps.length % 2 !== 0 ? "sm:col-span-2 sm:max-w-[calc(50%-10px)] sm:mx-auto" : ""}`}
+      className={`fade-in relative rounded-2xl border ${step.border} bg-gradient-to-br ${step.accent} p-5 sm:p-6 flex flex-col gap-4 hover:scale-[1.02] transition-all duration-300 ${idx === steps.length - 1 && steps.length % 2 !== 0 ? "sm:col-span-2 sm:max-w-[calc(50%-10px)] sm:mx-auto" : ""}`}
       style={{ transitionDelay: `${idx * 0.08}s` }}
       data-testid={`step-${idx}`}
     >
@@ -91,14 +91,14 @@ function StepCard({ step, idx }: { step: typeof steps[0]; idx: number }) {
 }
 
 export function HowItWorksSection() {
-  const heading = useFadeIn();
+  const headingRef = useFadeIn();
 
   return (
     <section className="py-16 sm:py-24 px-4" data-testid="section-how-it-works">
       <div className="container mx-auto max-w-5xl">
         <div
-          ref={heading.ref}
-          className={`fade-in${heading.isVisible ? " visible" : ""} text-center mb-12 sm:mb-16`}
+          ref={headingRef}
+          className="fade-in text-center mb-12 sm:mb-16"
         >
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-500/10 text-orange-400 font-bold text-xs uppercase tracking-wider mb-4 border border-orange-500/20">
             How it works

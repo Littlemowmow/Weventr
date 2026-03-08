@@ -2,13 +2,13 @@ import { ArrowDown } from "lucide-react";
 import { useFadeIn } from "@/hooks/use-fade-in";
 
 export function MidPageCTA() {
-  const { ref, isVisible } = useFadeIn();
+  const ref = useFadeIn();
 
   return (
     <div className="py-10 sm:py-14 px-4">
       <div
         ref={ref}
-        className={`fade-in${isVisible ? " visible" : ""} max-w-2xl mx-auto text-center`}
+        className="fade-in max-w-2xl mx-auto text-center"
       >
         <a
           href="#waitlist"
